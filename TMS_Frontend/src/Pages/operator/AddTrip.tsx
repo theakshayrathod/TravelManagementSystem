@@ -2,7 +2,7 @@ import React from 'react';
 // import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { JSX } from 'react';
 
-export function AddTrip() {
+export function AddTrip():JSX.Element {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
