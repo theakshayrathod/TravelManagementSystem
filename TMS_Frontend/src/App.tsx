@@ -1,9 +1,11 @@
 
 import type {JSX} from 'react'
-import { Login } from './Pages/auth/Login'
-import { Home } from './Pages/Home'
+// import { Login } from './Pages/auth/Login'
+// import { Home } from './Pages/Home'
 import  Navbar  from './components/Navbar'
-import { Registration } from './Pages/auth/Registration'
+// import { UserProfileUpdate } from './Pages/user/UpdateProfile'
+import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
+// import { Registration } from './Pages/auth/Registration'
 
 
 
@@ -17,7 +19,9 @@ function App():JSX.Element {
 
 
    <Navbar/>
-    <Home/>
+    {/* <Home/> */}
+    <OperatorProfileUpdate/>
+    {/* <UserProfileUpdate/> */}
 
 
     </>
