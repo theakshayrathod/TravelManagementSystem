@@ -8,7 +8,7 @@ import  Navbar  from './components/Navbar'
 // import { UserProfileUpdate } from './Pages/user/UpdateProfile'
 // import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
 // import { Registration } from './Pages/auth/Registration'
-
+import {AddBus} from './Pages/operator/AddBus'
 
 
 
@@ -22,11 +22,15 @@ function App():JSX.Element {
 
    <Navbar/>
     {/* <Home/> */}
-<Login/>
+
+    {/* <OperatorProfileUpdate/> */}
+    {/* <UserProfileUpdate/> */}
+   
     {/* <OperatorProfileUpdate/> */}
     {/* <UserProfileUpdate/> */}
     {/* <OperatorRegistration/> */}
     {/* <UserRegistration/> */}
+
 
 
     </>
