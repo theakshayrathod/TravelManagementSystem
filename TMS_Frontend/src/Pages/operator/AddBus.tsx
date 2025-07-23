@@ -1,7 +1,10 @@
   export function AddBus(){
     return (
-  <div className="max-w-4xl mx-auto mt-10 p-6 rounded-lg bg-gray-00  shadow-lg">
-    <button className="text-sm text-blue-600 mb-4">{'< Back to Buses'}</button>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+  <div className="w-[60vw] mx-auto p-6 rounded-lg bg-white shadow-lg">
+     <a href="/home/bus" className="text-indigo-600 hover:underline ">
+                      {'< Back to Buses'}
+                    </a>
     <h2 className="text-2xl font-semibold mb-1">Add New Bus</h2>
     <p className="text-sm text-gray-500 mb-6">Enter the details for the new bus</p>
 
@@ -47,11 +50,12 @@
 
     <hr className="my-6" />
 
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
     {/* Amenities */}
-    <div className="mb-6">
-      <p className="text-sm font-medium mb-2">Amenities</p>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-        <label className="flex items-center space-x-2 text-sm">
+    <div className="mb-6 ">
+      <p className="text-sm font-medium mb-1">Amenities</p>
+      <div className="  ">
+        <label className=" space-x-2 text-sm">
           <input type="checkbox" className="h-4 w-4" />
           <span>WiFi</span>
         </label>
@@ -64,6 +68,17 @@
           <span>Power Outlets</span>
         </label>
       </div>
+        </div>
+        {/* Buse Photos */}
+    <div className="">
+        <label className="block text-sm font-medium mb-1">Bus Photos *</label>
+        <input
+          type="file"
+          accept="image/*"
+          className="w-60 border px-3 py-2 rounded-2xl bg-gray-200"
+        />
+          
+      </div>
     </div>
 
     {/* Actions */}
@@ -72,6 +87,8 @@
       <button className="px-4 py-2 bg-black text-white rounded">Add Bus</button>
     </div>
   </div>
+  </div>
+    
 );
 
   }

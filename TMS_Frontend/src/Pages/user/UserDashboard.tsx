@@ -1,62 +1,70 @@
-import { FaBus, FaRegCalendarAlt } from "react-icons/fa";
+import { FaSearch, FaBus, FaRegCalendarAlt } from "react-icons/fa";
 
-export function UserDashboard(){
-    return(
-         <div className="flex justify-center items-center w-[100%] h-[80.8vh]" >
-                    <div className=" h-[350px] w-[70%] flex bg-gray-200 border-gray-200 rounded-md shadow-lg  ">
-                        <div className="flex-col w-[600px]">
+export default function UserDashboard() {
+  return (
+    <div className="flex justify-center items-center w-full h-[76.8vh] bg-gray-100">
+      <div className="h-[300px] w-[60%] flex flex-col bg-white border-white rounded-2xl shadow-lg p-6">
+        
+        {/* Header Section (Full Width) */}
+        <div className="flex flex-col  ">
+          <div className="flex items-center gap-2 text-2xl font-bold text-gray-800">
+            <FaSearch />
+            <span>Search Buses</span>
+          </div>
+          <p className="text-sm text-gray-500 mt-1">
+            Enter your travel details to find available buses
+          </p>
+        </div>
 
-                            <div className="flex gap-3 mx-11 mt-25 ">
-                                <FaBus size={40} />
-                                <input className="text-base rounded-lg border border-gray-300 w-full " type="text" placeholder="From" />
-                            </div>
+        {/* Main Input Sections */}
+        <div className="flex justify-between w-full h-full">
+          {/* From & To Input Section */}
+          <div className="flex flex-col w-[40%] justify-center">
+            <div className="flex gap-3 mx-6 mt-4">
+              <FaBus size={30} />
+              <input
+                className="text-base rounded-lg border border-gray-300 w-full px-3 py-2"
+                type="text"
+                placeholder="From"
+              />
+            </div>
 
+            <div className="flex gap-3 mt-4 mx-6">
+              <FaBus size={30} />
+              <input
+                className="text-base rounded-lg border border-gray-300 w-full px-3 py-2"
+                type="text"
+                placeholder="To"
+              />
+            </div>
+          </div>
 
-                            <div className="flex gap-3 mt-4 mx-11">
-                                <FaBus size={40} />
-                                <input className="text-base rounded-lg border border-gray-300 w-full" type="text" placeholder="To" />
-                            </div>
+          {/* Journey Date & Button */}
+          <div className="w-[50%] flex flex-col justify-center items-center px-6">
+            <div className="w-full">
+              <div className="flex items-center gap-3">
+                <FaRegCalendarAlt size={30} />
+                <label htmlFor="journeydate" className="text-lg font-medium">
+                  Journey Date
+                </label>
+              </div>
 
-                        </div>
+              <input
+                className="h-10 text-base mt-3 rounded-lg border border-gray-300 w-full px-3"
+                type="date"
+                id="journeydate"
+              />
 
-
-
-
-                        <div className="w-full  flex justify-center items-center">
-
-
-
-                            <div className="" >
-                                <FaRegCalendarAlt className="inline" size={40} />
-
-                                <label htmlFor="journeydate" className="text-xl mx-10 mt-3">Journey Date</label>
-
-                                <input className="h-10 text-base block mt-3 rounded-lg border border-gray-300 w-[500px]" type="date" id="journeydate" placeholder="To" />
-                                <button type="button" className=" mt-3 w-100 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Show Buses</button>
-
-                            </div>
-
-
-
-                        </div>
-
-
-
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-    )
+              <button
+                type="button"
+                className="mt-4 w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Show Buses
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

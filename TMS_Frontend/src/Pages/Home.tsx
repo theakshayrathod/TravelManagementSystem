@@ -1,4 +1,3 @@
-import { FaBus, FaRegCalendarAlt } from "react-icons/fa"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import { Outlet } from "react-router-dom"
