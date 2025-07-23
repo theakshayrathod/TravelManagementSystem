@@ -1,6 +1,10 @@
 export function OperatorDashboard() {
     return (
         <>
+
+        <div className="h-[75.3vh]">
+
+        
             <div className="max-w-4xl mx-auto mt-10 p-6 ">
                 <button className="text-sm text-blue-600 mb-4">{'< Back to Buses'}</button>
                 <h2 className="text-2xl font-semibold mb-1">Operator Dashboard</h2>
@@ -42,6 +46,8 @@ export function OperatorDashboard() {
 
                 
             </div>
+            </div>
+
         </>
     );
 }
