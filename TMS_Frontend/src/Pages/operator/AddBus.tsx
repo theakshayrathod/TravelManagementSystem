@@ -1,6 +1,6 @@
   export function AddBus(){
     return (
-  <div className="max-w-4xl mx-auto mt-10 p-6 border rounded-lg bg-white shadow-sm">
+  <div className="max-w-4xl mx-auto mt-10 p-6 rounded-lg bg-gray-00  shadow-lg">
     <button className="text-sm text-blue-600 mb-4">{'< Back to Buses'}</button>
     <h2 className="text-2xl font-semibold mb-1">Add New Bus</h2>
     <p className="text-sm text-gray-500 mb-6">Enter the details for the new bus</p>
@@ -11,6 +11,15 @@
         <input
           type="text"
           placeholder="e.g., BUS-107"
+          className="w-full border px-3 py-2 rounded"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-1">Bus Name *</label>
+        <input
+          type="text"
+          placeholder="e.g., BUS-"
           className="w-full border px-3 py-2 rounded"
         />
       </div>
