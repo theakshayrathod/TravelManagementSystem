@@ -5,10 +5,10 @@ import type { JSX } from 'react';
 export function UserProfileUpdate():JSX.Element{
 
   return (
-    <div className='flex justify-center items-center '>
+    <div className='flex justify-center items-center bg-gray-100 '>
        {/* <div className=" h-[350px] w-[70%] flex bg-gray-200 border-gray-500 rounded-md shadow-lg  "></div> */}
-    <div className=" px-5 mt-10 rounded-md shadow-lg bg-gray-100 mx-1 mb-10 w-[40%] h-[455px]">
-          <h2 className="text-3xl font-bold  text-gray-900 mx-25 mt-1 ">Personal Information</h2>
+    <div className=" px-5 mt-10 rounded-2xl  shadow-lg bg-white mx-1 mb-10 w-[40%] h-[455px]">
+          <h2 className="text-3xl font-bold  text-gray-900 mx-20 mt-1 ">Personal Information</h2>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <label htmlFor="name" className="block text-sm/6 font-medium ">
@@ -74,11 +74,11 @@ export function UserProfileUpdate():JSX.Element{
                name='gender'/> Female
               </div>
             </div>
-           <button type="button" className=" col-span-2 h-10 w-35 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update Profile</button>
+           <button type="button" className=" col-span-2 h-10 w-35 text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  mb-2 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update Profile</button>
           </div>
           </div>
         </div>
-        // </div>
+        
   )
 
 }

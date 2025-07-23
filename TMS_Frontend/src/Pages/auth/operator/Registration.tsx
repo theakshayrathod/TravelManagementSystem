@@ -3,9 +3,9 @@ export function OperatorRegistration() {
 
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center  bg-gray-100">
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="p-10 sm:mx-auto w-[60vw]  bg-gray-200 shadow-lg  rounded-2xl    ">
+          <div className="p-10 sm:mx-auto w-[60vw] bg-white shadow-lg  rounded-2xl    ">
             <h2 className="text-center text-2xl/9 font-bold tracking-tight text-gray-900 col-span-1 ">
               Create a new account
             </h2>
@@ -153,7 +153,7 @@ export function OperatorRegistration() {
                 <div className=" mt-2 ">
                   <p className="text-sm text-gray-700">
                     Already have an account?{"  "}
-                    <a href="/login" className="text-indigo-600 hover:underline font-bold">
+                    <a href="/" className="text-indigo-600 hover:underline font-bold">
                       Click here
                     </a>
                   </p>
