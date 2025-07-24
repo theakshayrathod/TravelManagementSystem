@@ -70,16 +70,21 @@ function App(): JSX.Element {
 
 
 
+          {/* Operator Functionality */}
+          <Route path='addbus' element={<AddBus />} />
+          <Route path='add-schedule' element={<AddSchedule />} />
+          <Route path='bus' element={<Buses />} />
+          <Route path='operator' element={<OperatorDashboard />} />
+          <Route path='update-operator' element={<OperatorProfileUpdate />} />
+          <Route path='operator-profile' element={<OperatorProfile />} />
+          <Route path='schedule' element={<Schedule/>} />
+          
+
+
         </Route>
 
 
-    {/* <OperatorProfileUpdate/> */}
-    {/* <UserProfileUpdate/> */}
-   
-    {/* <OperatorProfileUpdate/> */}
-    {/* <UserProfileUpdate/> */}
-    {/* <OperatorRegistration/> */}
-    {/* <UserRegistration/> */}
+    
     
 
 
