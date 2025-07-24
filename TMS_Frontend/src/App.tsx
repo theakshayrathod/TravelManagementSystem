@@ -52,6 +52,7 @@ function App(): JSX.Element {
           <Route path='update-operator' element={<OperatorProfileUpdate />} />
           <Route path='operator-profile' element={<OperatorProfile />} />
           <Route path='schedule' element={<Schedule/>} />
+          
 
         </Route>
       </Routes>
