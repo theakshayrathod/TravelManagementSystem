@@ -18,6 +18,8 @@ import UserDashboard from './Pages/user/UserDashboard'
 import { Schedule } from './Pages/operator/Schedule'
 import { ForgotPassword } from './Pages/auth/ForgotPassword'
 import { SearchResult } from './Pages/user/SerachResult'
+import { BookingSummary } from './Pages/user/BookingSummary'
+import { Bookings } from './Pages/operator/Bookings'
 
 
 
@@ -42,16 +44,18 @@ function App(): JSX.Element {
           <Route path='update-user' element={<UserProfileUpdate />} />
           <Route path='user-profile' element={<UserProfile />} />
           <Route path='search-results' element={<SearchResult />} />
+          <Route path='booking-summary' element={<BookingSummary/>} />
 
 
           {/* Operator Functionality */}
           <Route path='addbus' element={<AddBus />} />
-          <Route path='add-schedule' element={<AddSchedule />} />
           <Route path='bus' element={<Buses />} />
+          <Route path='add-schedule' element={<AddSchedule />} />
+          <Route path='schedule' element={<Schedule/>} />
           <Route path='operator' element={<OperatorDashboard />} />
           <Route path='update-operator' element={<OperatorProfileUpdate />} />
           <Route path='operator-profile' element={<OperatorProfile />} />
-          <Route path='schedule' element={<Schedule/>} />
+          <Route path='bookings' element={<Bookings/>} />
 
         </Route>
       </Routes>

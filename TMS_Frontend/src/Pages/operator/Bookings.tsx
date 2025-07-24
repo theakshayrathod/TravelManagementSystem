@@ -1,12 +1,12 @@
 export function Bookings() {
     return (
-        <div className="p-6">
+        <div className="p-6 h-[90vh] bg-gray-100">
             <div className="mb-4">
                 <h2 className="text-xl font-semibold">Booking Management</h2>
                 <p className="text-sm text-gray-500">View and manage customer bookings</p>
             </div>
 
-            <div className="bg-white rounded shadow overflow-x-auto">
+            <div className="bg-white rounded shadow overflow-x-auto sm:w-full lg:w-3/4 mx-auto">
                 <table className="w-full text-sm text-left">
                     <thead className="bg-gray-100 border-b">
                         <tr>

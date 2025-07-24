@@ -2,7 +2,7 @@ import { FaSearch, FaBus, FaRegCalendarAlt } from "react-icons/fa";
 
 export default function UserDashboard() {
   return (
-    <div className="flex justify-center items-center w-full h-[76.8vh] bg-gray-100">
+    <div className="flex justify-center items-center w-full min-h-[81vh] bg-gray-100">
       <div className="h-[300px] w-[60%] flex flex-col bg-white border-white rounded-2xl shadow-lg p-6">
         
         {/* Header Section (Full Width) */}

@@ -1,9 +1,9 @@
-export function BookingView() {
+export function BookingSummary() {
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center  bg-gray-100">
       <button className="absolute top-20 left-5 text-lg text-blue-600 mb-4">{'< Back to Seats selection'}</button>
-      <div className=" rounded-lg p-5 shadow-2xl w-full h-[55vh]  bg-white max-w-sm">
+      <div className=" rounded-lg p-5 shadow-2xl w-full bg-white max-w-sm">
         
         <h3 className="text-lg font-semibold mb-4">Booking Summary</h3>
 
