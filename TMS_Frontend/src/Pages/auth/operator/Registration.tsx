@@ -1,4 +1,14 @@
+// import { useState } from "react";
+
 export function OperatorRegistration() {
+  // const [name, setName] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
+  // const [contact, setContact] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
+  // const [confirmPassword, setConfirmPassword] = useState<string>("");
+  // const [companyName, setCompanyName] = useState<string>("");
+  // const [licenseNumber, setLicenseNumber] = useState<string>("");
+  // const [address, setAddress] = useState<string>("");
 
 
   return (
@@ -13,7 +23,7 @@ export function OperatorRegistration() {
             <form action="#" method="POST" className="space-y-6">
               <div className="mt-10 sm:mx-auto sm:w-[50vw]   grid grid-cols-2 gap-5 ">
 
-                {/* Name Field */}
+                {/* Name  */}
                 <div className="col-span-1 ">
                   <label htmlFor="name" className="block text-sm/6 font-medium text-gray-900">
                     Name
@@ -21,6 +31,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="name"
+                      
                       name="name"
                       type="text"
                       required
@@ -29,7 +40,7 @@ export function OperatorRegistration() {
                   </div>
                 </div>
 
-                {/* Email Field */}
+                {/* Email */}
                 <div className="col-span-1">
                   <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                     Email

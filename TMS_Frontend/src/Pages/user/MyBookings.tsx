@@ -1,4 +1,4 @@
-import { BookingCard } from "../../../components/BookingsCard";
+import { BookingCard } from "../../components/BookingsCard";
 
 
 export default function MyBookings() {
