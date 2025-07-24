@@ -11,7 +11,7 @@ import { Bookings } from './Pages/operator/Bookings'
 
 //import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
 //import { AddTrip } from './Pages/operator/AddTrip'
-import type { JSX } from 'react'
+// import type { JSX } from 'react'
 import { Home } from './Pages/Home'
 import { UserRegistration } from './Pages/auth/user/Registration'
 import { UserProfileUpdate } from './Pages/user/UpdateProfile'
