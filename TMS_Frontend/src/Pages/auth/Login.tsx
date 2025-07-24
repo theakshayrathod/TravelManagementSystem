@@ -1,6 +1,7 @@
-import axios from "axios";
+
 import { useState } from "react";
 import { toast } from 'react-toastify'
+import { loginUser } from "../../services/user";
 
 
 
@@ -16,7 +17,7 @@ export function Login() {
       toast.warn("Password required")
     } else {
 
-      const result = await axios.post(email, password);
+      const result = await loginUser(email, password);
 
       if (!result)
         toast.error("Error while login")
@@ -41,7 +42,7 @@ export function Login() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form action="#" method="POST" className="space-y-6">
+              
                 <div>
                   <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                     Email address
@@ -86,7 +87,6 @@ export function Login() {
 
                 <div>
                   <button
-                    type="submit"
                     onClick={login}
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
@@ -94,7 +94,7 @@ export function Login() {
                   </button>
                 </div>
 
-              </form>
+              
               <div className=" mt-2 ">
                 <p className="text-sm text-gray-700">
                   Create an account?{"  "}

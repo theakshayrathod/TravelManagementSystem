@@ -1,14 +1,14 @@
 import axios from "axios"
-import { config } from "../config"
+// import { config } from "../config"
 
-export async function UserRegistration(name: string, email: string, contact: string, password: string) {
+export async function UserRegistration(name: string, email: string, contactNo: string, password: string) {
     try {
-        const url = `${config.serverUrl}/user/signup`
+        const url = `http://localhost:8080/user/signup`
 
         const body = {
             name,
             email,
-            contact,
+            contactNo,
             password
 
         }
@@ -27,7 +27,7 @@ export async function UserRegistration(name: string, email: string, contact: str
 
 export async function loginUser(email: string, password: string) {
     try {
-        const url = `${config.serverUrl}/user/login`
+        const url = `http://localhost:8080/user`
 
         const body = {
             email,
@@ -35,6 +35,7 @@ export async function loginUser(email: string, password: string) {
         }
 
         const response = await axios.post(url, body)
+        console.log(response)
 
         if (response.status == 200) {
             return response.data
