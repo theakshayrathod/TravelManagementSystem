@@ -1,4 +1,6 @@
+
 import type { JSX } from 'react'
+
 import { Home } from './Pages/Home'
 import { UserRegistration } from './Pages/auth/user/Registration'
 import { UserProfileUpdate } from './Pages/user/UpdateProfile'
