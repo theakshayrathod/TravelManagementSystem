@@ -1,44 +1,25 @@
 
-
-import type {JSX} from 'react'
-//import { Login } from './Pages/auth/Login'
-// import { Home } from './Pages/Home'
-import  Navbar  from './components/Navbar'
-import { Bookings } from './Pages/operator/Bookings'
-// import { OperatorRegistration } from './Pages/auth/operator/Registration'
-// import { UserRegistration } from './Pages/auth/user/Registration'
-// import { UserProfileUpdate } from './Pages/user/UpdateProfile'
-
-//import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
-//import { AddTrip } from './Pages/operator/AddTrip'
 import type { JSX } from 'react'
-// import { Login } from './Pages/auth/Login'
+
 import { Home } from './Pages/Home'
-import Navbar from './components/Navbar'
-import { OperatorRegistration } from './Pages/auth/operator/Registration'
 import { UserRegistration } from './Pages/auth/user/Registration'
 import { UserProfileUpdate } from './Pages/user/UpdateProfile'
-
 import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
-import { AddTrip } from './Pages/operator/AddTrip'
-
-
-
-
-// import { Registration } from './Pages/auth/Registration'
-//import {AddBus} from './Pages/operator/AddBus'
-
-import {AddBus} from './Pages/operator/AddBus'
-
-
-
+import { AddBus } from './Pages/operator/AddBus'
 import { Route, Routes } from 'react-router-dom'
 import { Login } from './Pages/auth/Login'
-
-import { UserDashboard } from './Pages/user/UserDashboard'
-
 import { Buses } from './Pages/operator/Buses'
 import { OperatorDashboard } from './Pages/operator/Dashboad'
+import { OperatorProfile } from './Pages/operator/Profile'
+import { UserProfile } from './Pages/user/Profile'
+import { OperatorRegistration } from './Pages/auth/operator/Registration'
+import { AddSchedule } from './Pages/operator/AddSchedule'
+import UserDashboard from './Pages/user/UserDashboard'
+import { Schedule } from './Pages/operator/Schedule'
+import { ForgotPassword } from './Pages/auth/ForgotPassword'
+import { SearchResult } from './Pages/user/SerachResult'
+import { BookingSummary } from './Pages/user/BookingSummary'
+import { Bookings } from './Pages/operator/Bookings'
 
 
 
@@ -52,43 +33,31 @@ function App(): JSX.Element {
       <Routes>
         <Route path='/' element={<Login />} />
 
-        <Route path='register' element={<UserRegistration />} />
+        <Route path='user-register' element={<UserRegistration />} />
+        <Route path='operator-register' element={<OperatorRegistration />} />
+        <Route path='forgot-password' element={<ForgotPassword />} />
 
         <Route path='home' element={<Home />} >
-
+          
+          {/* users Functionality */}
           <Route path='user' element={<UserDashboard />} />
-          <Route path='addbus' element={<AddBus/>} />
-          <Route path='bus' element={<Buses/>} />
-          <Route path='operator' element={<OperatorDashboard/>} />
-          <Route path='update-operator' element={<OperatorProfileUpdate/>} />
-          <Route path='update-user' element={<UserProfileUpdate/>} />
-
-          
-
-          
-          
-
+          <Route path='update-user' element={<UserProfileUpdate />} />
+          <Route path='user-profile' element={<UserProfile />} />
+          <Route path='search-results' element={<SearchResult />} />
+          <Route path='booking-summary' element={<BookingSummary/>} />
 
 
           {/* Operator Functionality */}
           <Route path='addbus' element={<AddBus />} />
-          <Route path='add-schedule' element={<AddSchedule />} />
           <Route path='bus' element={<Buses />} />
+          <Route path='add-schedule' element={<AddSchedule />} />
+          <Route path='schedule' element={<Schedule/>} />
           <Route path='operator' element={<OperatorDashboard />} />
           <Route path='update-operator' element={<OperatorProfileUpdate />} />
           <Route path='operator-profile' element={<OperatorProfile />} />
-          <Route path='schedule' element={<Schedule/>} />
-          
-
+          <Route path='bookings' element={<Bookings/>} />
 
         </Route>
-
-
-    
-    
-
-
-
       </Routes>
 
     </>
