@@ -7,6 +7,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class User extends BaseEntity {
 	private String email;
 	@Column(length = 300,nullable = false)
 	private String password;
-	
+	@Transient
 	private String confirmPassword;
 	@Column(name = "contact_no" , length = 20)
 	private String contactNo;

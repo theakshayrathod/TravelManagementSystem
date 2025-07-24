@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.SignInDto;
+import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
 import com.sunbeam.entity.User;
 import com.sunbeam.service.UserService;
@@ -27,7 +28,7 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<?> loginUser(@RequestBody SignInDto dto){
 		
-		User u = userService.loginUser(dto);
+		SignInResDto u = userService.loginUser(dto);
 		
 		
 		

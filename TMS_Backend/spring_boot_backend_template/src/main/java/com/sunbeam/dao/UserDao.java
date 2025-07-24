@@ -11,7 +11,10 @@ import com.sunbeam.entity.User;
 public interface UserDao extends JpaRepository<User, Long> {
 	
 	
+	
 	Optional<User> findByEmailAndPassword(String email, String password);
+	
+	boolean existsByEmail(String email);
 	
 	
 	
