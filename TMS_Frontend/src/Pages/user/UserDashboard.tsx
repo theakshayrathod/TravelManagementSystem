@@ -48,7 +48,7 @@ export default function UserDashboard() {
                   Journey Date
                 </label>
               </div>
-
+ 
               <input
                 className="h-10 text-base mt-3 rounded-lg border border-gray-300 w-full px-3"
                 type="date"
