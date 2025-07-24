@@ -21,6 +21,7 @@ export function UserRegistration() {
   }
 
   const onRegister = async () => {
+    
     if (name.length == 0) {
       toast.warn("Name is required");
     } else if (email.length == 0) {
@@ -33,12 +34,14 @@ export function UserRegistration() {
       toast.warn("Password is required");
     } else if (confirmPassword.length == 0) {
       toast.warn("Confirm Password is required");
-    } else if (password !== confirmPassword) {
+    } else if (password != confirmPassword) {
       toast.warn("Passwords do not match");
     } else {
       const result = await userRegister(name, email, contact, password);
       if (!result) {
         toast.error("Registration failed. Please try again.");
+      } else {
+        toast.success("Registration success")
       }
     }
   }
@@ -62,7 +65,7 @@ export function UserRegistration() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form method="POST" className="space-y-6">
+              {/* <form  className="space-y-6"> */}
                 <div>
                   <label htmlFor="name" className="block text-sm/6 font-medium text-gray-900">
                     Name
@@ -152,7 +155,7 @@ export function UserRegistration() {
 
                 <div>
                   <button
-                    type="submit"
+                    
                     onClick={onRegister}
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
@@ -168,7 +171,7 @@ export function UserRegistration() {
                   </p>
                 </div>
 
-              </form>
+              {/* </form> */}
 
 
             </div>

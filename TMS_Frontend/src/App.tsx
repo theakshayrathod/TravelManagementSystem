@@ -20,6 +20,7 @@ import { ForgotPassword } from './Pages/auth/ForgotPassword'
 import { SearchResult } from './Pages/user/SerachResult'
 import { BookingSummary } from './Pages/user/BookingSummary'
 import { Bookings } from './Pages/operator/Bookings'
+import { ToastContainer } from 'react-toastify'
 
 
 
@@ -60,6 +61,7 @@ function App(): JSX.Element {
         </Route>
       </Routes>
 
+          <ToastContainer/>
     </>
   )
 }
