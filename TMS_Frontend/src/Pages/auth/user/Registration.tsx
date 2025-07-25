@@ -161,7 +161,7 @@ export function UserRegistration() {
                     Confirm Password
                   </label>
                 </div>
-                <div className="mt-2">
+                <div className="mt-2 mb-5">
                   <input
                     id="ConfirmPassword"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}

@@ -4,12 +4,12 @@ export function PickAndDrop(){
                 {/* Example Card */}
                 {[
                     {
-                        title: "Times Square Terminal",
+                        title: "Swarget Terminal",
                         id: "PP-001",
-                        city: "New York",
+                        city: "Pune",
                         type: "Terminal",
                         status: "Active",
-                        address: "1844 Broadway, New York, NY 10036",
+                        address: "26635, Pune, Maharashtra",
                         hours: "24/7",
                     },
 

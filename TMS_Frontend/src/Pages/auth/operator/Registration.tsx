@@ -1,8 +1,7 @@
 import { useState } from "react";
 import {toast } from 'react-toastify'
 import { OperatorRegistration as operatorRegister } from "../../../services/operator/operator";
-import { Button } from "@headlessui/react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export function OperatorRegistration() {
@@ -16,10 +15,7 @@ export function OperatorRegistration() {
   const [licenseNo, setLicenseNo] = useState<string>("");
   const [address, setAddress] = useState<string>("");
 
-  const navigate = useNavigate();
-  const onBack = () => {
-    navigate(-1);
-  }
+
   const onRegister = async () => {
     if (name.length == 0) {
       toast.warn("Name is required");
@@ -221,7 +217,7 @@ export function OperatorRegistration() {
                 <div >
                   <button
                     onClick={onRegister}
-                    className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-10"
                   >
                     Sign in
                   </button>
@@ -229,9 +225,9 @@ export function OperatorRegistration() {
                 <div className=" mt-2 ">
                   <p className="text-sm text-gray-700">
                     Already have an account?{"  "}
-                    <Button onClick={onBack} className="text-indigo-600 hover:underline font-bold">
+                   <Link to="/" className="text-indigo-600 hover:underline font-bold">
                       Click here
-                    </Button>
+                    </Link>
                   </p>
                 </div>
 

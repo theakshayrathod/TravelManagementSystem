@@ -39,7 +39,7 @@ export function Schedule() {
               {/* Example row */}
               <tr className="hover:bg-gray-50">
                 <td className="p-3 border-b">SCH-001</td>
-                <td className="p-3 border-b">New York to Miami</td>
+                <td className="p-3 border-b">Pune to Karad</td>
                 <td className="p-3 border-b">Luxury Coach 101</td>
 
                 <td className="p-3 border-b">08:00 AM</td>

@@ -23,7 +23,7 @@ export function Buses() {
             placeholder="Search buses..."
             className="flex-1 border px-3 py-2 rounded w-full sm:w-auto"
           />
-          <select className="border px-3 py-2 rounded">
+          <select className=" px-3 py-2 rounded">
             <option>Bus Type</option>
             <option>AC</option>
             <option>NON-AC</option>
@@ -33,7 +33,7 @@ export function Buses() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Example card - repeat for each bus */}
-          <div className="border p-4 rounded-lg shadow-sm">
+          <div className=" p-4 rounded-lg shadow-lg ">
             <div className="flex justify-between items-start mb-2">
               <div>
                 <div className="flex items-center gap-2">
