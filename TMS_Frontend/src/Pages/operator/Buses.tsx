@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function Buses() {
   return (
-    <div className="w-full  p-6 bg-gray-100">
+    <div className="w-full min-h-screen p-6 bg-gray-100">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-2xl font-semibold">Bus Management</h2>

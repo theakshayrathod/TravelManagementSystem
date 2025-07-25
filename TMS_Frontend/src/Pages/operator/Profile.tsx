@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function OperatorProfile() {
     return (
-      <div className="flex justify-center items-center bg-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
   <div className="p-5 mt-10 rounded-2xl shadow-lg bg-white mx-5 h-auto mb-10 w-120 ">
     <h2 className="text-3xl font-bold text-gray-900 mb-6 mx-15">Bus Operator Profile</h2>
 
@@ -40,7 +40,7 @@ export function OperatorProfile() {
       {/* Update Profile Button */}
       <div className="col-span-full">
         <Link
-          to="/operator/update-operator"
+          to="/operator/update-profile"
           className="flex w-30 justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Update Profile

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function Schedule() {
   return (
-    <div className=" justify-center items-center min-h-[78vh] bg-gray-100">
+    <div className=" justify-center items-center min-h-screen bg-gray-100">
       <div className="flex justify-between items-center p-10 mb-6 ">
         <div>
           <h2 className="text-2xl font-semibold">Schedule Management</h2>

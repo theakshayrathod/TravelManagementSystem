@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function UserProfile() {
     return (
-        <div className="flex justify-center items-center min-h-[100vh] bg-gray-100">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="px-5 mt-10 rounded-2xl shadow-lg bg-white mx-1 mb-10 w-[40%] h-[400px]">
                 <h2 className="text-3xl font-bold text-gray-900 mt-4">Personal Information</h2>
 

@@ -2,7 +2,7 @@
 
 export function EditSchedule(){
  return (
-    <div className="flex justify-center items-center  bg-gray-100 h-screen">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
 
       <button className="absolute top-10 left-5 text-lg text-blue-600 mb-4">{'< Back to Seats selection'}</button>
 
