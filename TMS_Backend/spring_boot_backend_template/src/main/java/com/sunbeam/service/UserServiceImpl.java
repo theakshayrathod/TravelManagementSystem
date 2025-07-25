@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	public ApiResponse signUp(SignUpDto dto) {
 		
 		if(userDao.existsByEmail(dto.getEmail())) {
-			throw new InvalidinputException("Email Already Exists");
+			throw new InvalidinputException("Email Already Exist");
 		}
 		
 		

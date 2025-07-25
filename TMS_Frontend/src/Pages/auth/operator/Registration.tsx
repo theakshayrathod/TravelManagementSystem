@@ -1,14 +1,54 @@
-// import { useState } from "react";
+import { useState } from "react";
+import {toast } from 'react-toastify'
+import { OperatorRegistration as operatorRegister } from "../../../services/operator/operator";
+import { Button } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+
 
 export function OperatorRegistration() {
-  // const [name, setName] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
-  // const [contact, setContact] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
-  // const [confirmPassword, setConfirmPassword] = useState<string>("");
-  // const [companyName, setCompanyName] = useState<string>("");
-  // const [licenseNumber, setLicenseNumber] = useState<string>("");
-  // const [address, setAddress] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [contactNo, setContact] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>("");
+  const [licenseNo, setLicenseNo] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+
+  const navigate = useNavigate();
+  const onBack = () => {
+    navigate(-1);
+  }
+  const onRegister = async () => {
+    if (name.length == 0) {
+      toast.warn("Name is required");
+    } else if (email.length == 0) {
+      toast.warn("Email is required");
+    } else if (contactNo.length == 0) {
+      toast.warn("Contact is required");
+    } else if (password.length == 0) {
+      toast.warn("Password is required");
+    } else if (confirmPassword.length == 0) {
+      toast.warn("Confirm Password is required");
+    } else if (password != confirmPassword) {
+      toast.warn("Passwords do not match");
+    }else if (companyName.length == 0) {
+      toast.warn("Company Name is required");
+    } else if (licenseNo.length == 0) {
+      toast.warn("License Number is required");
+    } else if (address.length == 0) {
+      toast.warn("Address is required");
+    } else {
+      const result = await operatorRegister(name, email, contactNo, gender, password, companyName, licenseNo, address);
+      if (!result) {
+        toast.error("Registration failed. Please try again.");
+      } else {
+        toast.success("Registration success")
+      }
+    }
+  }
+
 
 
   return (
@@ -31,7 +71,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="name"
-                      
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                       name="name"
                       type="text"
                       required
@@ -48,6 +88,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="email"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                       name="email"
                       type="email"
                       required
@@ -64,6 +105,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="password"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                       name="password"
                       type="password"
                       required
@@ -80,6 +122,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="ConfirmPassword"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
                       name="ConfirmPassword"
                       type="password"
                       required
@@ -95,11 +138,31 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="contact"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact(e.target.value)}
                       name="contact"
                       type="tel"
                       required
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
+                  </div>
+                </div>
+
+                {/* Gender Selection */}
+                <div className="mt-4">
+                  <label className="block text-sm/6 font-medium text-gray-900">
+                    Gender
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      id="gender"
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setGender(e.target.value)}
+                      name="gender"
+                      required
+                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
                   </div>
                 </div>
 
@@ -111,6 +174,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="companyName"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompanyName(e.target.value)}
                       name="companyName"
                       type="text"
                       required
@@ -127,6 +191,7 @@ export function OperatorRegistration() {
                   <div className="mt-2">
                     <input
                       id="licenseNumber"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLicenseNo(e.target.value)}
                       name="licenseNumber"
                       type="text"
                       required
@@ -144,7 +209,7 @@ export function OperatorRegistration() {
                     <textarea
                       id="address"
                       name="address"
-
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setAddress(e.target.value)}
                       required
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
@@ -155,7 +220,7 @@ export function OperatorRegistration() {
                 {/* Submit */}
                 <div >
                   <button
-                    type="submit"
+                    onClick={onRegister}
                     className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Sign in
@@ -164,9 +229,9 @@ export function OperatorRegistration() {
                 <div className=" mt-2 ">
                   <p className="text-sm text-gray-700">
                     Already have an account?{"  "}
-                    <a href="/" className="text-indigo-600 hover:underline font-bold">
+                    <Button onClick={onBack} className="text-indigo-600 hover:underline font-bold">
                       Click here
-                    </a>
+                    </Button>
                   </p>
                 </div>
 
