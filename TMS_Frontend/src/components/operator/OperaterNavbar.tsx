@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const navigation = [
   { name: 'Dashboard', to: '/operator/dashboard', current: true },
   { name: 'Buses', to: '/operator/buses', current: true },
-  { name: 'Routes', to: '/operator/routes', current: true },
+  { name: 'Routes', to: '/operator/add-route', current: true },
   { name: 'Pickup Points', to: '/operator/pickup-drop', current: true },
   { name: 'Schedules', to: '/operator/schedule', current: true },
   { name: 'Bookings', to: '/operator/bookings', current: true },
@@ -35,7 +35,7 @@ export default function OperatorNavbar() {
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                 src="../../public/images/tms_logo.png"
+                 src="/images/tms_logo.png"
                 className="h-8 w-auto rounded-2xl"
               />
             </div>
@@ -87,21 +87,21 @@ export default function OperatorNavbar() {
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
                 <MenuItem>
-                  <a
-                    href="#"
+                  <Link
+                    to="/operator/profile"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Your Profile
-                  </a>
+                  </Link>
                 </MenuItem>
                 
                 <MenuItem>
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Sign out
-                  </a>
+                  </Link>
                 </MenuItem>
               </MenuItems>
             </Menu>

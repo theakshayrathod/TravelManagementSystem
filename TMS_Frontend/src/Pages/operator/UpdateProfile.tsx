@@ -1,14 +1,18 @@
 import React from 'react';
 // import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { JSX } from 'react';
+// import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-export function OperatorProfileUpdate():JSX.Element{
+export function OperatorProfileUpdate(): JSX.Element {
 
   return (
-    <div className='flex justify-center items-center bg-gray-100 '>
-       {/* <div className=" h-[350px] w-[70%] flex bg-gray-200 border-gray-500 rounded-md shadow-lg  "></div> */}
-    <div className=" p-5 mt-10 rounded-2xl shadow-lg bg-white mx-5 h-[98vh] mb-10 w-120 ">
-          <h2 className="text-3xl font-bold  text-gray-900 mx-15 ">Bus Operator Profile</h2>    
+    <div className=' flex-col justify-center items-center min-h-screen bg-gray-100 '>
+    <Link to="/operator/profile" className="text-indigo-600 hover:underline p-4">Back to Profile</Link>
+
+        <div className=" p-3  mb-5 ml-[35%] rounded-2xl shadow-lg bg-white  w-[32vw] ">
+          <h2 className="text-3xl font-bold  text-gray-900 mx-15 ">Bus Operator Profile</h2>
+          
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <label htmlFor="name" className="block text-sm/2 font-medium">
@@ -70,7 +74,7 @@ export function OperatorProfileUpdate():JSX.Element{
 
             <div className="sm:col-span-2 sm:col-start-1">
               <label htmlFor="contact" className="block text-sm/2 font-medium text-gray-900">
-               Contact
+                Contact
               </label>
               <div className="mt-2">
                 <input
@@ -82,12 +86,13 @@ export function OperatorProfileUpdate():JSX.Element{
                 />
               </div>
             </div>
-           
-            
-          <button type="button" className=" ml-25 mt-3 w-35 text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  my-4   dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update Profile</button>
+
+
+            <button type="button" className=" ml-25 mt-3 w-35 text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  my-4   dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update Profile</button>
           </div>
         </div>
-        </div>
+     
+    </div>
   )
 
 }

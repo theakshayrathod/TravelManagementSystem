@@ -1,7 +1,7 @@
 // RouteCard.tsx
 export default function RouteCard() {
   return (
-    <div className="bg-white border rounded-xl shadow-sm p-4">
+    <div className="bg-white rounded-xl shadow-sm p-4">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
         <div>
           <p className="text-sm text-gray-500">Origin City</p>

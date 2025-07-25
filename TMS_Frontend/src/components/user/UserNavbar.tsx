@@ -34,7 +34,7 @@ export function UserNavbar() {
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="../../public/images/tms_logo.png"
+                src="/images/tms_logo.png"
                 className="h-8 w-auto rounded-2xl"
               />
             </div>

@@ -8,7 +8,7 @@ import { AddBus } from './Pages/operator/AddBus'
 import { Route, Routes } from 'react-router-dom'
 import { Login } from './Pages/auth/Login'
 import { Buses } from './Pages/operator/Buses'
-import { OperatorDashboard } from './Pages/operator/Dashboad'
+import { OperatorDashboard } from './Pages/operator/OperatorDashboad'
 import { OperatorProfile } from './Pages/operator/Profile'
 import { UserProfile } from './Pages/user/Profile'
 import { OperatorRegistration } from './Pages/auth/operator/Registration'
@@ -26,6 +26,7 @@ import { BookPickAndDrop } from './Pages/user/BookPickAndDrop'
 import { UserHome } from './Pages/user/UserHome'
 import { OperatorHome } from './Pages/operator/OperatorHome'
 import { PickupAndDropPoints } from './Pages/operator/PickupAndDropPoints'
+import AddedRoutes from './Pages/operator/AddRoutes'
 
 
 
@@ -66,6 +67,7 @@ function App(): JSX.Element {
           <Route path='schedule' element={<Schedule />} />
           <Route path='bookings' element={<Bookings />} />
           <Route path='pickup-drop' element={<PickupAndDropPoints />} />
+          <Route path='add-route' element={<AddedRoutes />} />
 
         </Route>
       </Routes>

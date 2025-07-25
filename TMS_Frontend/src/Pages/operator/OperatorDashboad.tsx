@@ -1,6 +1,6 @@
 export function OperatorDashboard() {
   return (
-    <div className="flex justify-center items-center bg-gray-100 min-h-[79vh]">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 ">
 
       <div className="w-[60vw] mx-auto p-3 rounded-lg  s">
 
