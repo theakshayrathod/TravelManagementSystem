@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function BookingSummary() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-8">
@@ -71,9 +73,9 @@ export function BookingSummary() {
       </div>
 
       <div className="text-center mt-6">
-        <button className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800">
+        <Link to="/user/dashboard" className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800">
           Book Another Trip
-        </button>
+        </Link>
       </div>
     </div>
     </div>

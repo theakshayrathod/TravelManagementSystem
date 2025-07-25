@@ -1,8 +1,8 @@
 export function OperatorDashboard() {
   return (
-    <div className="flex justify-center items-center bg-gray-100">
+    <div className="flex justify-center items-center bg-gray-100 min-h-[79vh]">
 
-      <div className="h-[75.3vh] ">
+      <div className="w-[60vw] mx-auto p-3 rounded-lg  s">
 
 
         <div className="max-w-4xl mx-auto  p-6 ">
@@ -10,7 +10,7 @@ export function OperatorDashboard() {
           <h2 className="text-2xl font-semibold mb-1">Operator Dashboard</h2>
           <p className="text-sm text-gray-500 mb-6">Manage your buses, routes, schedules, and bookings</p>
         </div>
-        <div className="max-w-4xl mx-auto mt-10 p-6 rounded-lg bg-gray-00 bg-white shadow-lg">
+        <div className="max-w-4xl mx-auto  p-6 rounded-lg bg-gray-00 bg-white shadow-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>

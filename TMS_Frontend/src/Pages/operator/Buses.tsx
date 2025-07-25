@@ -8,7 +8,7 @@ export function Buses() {
           <h2 className="text-2xl font-semibold">Bus Management</h2>
           <p className="text-sm text-gray-600">Manage your fleet of buses</p>
         </div>
-        <Link to="/home/addbus" className="bg-black text-white px-4 py-2 rounded">
+        <Link to="/operator/add-bus" className="bg-black text-white px-4 py-2 rounded">
           + Add New Bus
         </Link>
       </div>

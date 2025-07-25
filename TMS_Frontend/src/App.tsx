@@ -1,7 +1,6 @@
 
 import type { JSX } from 'react'
 
-import { Home } from './Pages/Home'
 import { UserRegistration } from './Pages/auth/user/Registration'
 import { UserProfileUpdate } from './Pages/user/UpdateProfile'
 import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
@@ -21,6 +20,12 @@ import { SearchResult } from './Pages/user/SerachResult'
 import { BookingSummary } from './Pages/user/BookingSummary'
 import { Bookings } from './Pages/operator/Bookings'
 import { ToastContainer } from 'react-toastify'
+import { BookingView } from './Pages/user/BookingView'
+import MyBookings from './Pages/user/MyBookings'
+import { BookPickAndDrop } from './Pages/user/BookPickAndDrop'
+import { UserHome } from './Pages/user/UserHome'
+import { OperatorHome } from './Pages/operator/OperatorHome'
+import { PickupAndDropPoints } from './Pages/operator/PickupAndDropPoints'
 
 
 
@@ -33,35 +38,39 @@ function App(): JSX.Element {
 
       <Routes>
         <Route path='/' element={<Login />} />
-
         <Route path='user-register' element={<UserRegistration />} />
         <Route path='operator-register' element={<OperatorRegistration />} />
         <Route path='forgot-password' element={<ForgotPassword />} />
 
-        <Route path='home' element={<Home />} >
-          
+        {/* User */}
+        <Route path='user' element={<UserHome />} >
           {/* users Functionality */}
-          <Route path='user' element={<UserDashboard />} />
+          <Route path='dashboard' element={<UserDashboard />} />
           <Route path='update-user' element={<UserProfileUpdate />} />
           <Route path='user-profile' element={<UserProfile />} />
           <Route path='search-results' element={<SearchResult />} />
-          <Route path='booking-summary' element={<BookingSummary/>} />
-
-
-          {/* Operator Functionality */}
-          <Route path='addbus' element={<AddBus />} />
-          <Route path='bus' element={<Buses />} />
+          <Route path='booking-summary' element={<BookingSummary />} />
+          <Route path='booking-view' element={<BookingView />} />
+          <Route path='my-booking' element={<MyBookings />} />
+          <Route path='pickup-drop' element={<BookPickAndDrop />} />
+        </Route>
+        {/* Operator */}
+        <Route path='operator' element={<OperatorHome />} >
+          {/* operator Functionality */}
+          <Route path='dashboard' element={<OperatorDashboard />} />
+          <Route path='update-profile' element={<OperatorProfileUpdate />} />
+          <Route path='profile' element={<OperatorProfile />} />
+          <Route path='add-bus' element={<AddBus />} />
+          <Route path='buses' element={<Buses />} />
           <Route path='add-schedule' element={<AddSchedule />} />
-          <Route path='schedule' element={<Schedule/>} />
-          <Route path='operator' element={<OperatorDashboard />} />
-          <Route path='update-operator' element={<OperatorProfileUpdate />} />
-          <Route path='operator-profile' element={<OperatorProfile />} />
-          <Route path='bookings' element={<Bookings/>} />
+          <Route path='schedule' element={<Schedule />} />
+          <Route path='bookings' element={<Bookings />} />
+          <Route path='pickup-drop' element={<PickupAndDropPoints />} />
 
         </Route>
       </Routes>
 
-          <ToastContainer/>
+      <ToastContainer />
     </>
   )
 }

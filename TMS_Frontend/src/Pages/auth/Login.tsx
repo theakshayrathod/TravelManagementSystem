@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { toast } from 'react-toastify'
 import { loginUser } from "../../services/user";
+import { Link } from "react-router-dom";
 
 
 
@@ -32,6 +33,7 @@ export function Login() {
   return (
     <>
       <div className=" flex justify-center items-center min-h-screen  bg-gray-100">
+       
         <div className="flex min-h-full flex-1 flex-col justify-center  lg:px-8 ">
           <div className="p-10 sm:mx-auto w-[30vw]  bg-white shadow-lg rounded-2xl  ">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -79,9 +81,9 @@ export function Login() {
                     />
                   </div>
                   <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    <Link to="/forgot-password" className="font-semibold text-indigo-600 hover:text-indigo-500">
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
 

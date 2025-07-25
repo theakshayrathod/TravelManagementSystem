@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { PickAndDrop } from "../../components/PickAndDrop";
 
 export function PickupAndDropPoints() {
@@ -9,9 +10,9 @@ export function PickupAndDropPoints() {
                     <h1 className="text-2xl font-semibold">Pickup & Drop Points</h1>
                     <p className="text-gray-600">Manage pickup and drop-off locations</p>
                 </div>
-                <button className="bg-black text-white px-4 py-2 rounded hover:opacity-90">
+                <Link to="/operator/add-pickup-drop" className="bg-black text-white px-4 py-2 rounded hover:opacity-90">
                     + Add New Point
-                </button>
+                </Link>
             </div>
             {/* Cards Grid */}
             <PickAndDrop/>

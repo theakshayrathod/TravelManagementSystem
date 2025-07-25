@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
+
 export function ForgotPassword() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+       <Link to="/" className="absolute top-7 left-5 text-lg text-blue-600 mb-4">{'< Back to Login'}</Link>
       <div className="w-[40vw] p-6 rounded-lg shadow-lg bg-white">
         <h2 className="text-2xl font-semibold mb-4">Forgot Password</h2>
         <p className="text-sm text-gray-600 mb-6">Enter your email to reset your password</p>

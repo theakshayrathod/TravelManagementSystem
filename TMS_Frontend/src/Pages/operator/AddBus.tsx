@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
   export function AddBus(){
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-  <div className="w-[60vw] mx-auto p-6 rounded-lg bg-white shadow-lg">
-     <a href="/home/bus" className="text-indigo-600 hover:underline ">
+      <div className=" justify-center items-center min-h-screen bg-gray-100">
+     <Link to="/operator/buses" className="text-indigo-600 hover:underline p-4  ">
                       {'< Back to Buses'}
-                    </a>
+                    </Link>
+  <div className="w-[60vw] mx-auto p-6 rounded-lg bg-white shadow-lg">
     <h2 className="text-2xl font-semibold mb-1">Add New Bus</h2>
     <p className="text-sm text-gray-500 mb-6">Enter the details for the new bus</p>
 

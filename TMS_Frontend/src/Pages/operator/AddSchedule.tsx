@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 export function AddSchedule(): JSX.Element {
 
   return (
+    <div className="w-full p-6 bg-gray-100">
+      <Link to="/operator/schedule" className="text-sm mb-4 text-indigo-700  inline-block">&larr; Back to Schedules</Link>
     <div className="flex justify-center items-center  bg-gray-100 min-h-[70vh]">
       <div className=" w-[60vw]  mt-4 mb-4 p-4 rounded-lg shadow-md bg-white ">
-        <Link to="/home/schedule" className="text-sm mb-4 text-indigo-700  inline-block">&larr; Back to Schedules</Link>
         <h2 className="text-2xl font-semibold mb-1">Create New Schedule</h2>
         <p className="text-sm text-gray-600 mb-6">Enter the details for the new bus schedule</p>
 
@@ -68,6 +69,7 @@ export function AddSchedule(): JSX.Element {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 

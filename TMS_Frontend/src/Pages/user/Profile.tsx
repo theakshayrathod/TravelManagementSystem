@@ -34,10 +34,10 @@ export function UserProfile() {
                     {/* Button */}
                     <div className="col-span-full">
                         <Link
-                            to="/home/update-user"
-                            className="flex w-30 justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            to="/user/update-user"
+                            className="flex w-30 justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Update Profile
+                            Edit Profile
                         </Link>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ export function OperatorRegistration() {
               Create a new account
             </h2>
 
-            <form action="#" method="POST" className="space-y-6">
+            <div  className="space-y-6">
               <div className="mt-10 sm:mx-auto sm:w-[50vw]   grid grid-cols-2 gap-5 ">
 
                 {/* Name  */}
@@ -172,7 +172,7 @@ export function OperatorRegistration() {
 
 
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>

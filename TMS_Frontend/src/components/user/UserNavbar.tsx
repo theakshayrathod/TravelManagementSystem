@@ -1,22 +1,22 @@
+
+
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Buses', href: '#', current: true },
-  { name: 'Routes', href: '#', current: true },
-  { name: 'Pickup Points', href: '#', current: true },
-  { name: 'Schedules', href: '#', current: true },
-  { name: 'Bookings', href: '#', current: true },
+  { name: 'Dashboard', to: '/user/dashboard', current: true },
+  { name: 'My Bookings', to: '/user/my-booking', current: true },
+  { name: 'Profile', to: '/user/user-profile', current: true },
 ]
 
-type ClassValue = string | false | null | undefined ;
+type ClassValue = string | false | null | undefined;
 
-function classNames(...classes:ClassValue[]) {
+function classNames(...classes: ClassValue[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function OperatorNavbar() {
+export function UserNavbar() {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -34,16 +34,16 @@ export default function OperatorNavbar() {
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
+                src="../../public/images/tms_logo.png"
+                className="h-8 w-auto rounded-2xl"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.to}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
                       item.current ? ' text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -51,7 +51,7 @@ export default function OperatorNavbar() {
                     )}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function OperatorNavbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="https://images.unsplash.com/photo-1502685104226-1c2b0f8d3a4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=60"
                     className="size-8 rounded-full"
                   />
                 </MenuButton>
@@ -91,7 +91,6 @@ export default function OperatorNavbar() {
                     Your Profile
                   </a>
                 </MenuItem>
-                
                 <MenuItem>
                   <a
                     href="#"
@@ -112,7 +111,7 @@ export default function OperatorNavbar() {
             <DisclosureButton
               key={item.name}
               as="a"
-              href={item.href}
+              href={item.to}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
