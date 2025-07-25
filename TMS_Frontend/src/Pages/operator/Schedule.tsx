@@ -8,7 +8,7 @@ export function Schedule() {
           <h2 className="text-2xl font-semibold">Schedule Management</h2>
           <p className="text-sm text-gray-600">Manage your bus schedules</p>
         </div>
-        <Link to="/home/add-schedule" className="bg-black text-white px-4 py-2 rounded">
+        <Link to="/operator/add-schedule" className="bg-black text-white px-4 py-2 rounded">
           + Create New Schedule
         </Link>
       </div>

@@ -1,4 +1,5 @@
 import { FaSearch, FaBus, FaRegCalendarAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function UserDashboard() {
   return (
@@ -40,7 +41,7 @@ export default function UserDashboard() {
           </div>
 
           {/* Journey Date & Button */}
-          <div className="w-[50%] flex flex-col justify-center items-center px-6">
+          <div className="w-[50%] flex flex-col justify-center items-center px-6 ">
             <div className="w-full">
               <div className="flex items-center gap-3">
                 <FaRegCalendarAlt size={30} />
@@ -50,17 +51,17 @@ export default function UserDashboard() {
               </div>
  
               <input
-                className="h-10 text-base mt-3 rounded-lg border border-gray-300 w-full px-3"
+                className="h-10 text-base mt-3 rounded-lg border border-gray-300 w-full px-3 mb-7"
                 type="date"
                 id="journeydate"
               />
 
-              <button
-                type="button"
-                className="mt-4 w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5"
+              <Link
+                to="/user/search-results"
+                className="mt-5 w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 "
               >
                 Show Buses
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,11 +1,14 @@
-
-
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom';
 
 const navigation = [
-  { name: 'My Bookings', href: '#', current: true },
-  { name: 'Profile', href: '#', current: true },
+  { name: 'Dashboard', to: '/operator/dashboard', current: true },
+  { name: 'Buses', to: '/operator/buses', current: true },
+  { name: 'Routes', to: '/operator/routes', current: true },
+  { name: 'Pickup Points', to: '/operator/pickup-drop', current: true },
+  { name: 'Schedules', to: '/operator/schedule', current: true },
+  { name: 'Bookings', to: '/operator/bookings', current: true },
 ]
 
 type ClassValue = string | false | null | undefined ;
@@ -14,8 +17,8 @@ function classNames(...classes:ClassValue[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function UserNavbar(){
-  return(
+export default function OperatorNavbar() {
+  return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
@@ -32,16 +35,18 @@ export function UserNavbar(){
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
+                 src="../../public/images/tms_logo.png"
+                className="h-8 w-auto rounded-2xl"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <a
+                  <Link
+
+
                     key={item.name}
-                    href={item.href}
+                    to={item.to}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
                       item.current ? ' text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -49,7 +54,7 @@ export function UserNavbar(){
                     )}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -89,6 +94,7 @@ export function UserNavbar(){
                     Your Profile
                   </a>
                 </MenuItem>
+                
                 <MenuItem>
                   <a
                     href="#"
@@ -109,7 +115,7 @@ export function UserNavbar(){
             <DisclosureButton
               key={item.name}
               as="a"
-              href={item.href}
+              href={item.to}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',

@@ -1,5 +1,6 @@
 import {  FaWifi, FaCoffee, FaTv } from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function BusesResultCard() {
   return (
@@ -46,9 +47,9 @@ export default function BusesResultCard() {
           <p className="text-sm text-gray-500">per person</p>
         </div>
 
-        <button className="mt-4 bg-black text-white rounded-md px-5 py-2 hover:bg-gray-800">
-          View Seats
-        </button>
+        <Link to="/user/pickup-drop" className="mt-4 bg-black text-white rounded-md px-5 py-2 hover:bg-gray-800">
+          Book Now
+        </Link>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 export function Bookings() {
     return (
-        <div className="p-6">
+        <div className="p-6 min-h-screen bg-gray-100">
             <div className="mb-4">
                 <h2 className="text-xl font-semibold">Booking Management</h2>
                 <p className="text-sm text-gray-500">View and manage customer bookings</p>

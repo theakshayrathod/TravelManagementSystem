@@ -31,7 +31,6 @@ export function BookingCard() {
       <div className="flex gap-2 justify-end">
         <button className="px-4 py-1 text-sm border rounded">View Details</button>
         <button className="px-4 py-1 text-sm border rounded text-red-600">Cancel Booking</button>
-        <button className="px-4 py-1 text-sm border rounded">Reschedule</button>
       </div>
     </div>
   );

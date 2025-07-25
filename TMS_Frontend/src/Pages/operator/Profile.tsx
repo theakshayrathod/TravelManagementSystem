@@ -40,7 +40,7 @@ export function OperatorProfile() {
       {/* Update Profile Button */}
       <div className="col-span-full">
         <Link
-          to="/home/update-operator"
+          to="/operator/update-operator"
           className="flex w-30 justify-center rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Update Profile
