@@ -3,40 +3,13 @@ import Footer from "../../components/Footer"
 import { Outlet } from "react-router-dom"
 
 export function UserHome() {
-
-
-
-    return (
+ return (
         <>
-
-
             <UserNavbar />
-
-            <main className="flex-grow" >
-
+            <main className="flex-grow" > 
                 <Outlet />
-
-
-
             </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
             <Footer />
-
-
-
-
         </>
-    )
+     )
 }

@@ -27,6 +27,7 @@ import { UserHome } from './Pages/user/UserHome'
 import { OperatorHome } from './Pages/operator/OperatorHome'
 import { PickupAndDropPoints } from './Pages/operator/PickupAndDropPoints'
 import AddedRoutes from './Pages/operator/AddRoutes'
+import { SeatSelection } from './Pages/user/SeatSelection'
 
 
 
@@ -54,6 +55,7 @@ function App(): JSX.Element {
           <Route path='booking-view' element={<BookingView />} />
           <Route path='my-booking' element={<MyBookings />} />
           <Route path='pickup-drop' element={<BookPickAndDrop />} />
+          <Route path='seat-selection' element={<SeatSelection />} />
         </Route>
         {/* Operator */}
         <Route path='operator' element={<OperatorHome />} >

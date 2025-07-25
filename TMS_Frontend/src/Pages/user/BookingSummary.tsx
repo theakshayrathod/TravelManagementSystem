@@ -47,9 +47,9 @@ export function BookingSummary() {
           <h3 className="text-sm font-medium text-gray-700 mb-2">Passenger Information</h3>
           <div className="flex justify-between items-center text-sm">
             <div>
-              <p className="font-semibold">John Doe</p>
+              <p className="font-semibold">Ravi Kumar</p>
               <p className="text-gray-500">Male, 28 years</p>
-              <p className="text-gray-400 text-xs">john.doe@email.com</p>
+              <p className="text-gray-400 text-xs">ravi.kumar@email.com</p>
             </div>
             <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">Seat 5</span>
           </div>

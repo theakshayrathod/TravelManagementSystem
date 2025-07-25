@@ -10,13 +10,13 @@ export function OperatorProfile() {
       {/* Name */}
       <div className="sm:col-span-3">
         <label className="block text-sm font-bold text-gray-700">Name</label>
-        <p className="mt-1">John Doe</p>
+        <p className="mt-1">Ravi Kumar</p>
       </div>
 
       {/* Email */}
       <div className="sm:col-span-4">
         <label className="block text-sm font-bold text-gray-700">Email</label>
-        <p className="mt-1">johndoe@example.com</p>
+        <p className="mt-1">ravi.kumar@example.com</p>
       </div>
 
       {/* License Number */}
@@ -28,7 +28,7 @@ export function OperatorProfile() {
       {/* Address */}
       <div className="col-span-full">
         <label className="block text-sm font-bold text-gray-700">Address</label>
-        <p className="mt-1">123 Main Street, Springfield, USA</p>
+        <p className="mt-1">26635, Pune, Maharashtra</p>
       </div>
 
       {/* Contact */}

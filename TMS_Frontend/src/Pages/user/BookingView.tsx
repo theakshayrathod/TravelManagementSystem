@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 export function BookingView() {
+  
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -11,7 +13,7 @@ export function BookingView() {
 
         <div className="mb-4 text-sm">
           <p className="text-gray-600">Journey Details</p>
-          <p className="text-black font-medium">New York → Miami</p>
+          <p className="text-black font-medium">Pune → Karad</p>
           <p className="text-gray-500">Dec 25, 2024 · 08:00 AM</p>
           <p className="text-gray-500">MegaBus · 6h 30m</p>
         </div>
@@ -19,8 +21,7 @@ export function BookingView() {
         <hr className="my-2" />
 
         <div className="mb-4 text-sm">
-          <p className="text-gray-600">Selected Seats</p>
-          <p className="text-black">No seats selected</p>
+         
         </div>
 
         <hr className="my-2" />
