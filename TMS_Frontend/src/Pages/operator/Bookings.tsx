@@ -22,15 +22,15 @@ export function Bookings() {
                         {[
                             {
                                 id: 'BG123456',
-                                name: 'John Doe',
-                                email: 'john.doe@example.com',
-                                route: 'New York to Miami',
+                                name: 'Mohit Sharma',
+                                email: 'mohit.sharma@example.com',
+                                route: 'karad to Pune',
                                 date: 'Dec 25, 2024 08:00 AM',
                                 seats: 4,
-                                fare: '$50',
+                                fare: '₹1800',
                             }
            
-                        ].map((booking) => (
+                         ].map((booking) => (
                             <tr key={booking.id} className="border-b hover:bg-gray-50">
                                 <td className="p-3">{booking.id}</td>
                                 <td className="p-3">

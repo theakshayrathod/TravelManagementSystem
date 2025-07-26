@@ -24,7 +24,7 @@ export function BookingCard() {
 
       {/* Booking Info */}
       <div className="text-xs text-gray-600">
-        Seats: 2 • Bus: BUS-102 • $50
+        Seats: 2 • Bus: BUS-102 • ₹500
       </div>
 
       {/* Actions */}

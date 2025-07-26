@@ -1,7 +1,7 @@
 export function OperatorDashboard() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-4xl mx-auto p-3">
+      <div className="w-full max-w-4xl mb-20 border p-3">
         <div className="p-4 sm:p-6">
           {/* <button className="text-sm text-blue-600 mb-4">{'< Back to Buses'}</button> */}
           <h2 className="text-2xl font-semibold mb-1">Operator Dashboard</h2>
