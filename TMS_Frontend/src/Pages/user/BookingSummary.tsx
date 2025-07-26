@@ -27,7 +27,7 @@ export function BookingSummary() {
           <div className="flex justify-between text-sm text-gray-700">
             <div>
               <p className="font-semibold">08:00 AM</p>
-              <p>New York</p>
+              <p>Karad</p>
               <p className="text-gray-400 text-xs">Dec 25, 2024</p>
             </div>
             <div className="text-center">
@@ -37,7 +37,7 @@ export function BookingSummary() {
             </div>
             <div className="text-right">
               <p className="font-semibold">02:30 PM</p>
-              <p>Miami</p>
+              <p>Pune</p>
               <p className="text-gray-400 text-xs">Dec 25, 2024</p>
             </div>
           </div>
@@ -59,13 +59,13 @@ export function BookingSummary() {
           <h3 className="text-sm font-medium text-gray-700 mb-2">Payment Information</h3>
           <div className="text-sm text-gray-700">
             <div className="flex justify-between">
-              <span>Base fare (1 × ₹45)</span>
+              <span>Base fare (1 × ₹450)</span>
               <span>₹45</span>
             </div>
 
             <div className="border-t mt-2 pt-2 flex justify-between font-semibold">
               <span>Total Paid</span>
-              <span>₹45</span>
+              <span>₹450</span>
             </div>
             <p className="text-xs text-gray-500 mt-1">Paid via Credit Card ending in 3456</p>
           </div>

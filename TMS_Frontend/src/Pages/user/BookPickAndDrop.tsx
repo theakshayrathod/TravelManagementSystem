@@ -64,7 +64,7 @@ export function BookPickAndDrop() {
             <p><strong className="text-red-600">Drop:</strong> Not selected</p>
           </div>
           <div>
-            <p className="text-lg font-bold">$45</p>
+            <p className="text-lg font-bold">₹450</p>
             <p className="text-xs text-gray-500 mt-2">per person</p>
           </div>
           <Link to="/user/booking-view" className=" bg-black text-white py-2 px-6 border-2 rounded hover:bg-gray-800">
