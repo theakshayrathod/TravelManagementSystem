@@ -74,7 +74,7 @@ export function UserNavbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
-                    src="https://images.unsplash.com/photo-1502685104226-1c2b0f8d3a4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=60"
+                    src="/images/omkar_sir.jpeg"
                     className="size-8 rounded-full"
                   />
                 </MenuButton>
