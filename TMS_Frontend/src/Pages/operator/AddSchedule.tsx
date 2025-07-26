@@ -33,6 +33,18 @@ export function AddSchedule(): JSX.Element {
                 <option>Select route</option>
               </select>
             </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Pick Point *</label>
+              <select className="w-full border px-3 py-2 rounded">
+                <option>Select route</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Drop Point *</label>
+              <select className="w-full border px-3 py-2 rounded">
+                <option>Select route</option>
+              </select>
+            </div>
 
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
