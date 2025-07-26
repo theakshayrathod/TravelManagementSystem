@@ -1,27 +1,28 @@
 
 import axios from "axios";
-import { config } from "../../config";
+// import { config } from "../../config";
 
 export async function OperatorRegistration(name: string, email: string, contactNo: string, gender: string, password: string, companyName: string, licenseNumber: string, address: string) {
-    // Implement the registration logic here
-    try{
-        const url = `${config.serverUrl}/operator/signup`;
 
-        const body ={
+    try {
+        const url = `http://localhost:8080/operator/signup`;
+
+        const body = {
             name,
             email,
             contactNo,
-            gender,
+            gender: gender.toUpperCase(),
             password,
             companyName,
             licenseNumber,
             address
         }
-
+        console.log(body)
         const response = await axios.post(url, body);
-        if(response.status === 200) {
+        console.log(response)   
+        if (response.status === 200) {
             return response.data;
-        }else {
+        } else {
             return null;
         }
 
