@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 
 public class InvalidinputException extends RuntimeException {
 	
-	private String msg;
+	
 	private LocalDateTime timeStamp;
 	public InvalidinputException(String msg) {
-		this.msg = msg;
+	super(msg);
 		this.timeStamp = LocalDateTime.now();
 	}
+	
 	
 	
 	
