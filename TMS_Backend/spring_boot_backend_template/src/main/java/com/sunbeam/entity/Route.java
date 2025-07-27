@@ -31,7 +31,7 @@ public class Route {
 	private Double distance;
 	@OneToMany(mappedBy = "route" , cascade = CascadeType.ALL)
 	private List<Schedule> schedules = new ArrayList<>();
-	@OneToMany(mappedBy = "point" ,cascade = CascadeType.ALL )
+	@OneToMany(mappedBy = "route" ,cascade = CascadeType.ALL )
 	private List<Point> points = new ArrayList<>();
 	
 	

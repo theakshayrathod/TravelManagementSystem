@@ -1,5 +1,6 @@
 package com.sunbeam.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,7 +41,9 @@ public class Bus extends BaseEntity {
 	private String registrationNumber;
 	
 	@OneToMany(mappedBy = "bus",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<BusImage>images;
+	private List<BusImage>images = new ArrayList<>();
+	@OneToMany(mappedBy = "bus" ,cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Schedule> schedules = new ArrayList<>();
 	
 	
 	@ManyToOne
