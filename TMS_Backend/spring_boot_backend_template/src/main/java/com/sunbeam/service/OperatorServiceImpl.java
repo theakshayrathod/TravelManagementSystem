@@ -1,11 +1,17 @@
 package com.sunbeam.service;
 
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.sunbeam.dao.BusDao;
+import com.sunbeam.dao.OperatorDao;
 import com.sunbeam.dao.UserDao;
+import com.sunbeam.dto.BusDto;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.OperatorSignUpDto;
+import com.sunbeam.entity.Bus;
+import com.sunbeam.entity.BusImage;
 import com.sunbeam.entity.Operator;
 import com.sunbeam.entity.User;
 import com.sunbeam.entity.UserRole;
@@ -18,9 +24,13 @@ import lombok.AllArgsConstructor;
 @Transactional
 @AllArgsConstructor
 public class OperatorServiceImpl implements OperatorService {
-	
+
+  
 	private UserDao userDao;
 	private ModelMapper modelMapper;
+
+
+   
 	
 	
 	@Override
@@ -36,7 +46,7 @@ public class OperatorServiceImpl implements OperatorService {
 		Operator operator = new Operator();
 		operator.setAddress(dto.getAddress());
 		operator.setCompanyName(dto.getCompanyName());
-		operator.setLicenseNumber(dto.getLicenseNo());
+		operator.setLicenseNumber(dto.getLicenseNumber());
 		
 		operator.setUser(u);
 		u.setOperator(operator);
@@ -45,6 +55,9 @@ public class OperatorServiceImpl implements OperatorService {
 		
 		return new ApiResponse("Operator registration successfully");
 	}
+
+
+//	
 	
 	
 

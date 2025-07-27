@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sunbeam.dto.BusDto;
 import com.sunbeam.dto.OperatorSignUpDto;
 import com.sunbeam.service.OperatorService;
 
@@ -25,5 +26,7 @@ public class OperatorController {
 	public ResponseEntity<?> signUp(@RequestBody OperatorSignUpDto dto){
 		return ResponseEntity.ok(operatorService.signUp(dto));
 	}
+	
+	
 
 }

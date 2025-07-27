@@ -15,8 +15,8 @@ public class OperatorSignUpDto {
 	private Gender gender;
 	private String password;
 	private String companyName;
+	private String licenseNumber;
 	private String address;
-	private String licenseNo;
 	
 
 }
