@@ -37,14 +37,12 @@ public class SchedulePoint {
 	@Column(nullable = false)
 	private PointType type;
 	@Column(name = "arrival_time",nullable = false)
-	private LocalTime arrivaTime;
+	private LocalTime arrivalTime;
 		
 	public SchedulePoint(Schedule schedule, Point point, PointType type) {
 		this.schedule = schedule;
 		this.point = point;
 		this.type = type;
-	}
-	
-	
+	}	
 
 }
