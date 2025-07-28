@@ -1,8 +1,70 @@
 import { Link } from "react-router-dom";
 import { BusCard } from "../../components/operator/BusCard";
+import { useEffect, useState } from "react";
+import { deleteBus, getAllBuses } from "../../services/operator/bus";
+import { toast } from "react-toastify";
+
+type Bus = {
+  id: number,
+  busName: string,
+  busType: string,
+  totalSeats: string,
+  wifi: boolean
+  tv: boolean
+  powerOutlet: boolean
+  registrationNumber: string,
+  images: string[]
+
+}
 
 
 export function Buses() {
+
+  const [buses, setBuses] = useState<Bus[]>([]);
+
+
+  const getBuses = async () => {
+
+    const result = await getAllBuses(2);
+
+
+    if (!result) {
+
+      console.log("No buses found");
+      setBuses([])
+    }
+    else {
+
+      setBuses(result);
+
+    }
+  }
+
+
+  const handleDelete = async (busId: number) => {
+    const result = await deleteBus(busId)
+
+    // console.log(result.data)
+
+    if (!result) {
+      toast.error("Error while delete bus")
+      console.log(result)
+    }
+    else {
+      toast.success("Bus delete successfully.")
+      getBuses()
+
+
+    }
+
+  }
+
+
+
+  useEffect(() => {
+    getBuses();
+
+  }, [])
   return (
     <div className="w-full min-h-screen p-6 bg-gray-100">
       <div className="flex justify-between items-center mb-6">
@@ -33,11 +95,15 @@ export function Buses() {
           {/* Removed Status dropdown as per your instruction */}
         </div>
 
-        <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1  sm:grid-cols-4  gap-6">
           {/* Example card - repeat for each bus */}
-         
-          <BusCard />
-          <BusCard />
+
+          {buses.map((bus: Bus) => {
+            return (
+
+              <BusCard key={bus.id} bus={bus} onDelete={()=>handleDelete(bus.id)} />
+            )
+          })}
           {/* Repeat similar blocks for other buses... */}
         </div>
       </div>

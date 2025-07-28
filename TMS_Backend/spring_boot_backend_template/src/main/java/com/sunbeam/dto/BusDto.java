@@ -16,7 +16,7 @@ import lombok.Setter;
 
 public class BusDto {
 	
-	
+	private  Long id;
 	private String busName;
 	
 	private String busType;

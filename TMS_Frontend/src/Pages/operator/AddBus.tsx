@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { AddBus as addBus } from "../../services/operator/bus";
 
@@ -20,9 +20,6 @@ export function AddBus() {
     isPowerOutlets: false,
 
   });
-
-
-
 
   const onAddBus = async () => {
     if (info.busName.length == 0) {
