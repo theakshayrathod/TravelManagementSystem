@@ -48,6 +48,7 @@ public class BusController {
 		
 		if(buses.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();}
+		System.out.println(buses);
 		return ResponseEntity.ok(buses);
 	}
 	@PutMapping("/update/{busId}")

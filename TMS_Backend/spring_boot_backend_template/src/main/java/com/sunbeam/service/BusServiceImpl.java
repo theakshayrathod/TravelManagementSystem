@@ -65,16 +65,20 @@ public class BusServiceImpl implements BusService {
 		Bus bus = busDao.findById(busId).orElseThrow(() -> new InvalidinputException("Bus not found"));
 		
 		busDao.delete(bus);
-		return null;
+		return new ApiResponse("Bus delete successfully");
 	}
 
 	@Override
 	public List<BusDto> getAllBuses(long operatorId) {
-		
-		if(!operatorDao.existsById(operatorId)) {
-			throw new InvalidinputException("Operator Not Found...");
+		if(!operatorDao.existsById(operatorId)){
+			throw new InvalidinputException("operator not found");
+			
 		}
-		return busDao.findById(operatorId).stream().map(entity-> mapper.map(entity, BusDto.class)).toList();
+//		Operator op= operatorDao.findByOperatorId(operatorId).orElseThrow(()->new InvalidinputException("Invalid Operator ID"));
+//		op.getBuses().size();
+//		return op.getBuses().stream().map((e)->mapper.map(e, BusDto.class)).toList();
+		
+		return busDao.findByOperatorOperatorId(operatorId).stream().map((e)->mapper.map(e, BusDto.class)).toList();
 		
 	}
 
