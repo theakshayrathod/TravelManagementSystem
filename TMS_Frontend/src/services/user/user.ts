@@ -48,3 +48,20 @@ export async function loginUser(email: string, password: string) {
     }
 }
 
+
+export async function getRoutes() {
+  try {
+    const url = "http://localhost:8080/route";
+    const response = await axios.get(url);
+    if (response.status === 200) {
+        console.log(response)
+      return response.data; 
+    } else {
+      return [];
+    }
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+}
+
