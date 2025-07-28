@@ -24,9 +24,7 @@ import lombok.Setter;
 @Table(name = "operator_details")
 public class Operator {
 	@Id
-	private Long operatorId;
-	
-	
+	private Long operatorId;	
 	@OneToOne
 	@MapsId
 	@JoinColumn(name = "operator_id")
