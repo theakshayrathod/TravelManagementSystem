@@ -28,6 +28,5 @@ export async function OperatorRegistration(name: string, email: string, contactN
 
     } catch (error) {
         console.error("Error during operator registration:", error);
-        throw error;
     }
 }
