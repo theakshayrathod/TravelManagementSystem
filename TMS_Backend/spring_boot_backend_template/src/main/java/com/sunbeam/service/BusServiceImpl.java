@@ -29,11 +29,16 @@ public class BusServiceImpl implements BusService {
 
 	@Override
 	public ApiResponse addBus(BusDto dto ,Long id) {
+		
 		if(busDao.existsByRegistrationNumber(dto.getRegistrationNumber())) {
 			throw new InvalidinputException("Bus already listed");
 		}
 		
 		Bus bus = mapper.map(dto, Bus.class);
+		
+		System.err.println(bus.isPowerOutlet());
+		System.err.println(bus.isTv());
+		System.err.println(bus.isWifi());
 		
 		Operator operator = operatorDao.findById((id)).orElseThrow(()-> new InvalidinputException("Invalid Operator Id.."));
 		
