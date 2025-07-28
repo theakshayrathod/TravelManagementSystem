@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { BusCard } from "../../components/operator/BusCard";
+
 
 export function Buses() {
   return (
@@ -31,30 +33,11 @@ export function Buses() {
           {/* Removed Status dropdown as per your instruction */}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3">
           {/* Example card - repeat for each bus */}
-          <div className=" p-4 rounded-lg shadow-lg ">
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-600">🚌</span>
-                  <h4 className="font-semibold">Luxury Coach 101</h4>
-                </div>
-                <p className="text-sm text-gray-500">ID: BUS-101</p>
-              </div>
-
-            </div>
-            <p className="text-sm">Type: <strong>Luxury</strong></p>
-            <p className="text-sm mb-2">Capacity: <strong>40 seats</strong></p>
-            {/* Removed Next Maintenance */}
-            <div className="flex flex-wrap gap-2 mt-2 text-xs">
-              <span className="bg-gray-100 px-2 py-1 rounded">WiFi</span>
-              <span className="bg-gray-100 px-2 py-1 rounded">TV</span>
-              <span className="bg-gray-100 px-2 py-1 rounded">PowerOutlet</span>
-
-            </div>
-          </div>
-
+         
+          <BusCard />
+          <BusCard />
           {/* Repeat similar blocks for other buses... */}
         </div>
       </div>

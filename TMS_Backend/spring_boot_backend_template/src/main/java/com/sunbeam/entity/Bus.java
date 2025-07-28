@@ -32,11 +32,11 @@ public class Bus extends BaseEntity {
 	@Column(name = "total_seats")
 	private int totalSeats;
 	@Column(name = "is_wifi")
-	private boolean isWifi;
+	private boolean wifi;
 	@Column(name = "is_tv")
-	private boolean isTv;
+	private boolean tv;
 	@Column(name = "is_power_outlet")
-	private boolean isPowerOutlet;
+	private boolean powerOutlet;
 	@Column(name = "registration_number")
 	private String registrationNumber;
 	

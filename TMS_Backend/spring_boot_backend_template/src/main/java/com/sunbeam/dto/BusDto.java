@@ -23,11 +23,11 @@ public class BusDto {
 	
 	private int totalSeats;
 	
-	private boolean isWifi;
+	private boolean wifi;
 	
-	private boolean isTv;
+	private boolean tv;
 
-	private boolean isPowerOutlet;
+	private boolean powerOutlet;
 	
 	private String registrationNumber;
 	private List<BusImage>images;
