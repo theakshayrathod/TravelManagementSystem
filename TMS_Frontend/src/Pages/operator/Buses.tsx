@@ -25,7 +25,7 @@ export function Buses() {
 
   const getBuses = async () => {
 
-    const result = await getAllBuses(2);
+    const result = await getAllBuses(1);
 
 
     if (!result) {

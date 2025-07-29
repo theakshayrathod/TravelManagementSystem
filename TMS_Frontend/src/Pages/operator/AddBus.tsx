@@ -44,6 +44,7 @@ export function AddBus() {
         info.isPowerOutlets
       );
       if (!result) {
+        
         toast.error("Failed to add bus. Please try again.");
       } else {
         toast.success("Bus added successfully!");
