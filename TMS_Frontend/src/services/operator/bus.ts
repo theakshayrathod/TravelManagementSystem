@@ -3,7 +3,7 @@ import { config } from "../../config";
 
 export async function AddBus(busName: string, seatingCapacity: number, registrationNumber: string, busType: string, busPhotos: string[], wifi: boolean, tv: boolean, powerOutlet: boolean) {
 
-  const operatorId = 2;
+  const operatorId = 1;
 
   try {
     const url = `http://localhost:8080/bus/add/${operatorId}`;

@@ -1,39 +1,42 @@
 import { FaSearch, FaBus, FaRegCalendarAlt } from "react-icons/fa";
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getRoutes } from "../../services/user/user";
+
 import { RxValue } from "react-icons/rx";
+import { getRoutes, type RouteResponse } from "../../services/operator/route";
 
 
 export default function UserDashboard() {
 
-  type Route = {
-  route_id: number;
-  source: string;
-  destination: string;
-};
-  const[routes, setRoutes] = useState<Route[]>([]);
-  const [from, setFrom] =useState("");
-  const[to,setTo] = useState("");
-  const [journeyDate, setJourneyDate] = useState("");
 
+  const [routes, setRoutes] = useState<RouteResponse[]>([]);
+  const [from, setFrom] = useState<string>("");
+  const [to, setTo] = useState<string>("");
+  const [journeyDate, setJourneyDate] = useState<string>("");
+
+  async function fetchRoutes() {
+    const result: RouteResponse[] | null = await getRoutes();
+    // console.log("resulttt"+result)
+    if (result != null)
+      setRoutes(result);
+    else
+      setRoutes([])
+
+  }
   useEffect(() => {
-    async function fetchRoutes(){
-      const data = await getRoutes();
-      setRoutes(data);
-
-    }
     fetchRoutes();
-  },[]);
+  }, []);
 
-  const fromCities =Array.from(new Set(routes.map((route) => route.source)));
-  const ToCities =Array.from(new Set(routes.map((route) => route.destination)));
-  
+
+
+  const fromCities = routes.map((route) => route.source);
+  const ToCities = routes.map((route) => route.destination);
+
 
   return (
     <div className="flex justify-center items-center w-full min-h-screen bg-gray-100 ">
       <div className="h-[300px] w-[60%] flex flex-col bg-white border-white rounded-2xl shadow-lg p-6">
-        
+
         {/* Header Section (Full Width) */}
         <div className="flex flex-col  ">
           <div className="flex items-center gap-2 text-2xl font-bold text-gray-800">
@@ -53,18 +56,18 @@ export default function UserDashboard() {
               <FaBus size={30} />
               <select
                 value={from}
-                onChange={(e)=> setFrom(e.target.value)}
+                onChange={(e) => setFrom(e.target.value)}
                 className="text-base rounded-lg border border-gray-300 w-full px-3 py-2"
-                >
-                  <option value="">From</option>
-                  {fromCities.map((city,id) => (
-                    <option key={id} value={city}>
-                      {city}
-                    </option>
-                  ))}
+              >
+                <option value="">From</option>
+                {fromCities.map((city, id) => (
+                  <option key={id} value={city}>
+                    {city}
+                  </option>
+                ))}
 
 
-                </select>
+              </select>
               {/* <input
                 className="text-base rounded-lg border border-gray-300 w-full px-3 py-2"
                 type="text"
@@ -76,11 +79,11 @@ export default function UserDashboard() {
               <FaBus size={30} />
               <select
                 value={to}
-                onChange={(e)=> setTo(e.target.value)}
+                onChange={(e) => setTo(e.target.value)}
                 className="text-base rounded-lg border border-gray-300 w-full px-3 py-2"
               >
                 <option value="">To</option>
-                {fromCities.map((city,id)=>(
+                {ToCities.map((city, id) => (
                   <option key={id} value={city}>
                     {city}
                   </option>
@@ -104,13 +107,13 @@ export default function UserDashboard() {
                   Journey Date
                 </label>
               </div>
- 
+
               <input
                 className="h-10 text-base mt-3 rounded-lg border border-gray-300 w-full px-3 mb-7"
                 type="date"
                 id="journeydate"
                 value={journeyDate}
-                onChange={(e)=> setJourneyDate(e.target.value)}
+                onChange={(e) => setJourneyDate(e.target.value)}
               />
 
               <Link
