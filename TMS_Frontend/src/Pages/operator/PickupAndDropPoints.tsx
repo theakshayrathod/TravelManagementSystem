@@ -15,7 +15,7 @@ export function PickupAndDropPoints() {
                 </Link>
             </div>
             {/* Cards Grid */}
-            <PickAndDrop/>
+            {/* <PickAndDrop/> */}
         </div>
     );
 
