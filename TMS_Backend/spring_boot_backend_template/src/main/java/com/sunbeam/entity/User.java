@@ -35,7 +35,7 @@ public class User extends BaseEntity {
 	@Enumerated(EnumType.STRING)	
 	private UserRole role;
 	
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)   
 	private Operator operator;
 
 	public User(String name, String email, String password, String confirmPassword, String contactNo, Gender gender,
