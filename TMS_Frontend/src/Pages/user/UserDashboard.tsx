@@ -29,8 +29,9 @@ export default function UserDashboard() {
 
 
 
-  const fromCities = routes.map((route) => route.source);
-  const ToCities = routes.map((route) => route.destination);
+
+  const fromCities:string[] = [...new Set(routes.map(r=>r.source.charAt(0).toUpperCase() + r.source.slice(1).toLowerCase()))];
+  const ToCities:string[] = [...new Set(routes.map(r=>r.destination.charAt(0).toUpperCase() + r.destination.slice(1).toLowerCase()))]
 
 
   return (

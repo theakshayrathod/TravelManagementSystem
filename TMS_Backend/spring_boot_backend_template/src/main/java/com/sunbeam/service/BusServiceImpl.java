@@ -5,14 +5,14 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.BusDao;
 import com.sunbeam.dao.OperatorDao;
-import com.sunbeam.dto.BusDto;
 import com.sunbeam.dto.ApiResponse;
+import com.sunbeam.dto.BusDto;
 import com.sunbeam.entity.Bus;
 import com.sunbeam.entity.BusImage;
 import com.sunbeam.entity.Operator;
-import com.sunbeam.exception_handler.InvalidinputException;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ public class BusServiceImpl implements BusService {
 	public ApiResponse addBus(BusDto dto ,Long id) {
 		
 		if(busDao.existsByRegistrationNumber(dto.getRegistrationNumber())) {
-			throw new InvalidinputException("Bus already listed");
+			throw new InvalidInputException("Bus already listed");
 		}
 		
 		Bus bus = mapper.map(dto, Bus.class);
@@ -40,7 +40,7 @@ public class BusServiceImpl implements BusService {
 		System.err.println(bus.isTv());
 		System.err.println(bus.isWifi());
 		
-		Operator operator = operatorDao.findById((id)).orElseThrow(()-> new InvalidinputException("Invalid Operator Id.."));
+		Operator operator = operatorDao.findById((id)).orElseThrow(()-> new InvalidInputException("Invalid Operator Id.."));
 		
 		bus.setOperator(operator);
 		
@@ -62,7 +62,7 @@ public class BusServiceImpl implements BusService {
 
 	@Override
 	public ApiResponse deleteBus(Long busId) {
-		Bus bus = busDao.findById(busId).orElseThrow(() -> new InvalidinputException("Bus not found"));
+		Bus bus = busDao.findById(busId).orElseThrow(() -> new InvalidInputException("Bus not found"));
 		
 		busDao.delete(bus);
 		return new ApiResponse("Bus delete successfully");
@@ -71,7 +71,7 @@ public class BusServiceImpl implements BusService {
 	@Override
 	public List<BusDto> getAllBuses(long operatorId) {
 		if(!operatorDao.existsById(operatorId)){
-			throw new InvalidinputException("operator not found");
+			throw new InvalidInputException("operator not found");
 			
 		}
 //		Operator op= operatorDao.findByOperatorId(operatorId).orElseThrow(()->new InvalidinputException("Invalid Operator ID"));

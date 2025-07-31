@@ -2,7 +2,10 @@ package com.sunbeam.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.CollectionId;
+
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,17 +30,20 @@ public class Point {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(length = 20 , nullable = false)
 	private String name;
+	private String address;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "route_id",nullable = false)
 	private Route route;
 	@OneToMany(mappedBy = "point",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<SchedulePoint> schedulePoints;
+	@Column(name = "map_link", length = 500)
+	private String mapLink;
 	
-	public Point(String name, Route route) {
-		this.name = name;
-		this.route = route;
-	}
+	
+	
+	
 	
 	
 	
