@@ -16,7 +16,7 @@ export default function AddedRoutes() {
 
   useEffect(() => {
     getRoutes();
-  },[])
+  }, [])
 
   const addRoute = async () => {
 
@@ -33,6 +33,8 @@ export default function AddedRoutes() {
       const result: ApiResponse | null = await addRouteToDb(source, destination, distance);
       if (!result) {
         toast.error("Error While Adding Route")
+      } else if (result.message == "Already Exists") {
+        toast.warn(result.message)
       } else {
         toast.success(result.message)
         getRoutes()
@@ -51,14 +53,14 @@ export default function AddedRoutes() {
     if (!result) {
       toast.error("Error While Getting Routes")
     } else {
-      setRoutes(result)    
+      setRoutes(result)
     }
 
 
   }
 
 
-  
+
 
 
 
@@ -67,7 +69,7 @@ export default function AddedRoutes() {
     <div className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-xl mx-auto space-y-6">
 
-        
+
 
         {/* Add Route Form (UI Only) */}
         <div className="bg-white p-6 rounded-xl shadow-md space-y-4 ">
@@ -85,11 +87,11 @@ export default function AddedRoutes() {
         {/* Static Route Cards */}
         <div className="space-y-4">
 
-          {routes.map((route)=>{
-            return ( <RouteCard key={route.id} route={route} />)
+          {routes.map((route) => {
+            return (<RouteCard key={route.id} route={route} />)
           })}
 
-{/* 
+          {/* 
           <RouteCard />
           <RouteCard />
           <RouteCard /> */}
