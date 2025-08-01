@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.custom_exception.AuthenticationFailureException;
+import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.UserDao;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.SignInDto;
@@ -11,7 +12,6 @@ import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
 import com.sunbeam.entity.User;
 import com.sunbeam.entity.UserRole;
-import com.sunbeam.exception_handler.InvalidinputException;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 	public ApiResponse signUp(SignUpDto dto) {
 		
 		if(userDao.existsByEmail(dto.getEmail())) {
-			throw new InvalidinputException("Email Already Exist");
+			throw new InvalidInputException("Email Already Exist");
 		}
 		
 		

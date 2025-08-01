@@ -14,31 +14,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "routes")
 public class Route {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String source;
 	private String destination;
 	private Double distance;
-	@OneToMany(mappedBy = "route" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "route", cascade = CascadeType.ALL)
 	private List<Schedule> schedules = new ArrayList<>();
-	@OneToMany(mappedBy = "route" ,cascade = CascadeType.ALL )
+	@OneToMany(mappedBy = "route", cascade = CascadeType.ALL)
 	private List<Point> points = new ArrayList<>();
-	
-	
+
 	public Route(String source, String destination, Double distance) {
 		this.source = source;
 		this.destination = destination;
 		this.distance = distance;
 	}
-	
+
+	public void addPoints(Point p) {
+		this.points.add(p);
+		p.setRoute(this);
+	}
+
 }

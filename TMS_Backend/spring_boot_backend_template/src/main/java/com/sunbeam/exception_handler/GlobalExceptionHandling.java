@@ -1,12 +1,12 @@
 package com.sunbeam.exception_handler;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.sunbeam.custom_exception.AuthenticationFailureException;
+import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dto.ApiResponse;
 
 
@@ -20,8 +20,8 @@ public class GlobalExceptionHandling {
 		
 	}
 	
-	@ExceptionHandler(InvalidinputException.class)
-	public ResponseEntity<?> handleInvalidInputException(InvalidinputException e){
+	@ExceptionHandler(InvalidInputException.class)
+	public ResponseEntity<?> handleInvalidInputException(InvalidInputException e){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage()));
 	}
 	

@@ -6,7 +6,7 @@ const navigation = [
   { name: 'Dashboard', to: '/operator/dashboard', current: true },
   { name: 'Buses', to: '/operator/buses', current: true },
   { name: 'Routes', to: '/operator/add-route', current: true },
-  { name: 'Pickup Points', to: '/operator/pickup-drop', current: true },
+  { name: 'Pickup Points', to: '/operator/add-pick-drop ', current: true },
   { name: 'Schedules', to: '/operator/schedule', current: true },
   { name: 'Bookings', to: '/operator/bookings', current: true },
 ]
