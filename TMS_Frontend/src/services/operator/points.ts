@@ -16,7 +16,8 @@ export async function addpoints(routId: number, pointName: string, address: stri
 
         if (response.status == 200) {
             return response.data
-        } else {
+        }
+        else {
             return null;
         }
 
@@ -31,6 +32,22 @@ export async function getAllPoints() {
 
         const response = await axios.get(url)
         console.log(response)
+
+        if (response.status == 200)
+            return response.data
+        else
+            return null;
+
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export async function deletePoint(id: number) {
+    try {
+        const url = `${config.serverUrl}/points/delete/${id}`
+
+        const response = await axios.delete(url);
 
         if (response.status == 200)
             return response.data

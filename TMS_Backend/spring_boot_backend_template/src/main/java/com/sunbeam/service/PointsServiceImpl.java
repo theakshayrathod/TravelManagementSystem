@@ -29,19 +29,30 @@ public class PointsServiceImpl implements PointsService {
 	public ApiResponse addPoints(PointDto dto, Long routId) {
 		Route route = routeDao.findById(routId).orElseThrow(() -> new InvalidInputException("Route not found"));
 
+		if (pointsDao.existsByNameAndAddress(dto.getName(),dto.getAddress())) {
+			return new ApiResponse("Point already exist");
+		}
+
 		Point p = mapper.map(dto, Point.class);
 
 		System.err.println(p.toString());
 
 		route.addPoints(p);
 
-		return new ApiResponse("Pont added successfully...");
+		return new ApiResponse("Point added successfully...");
 	}
 
 	@Override
 	public List<PointDto> getPoints() {
 
 		return pointsDao.findAll().stream().map(e -> mapper.map(e, PointDto.class)).toList();
+	}
+
+	@Override
+	public ApiResponse deletePoint(Long id) {
+		Point point = pointsDao.findById(id).orElseThrow(() -> new InvalidInputException("Point not found"));
+		pointsDao.delete(point);
+		return new ApiResponse("Point delete successfully");
 	}
 
 }
