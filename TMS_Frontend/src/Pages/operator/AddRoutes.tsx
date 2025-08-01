@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import RouteCard from "../../components/RouteCard";
 import { addRoute as addRouteToDb, type ApiResponse, type RouteResponse, getRoutes as getRoutesFromDb } from "../../services/operator/route";
 import { toast } from "react-toastify";
+import type { JSX } from "react"
 
 
 
 
-export default function AddedRoutes() {
+export default function AddedRoutes(): JSX.Element {
 
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
