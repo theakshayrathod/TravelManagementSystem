@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.custom_exception.InvalidInputException;
+import com.sunbeam.dao.OperatorDao;
 import com.sunbeam.dao.UserDao;
 
 import com.sunbeam.dto.BusDto;
@@ -89,7 +90,7 @@ public class OperatorServiceImpl implements OperatorService {
 
 
 	@Override
-	public void updateProfile(Long operatorId, OperatorProfileDto dto) {
+	public ApiResponse updateProfile(Long operatorId, OperatorProfileDto dto) {
 		// TODO Auto-generated method stub
 		Operator operator = operatorDao.findByOperatorId(operatorId);
 		if(operator == null){
@@ -108,11 +109,13 @@ public class OperatorServiceImpl implements OperatorService {
 
         userDao.save(user);
         operatorDao.save(operator);
+        
+        return new ApiResponse("Operator Updated succesfully");
 		
 	}
 
 
-//	
+	
 	
 	
 

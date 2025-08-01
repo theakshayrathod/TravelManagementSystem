@@ -63,13 +63,13 @@ export async function getOpProfile(id: number) {
 
 }
 
- export interface operatorProfile {
-            name:String,
-            email:String,
-            contactNo:String,
-            companyName:String,
-            licenseNumber:String,
-            address:String
+ export type operatorProfile = {
+            name:string,
+            email:string,
+            contactNo:string,
+            companyName:string,
+            licenseNumber:string,
+            address:string
         }
 
 export async function updateOperatorProfile(id: number, body: operatorProfile) {
@@ -80,10 +80,10 @@ export async function updateOperatorProfile(id: number, body: operatorProfile) {
        
 
         const res = await axios.put(url,body);
-        console.log(res);
+        
         if (res.status == 200)
             
-      return res.data;
+            return res.data;
 
     }catch (e) {
     console.log(e);

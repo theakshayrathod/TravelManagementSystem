@@ -1,5 +1,7 @@
 import axios from "axios"
 // import { config } from "../config"
+import { UserProfileUpdate } from './../../Pages/user/UpdateProfile';
+import { UserProfile } from './../../Pages/user/Profile';
 
 export async function UserRegistration(name: string, email: string, contactNo: string, password: string) {
     try {
@@ -65,3 +67,33 @@ export async function getRoutes() {
   }
 }
 
+const userId = 1;
+
+export async function getUserProfile(userId: number){
+    try{
+        const url = `http://localhost:8080/user/update-user/${userId}`;
+        const res = await axios.get(url);
+        if (res.status == 200)
+      return res.data;
+    }catch( e){
+        console.log(e);
+    }
+}
+
+export type userProfile ={
+    name: string,
+    email:string,
+    contact:string,
+    gender:string
+}
+
+export async function updateUserProfile(userId:number, body: userProfile ){
+    try{
+        const url = `http://localhost:8080/user/update-user/${userId}`;
+        const res = await axios.put(url,body);
+        if(res.status == 200)
+            return res.data;
+    }catch(e){
+        console.log(e);
+    }
+}

@@ -85,7 +85,7 @@ export function UserNavbar() {
               >
                 <MenuItem>
                   <a
-                    href="#"
+                    href="/user/user-profile"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Your Profile
@@ -93,7 +93,7 @@ export function UserNavbar() {
                 </MenuItem>
                 <MenuItem>
                   <a
-                    href="#"
+                    href="/"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Sign out

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 // import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { JSX } from 'react';
 // import { Link } from 'react-router';
-import { Link } from 'react-router-dom';
-import { getOperatorProfile, updateOperatorProfile, type operatorProfile } from '../../services/operator/operator';
+
+import { getOperatorProfile, updateOperatorProfile } from '../../services/operator/operator';
 
 export function OperatorProfileUpdate(): JSX.Element {
 
@@ -30,11 +30,6 @@ useEffect(() => {
   fetchData();
 }, []);
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  setProfile((prev) => ({ ...prev, [name]: value }));
-};
-
 const handleUpdate = async () => {
   try {
     await updateOperatorProfile(operatorId, profile);
@@ -51,79 +46,74 @@ return (
     <div className="px-5 mt-10 rounded-2xl shadow-lg bg-white mx-1 mb-10 w-[40%] h-auto pb-10">
       <h2 className="text-3xl font-bold text-gray-900 mx-20 mt-1">Personal Information</h2>
       <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        {/* Name */}
         <div className="sm:col-span-3">
           <label className="block text-sm font-medium">Name</label>
           <input
             name="name"
             value={profile.name}
-            onChange={handleChange}
+            onChange={(e) => setProfile({ ...profile, name: e.target.value })}
             type="text"
-            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
 
-        {/* Email */}
         <div className="sm:col-span-4">
           <label className="block text-sm font-medium">Email address</label>
           <input
             name="email"
             value={profile.email}
-            onChange={handleChange}
+            onChange={(e) => setProfile({ ...profile, email: e.target.value })}
             type="email"
-            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900  outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
 
-        {/* Contact */}
         <div className="sm:col-span-3">
           <label className="block text-sm font-medium ">Contact</label>
           <input
             name="contactNo"
             value={profile.contactNo}
-            onChange={handleChange}
+            onChange={(e) => setProfile({ ...profile, contactNo: e.target.value })}
             type="text"
-            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
 
-        {/* Company Name */}
         <div className="sm:col-span-4">
           <label className="block text-sm font-medium">Company Name</label>
           <input
             name="companyName"
             value={profile.companyName}
-            onChange={handleChange}
+            onChange={(e) => setProfile({ ...profile, companyName: e.target.value })}
             type="text"
-            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900  outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
 
-        {/* License Number */}
         <div className="sm:col-span-3">
           <label className="block text-sm font-medium">License Number</label>
           <input
             name="licenseNumber"
             value={profile.licenseNumber}
-            onChange={handleChange}
+            onChange={(e) => setProfile({ ...profile, licenseNumber: e.target.value })}
             type="text"
-            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900  outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
 
-        {/* Address */}
+        
         <div className="sm:col-span-6">
           <label className="block text-sm font-medium">Address</label>
           <input
             name="address"
             value={profile.address}
-            onChange={handleChange}
+            onChange={(e) => setProfile({ ...profile, address: e.target.value })}
             type="text"
-            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
           />
         </div>
 
-        {/* Button */}
+        
         <div className="sm:col-span-6">
           <button
             type="button"
