@@ -10,6 +10,6 @@ import com.sunbeam.entity.Operator;
 public interface OperatorDao extends JpaRepository<Operator, Long> {
 	
 	
-	Optional<Operator> findByOperatorId(Long operatorId);
+	Operator findByOperatorId(Long operatorId);
 
 }

@@ -30,3 +30,64 @@ export async function OperatorRegistration(name: string, email: string, contactN
         console.error("Error during operator registration:", error);
     }
 }
+
+const operatorId = 1;
+
+export async function getOperatorProfile(id: number) {
+
+    try{
+
+
+        const URL =  `http://localhost:8080/operator/update-profile/${operatorId}`;
+  const res = await axios.get(URL);
+   if (res.status == 200)
+      return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+
+}
+
+export async function getOpProfile(id: number) {
+
+    try{
+
+
+        const URL =  `http://localhost:8080/operator/profile/${operatorId}`;
+  const res = await axios.get(URL);
+   if (res.status == 200)
+      return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+
+}
+
+ export interface operatorProfile {
+            name:String,
+            email:String,
+            contactNo:String,
+            companyName:String,
+            licenseNumber:String,
+            address:String
+        }
+
+export async function updateOperatorProfile(id: number, body: operatorProfile) {
+
+    try {
+        const url = `http://localhost:8080/operator/update-profile/${operatorId}`;
+
+       
+
+        const res = await axios.put(url,body);
+        console.log(res);
+        if (res.status == 200)
+            
+      return res.data;
+
+    }catch (e) {
+    console.log(e);
+  }
+
+}
+

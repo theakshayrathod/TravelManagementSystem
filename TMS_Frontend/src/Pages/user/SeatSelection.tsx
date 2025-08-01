@@ -71,9 +71,7 @@ export function SeatSelection({ scheduleId }: Props) {
                         disabled={seat.status === 'booked'}
                         onClick={() => handleSeatClick(seat)}
                         className={`w-16 h-16 rounded border
-              ${seat.status === 'booked' ? 'bg-red-300 cursor-not-allowed'
-                                : selectedSeats.includes(seat.number) ? 'bg-green-400'
-                                    : 'bg-white hover:bg-green-100'}
+              ${seat.status === 'booked' ? 'bg-red-300 cursor-not-allowed': selectedSeats.includes(seat.number) ? 'bg-green-400': 'bg-white hover:bg-green-100'}
             `}
                         title={seat.status === 'booked' ? 'Booked' : 'Available'}
                     >
