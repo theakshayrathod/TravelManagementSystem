@@ -1,20 +1,28 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { AddBus as addBus } from "../../services/operator/bus";
+import { addBus as addBusService } from "../../services/operator/bus";
+import type { JSX } from "react"
 
-
-export function AddBus() {
+type BusInfo = {
+  busName: string
+  seatingCapacity: number,
+  registrationNumber: string,
+  busType: string,
+  isWifi: boolean,
+  isTV: boolean,
+  isPowerOutlets: boolean,
+}
+export function AddBus(): JSX.Element {
 
 
   const [busPhotos, setBusPhotos] = useState<string[]>([]);
-
-  const [info, setInfo] = useState({
+  const busTypeOptions: string[] = ["AC", "NONAC"];
+  const [info, setInfo] = useState<BusInfo>({
     busName: "",
     seatingCapacity: 0,
     registrationNumber: "",
     busType: "",
-    busTypeOptions: ["AC", "NONAC"],
     isWifi: false,
     isTV: false,
     isPowerOutlets: false,
@@ -33,7 +41,7 @@ export function AddBus() {
     } else {
 
 
-      const result = await addBus(
+      const result = await addBusService(
         info.busName,
         info.seatingCapacity,
         info.registrationNumber,
@@ -44,7 +52,7 @@ export function AddBus() {
         info.isPowerOutlets
       );
       if (!result) {
-        
+
         toast.error("Failed to add bus. Please try again.");
       } else {
         toast.success("Bus added successfully!");
@@ -54,7 +62,6 @@ export function AddBus() {
           seatingCapacity: 0,
           registrationNumber: "",
           busType: "",
-          busTypeOptions: ["AC", "NONAC"],
           isWifi: false,
           isTV: false,
           isPowerOutlets: false,
@@ -101,12 +108,12 @@ export function AddBus() {
               onChange={(e) => setInfo({ ...info, busType: e.target.value })}
               className="w-full border px-3 py-2 rounded">
               <option value="">Select Bus Type</option>
-              {info.busTypeOptions.map((type, index) => (
+              {busTypeOptions.map((type, index) => (
                 <option key={index} value={type}>
                   {type}
                 </option>
               ))}
-              </select>
+            </select>
           </div>
 
           <div>
@@ -114,7 +121,7 @@ export function AddBus() {
             <input
               type="number"
               onChange={(e) => setInfo({ ...info, seatingCapacity: parseInt(e.target.value) })}
-              
+
               placeholder="e.g., 40"
               className="w-full border px-3 py-2 rounded"
             />

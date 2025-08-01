@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getRoutes, type RouteResponse } from "../../services/operator/route";
 import { toast } from "react-toastify";
 import { addpoints, getAllPoints as getPoints } from "../../services/operator/points";
+import type { JSX } from "react"
+
 
 type point = {
   id: number,
@@ -9,7 +11,7 @@ type point = {
   address: string,
   mapLink: string
 }
-export function Addpoints() {
+export function Addpoints(): JSX.Element {
 
   const [routes, setRoutes] = useState<RouteResponse[]>([]);
   const [routId, setRoutId] = useState<number>(0);

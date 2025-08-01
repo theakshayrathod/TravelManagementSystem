@@ -1,11 +1,13 @@
 
 import axios from "axios";
+import { config } from "../../config";
+import type { ApiResponse } from "./route";
 // import { config } from "../../config";
 
-export async function OperatorRegistration(name: string, email: string, contactNo: string, gender: string, password: string, companyName: string, licenseNumber: string, address: string) {
+export async function OperatorRegistration(name: string, email: string, contactNo: string, gender: string, password: string, companyName: string, licenseNumber: string, address: string): Promise<ApiResponse | null> {
 
     try {
-        const url = `http://localhost:8080/operator/signup`;
+        const url: string = `${config.serverUrl}/operator/signup`;
 
         const body = {
             name,
@@ -19,7 +21,7 @@ export async function OperatorRegistration(name: string, email: string, contactN
         }
         console.log(body)
         const response = await axios.post(url, body);
-        console.log(response)   
+        console.log(response)
         if (response.status === 200) {
             return response.data;
         } else {
@@ -29,6 +31,10 @@ export async function OperatorRegistration(name: string, email: string, contactN
     } catch (error) {
         console.error("Error during operator registration:", error);
     }
+
+    return null;
+}
+
 }
 
 const operatorId = 1;
@@ -90,4 +96,5 @@ export async function updateOperatorProfile(id: number, body: operatorProfile) {
   }
 
 }
+
 
