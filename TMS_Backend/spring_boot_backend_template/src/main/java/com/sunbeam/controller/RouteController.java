@@ -33,9 +33,6 @@ public class RouteController {
 		return ResponseEntity.ok(routeService.getRoutes());
 		
 	}
-	
-	
-	
-	
+		
 
 }

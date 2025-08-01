@@ -8,10 +8,12 @@ import com.sunbeam.dao.BusDao;
 import com.sunbeam.dao.OperatorDao;
 import com.sunbeam.dao.UserDao;
 import com.sunbeam.dto.BusDto;
+import com.sunbeam.dto.OperatorProfileDto;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.OperatorSignUpDto;
 import com.sunbeam.entity.Bus;
 import com.sunbeam.entity.BusImage;
+import com.sunbeam.entity.Gender;
 import com.sunbeam.entity.Operator;
 import com.sunbeam.entity.User;
 import com.sunbeam.entity.UserRole;
@@ -27,6 +29,7 @@ public class OperatorServiceImpl implements OperatorService {
 
   
 	private UserDao userDao;
+	private OperatorDao operatorDao;
 	private ModelMapper modelMapper;
 
 
@@ -54,6 +57,56 @@ public class OperatorServiceImpl implements OperatorService {
 		userDao.save(u);
 		
 		return new ApiResponse("Operator registration successfully");
+	}
+
+
+
+
+
+	@Override
+	public OperatorProfileDto getOperator(Long id) {
+		// TODO Auto-generated method stub
+		
+		Operator op = operatorDao.findByOperatorId(id);
+		
+		User user = op.getUser();
+		
+		
+		return new OperatorProfileDto(
+				user.getName(),
+				user.getEmail(),
+				user.getContactNo(),
+				user.getGender(),
+				op.getCompanyName(),
+				op.getLicenseNumber(),
+				op.getAddress());
+	}
+
+
+
+
+
+	@Override
+	public void updateProfile(Long operatorId, OperatorProfileDto dto) {
+		// TODO Auto-generated method stub
+		Operator operator = operatorDao.findByOperatorId(operatorId);
+		if(operator == null){
+			throw new RuntimeException("Operator not found");
+		}
+		
+		
+		operator.setCompanyName(dto.getCompanyName());
+        operator.setLicenseNumber(dto.getLicenseNumber());
+        operator.setAddress(dto.getAddress());
+        
+        User user = operator.getUser();
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setContactNo(dto.getContactNo());
+
+        userDao.save(user);
+        operatorDao.save(operator);
+		
 	}
 
 

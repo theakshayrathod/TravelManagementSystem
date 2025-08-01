@@ -1,98 +1,142 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { JSX } from 'react';
 // import { Link } from 'react-router';
 import { Link } from 'react-router-dom';
+import { getOperatorProfile, updateOperatorProfile, type operatorProfile } from '../../services/operator/operator';
 
 export function OperatorProfileUpdate(): JSX.Element {
 
-  return (
-    <div className=' flex-col justify-center items-center min-h-screen bg-gray-100 '>
-    <Link to="/operator/profile" className="text-indigo-600 hover:underline p-4">Back to Profile</Link>
+  const [profile, setProfile] = useState({
+  name: '',
+  email: '',
+  contactNo: '',
+  companyName: '',
+  licenseNumber: '',
+  address: '',
+});
 
-        <div className=" p-3  mb-5 ml-[35%] rounded-2xl shadow-lg bg-white  w-[32vw] ">
-          <h2 className="text-3xl font-bold  text-gray-900 mx-15 ">Bus Operator Profile</h2>
-          
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-3">
-              <label htmlFor="name" className="block text-sm/2 font-medium">
-                Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="-name"
-                  name="name"
-                  type="text"
-                  // autoComplete="given-name"
-                  className="block w-100 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-            <div className="sm:col-span-4">
-              <label htmlFor="email" className="block text-sm/2 font-medium ">
-                Email
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  // autoComplete="email"
-                  className="block w-100 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
+const operatorId = 1; // Replace with actual auth value
 
-            <div className="col-span-full">
-              <label htmlFor="licens" className="block text-sm/2 font-medium text-gray-900">
-                Licens No
-              </label>
-              <div className="mt-2">
-                <input
-                  id="licens"
-                  name="licens"
-                  type="text"
-                  // autoComplete="street-address"
-                  className="block w-100 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-            <div className="col-span-full">
-              <label htmlFor="licens" className="block text-sm/2 font-medium text-gray-900">
-                Address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="licens"
-                  name="licens"
-                  type="text"
-                  // autoComplete="street-address"
-                  className="block w-100 h-20 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const data = await getOperatorProfile(operatorId);
+      setProfile(data);
+    } catch (error) {
+      console.error('Failed to load profile', error);
+    }
+  };
+  fetchData();
+}, []);
 
-            <div className="sm:col-span-2 sm:col-start-1">
-              <label htmlFor="contact" className="block text-sm/2 font-medium text-gray-900">
-                Contact
-              </label>
-              <div className="mt-2">
-                <input
-                  id="contact"
-                  name="contact"
-                  type="tel"
-                  // autoComplete="address-level2"
-                  className=" w-55 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setProfile((prev) => ({ ...prev, [name]: value }));
+};
+
+const handleUpdate = async () => {
+  try {
+    await updateOperatorProfile(operatorId, profile);
+    alert('Profile updated successfully!');
+  } catch (err) {
+    alert('Failed to update profile');
+    console.error(err);
+  }
+};
 
 
-            <button type="button" className=" ml-25 mt-3 w-35 text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  my-4   dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update Profile</button>
-          </div>
+return (
+  <div className="flex justify-center items-center bg-gray-100">
+    <div className="px-5 mt-10 rounded-2xl shadow-lg bg-white mx-1 mb-10 w-[40%] h-auto pb-10">
+      <h2 className="text-3xl font-bold text-gray-900 mx-20 mt-1">Personal Information</h2>
+      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        {/* Name */}
+        <div className="sm:col-span-3">
+          <label className="block text-sm font-medium">Name</label>
+          <input
+            name="name"
+            value={profile.name}
+            onChange={handleChange}
+            type="text"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+          />
         </div>
-     
+
+        {/* Email */}
+        <div className="sm:col-span-4">
+          <label className="block text-sm font-medium">Email address</label>
+          <input
+            name="email"
+            value={profile.email}
+            onChange={handleChange}
+            type="email"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+          />
+        </div>
+
+        {/* Contact */}
+        <div className="sm:col-span-3">
+          <label className="block text-sm font-medium ">Contact</label>
+          <input
+            name="contactNo"
+            value={profile.contactNo}
+            onChange={handleChange}
+            type="text"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+          />
+        </div>
+
+        {/* Company Name */}
+        <div className="sm:col-span-4">
+          <label className="block text-sm font-medium">Company Name</label>
+          <input
+            name="companyName"
+            value={profile.companyName}
+            onChange={handleChange}
+            type="text"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+          />
+        </div>
+
+        {/* License Number */}
+        <div className="sm:col-span-3">
+          <label className="block text-sm font-medium">License Number</label>
+          <input
+            name="licenseNumber"
+            value={profile.licenseNumber}
+            onChange={handleChange}
+            type="text"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+          />
+        </div>
+
+        {/* Address */}
+        <div className="sm:col-span-6">
+          <label className="block text-sm font-medium">Address</label>
+          <input
+            name="address"
+            value={profile.address}
+            onChange={handleChange}
+            type="text"
+            className="mt-2 block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600"
+          />
+        </div>
+
+        {/* Button */}
+        <div className="sm:col-span-6">
+          <button
+            type="button"
+            onClick={handleUpdate}
+            className="w-full mt-6 text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          >
+            Update Profile
+          </button>
+        </div>
+      </div>
     </div>
-  )
+  </div>
+);
+
 
 }
