@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getOperatorProfile } from "../../services/operator/operator";
 
-interface OperatorProfileType {
+type OperatorProfileType ={
   name: string;
   email: string;
   contactNo: string;
@@ -22,7 +22,7 @@ export function OperatorProfile() {
     address: ''
   });
 
-  const operatorId = 1; // Replace with dynamic ID from auth/user if needed
+  const operatorId = 1; 
 
   useEffect(() => {
     async function fetchProfile() {

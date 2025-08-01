@@ -1,5 +1,7 @@
 package com.sunbeam.service;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.SignInDto;
 import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
+import com.sunbeam.dto.UserProfileDto;
 import com.sunbeam.entity.User;
 import com.sunbeam.entity.UserRole;
 
@@ -56,6 +59,31 @@ public class UserServiceImpl implements UserService {
 		
 		// TODO Auto-generated method stub
 		return new ApiResponse("Account Created Succesfully");
+	}
+
+	@Override
+	public UserProfileDto getUser(Long id) {
+		// TODO Auto-generated method stub
+		User user = userDao.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+		
+		return new UserProfileDto( user.getName(), user.getEmail(), user.getContactNo(), user.getGender());
+	}
+
+	@Override
+	public ApiResponse updateProfile(Long id, UserProfileDto dto) {
+		// TODO Auto-generated method stub
+		User user = userDao.findById(id)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+		
+		user.setName(dto.getName());
+		user.setEmail(dto.getEmail());
+		user.setContactNo(dto.getContact());
+		user.setGender(dto.getGender());
+		
+		userDao.save(user);
+		return new ApiResponse("User Updated successfully");
 	}
 	
 	

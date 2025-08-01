@@ -9,7 +9,7 @@ public interface OperatorService {
 
 	OperatorProfileDto getOperator(Long id);
 
-	void updateProfile(Long operatorId, OperatorProfileDto dto);
+	ApiResponse updateProfile(Long operatorId, OperatorProfileDto dto);
 	
 
 }

@@ -1,6 +1,40 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getUserProfile } from "../../services/user/user";
+
+type UserProfileType = {
+        name: string;
+        email: string;
+        contact: string;
+        gender: "MALE" | "FEMALE" ;
+    }
+
 
 export function UserProfile() {
+
+    const[profile, setProfile] = useState<UserProfileType>({
+        name: '',
+        email:'',
+        contact: '',
+        gender: 'MALE'
+    });
+
+    const userId = 1; 
+
+    useEffect(() => {
+        async function fetchProfile() {
+          try {
+            const data = await getUserProfile(userId);
+            setProfile(data);
+          } catch (error) {
+            console.error("Failed to load user profile", error);
+          }
+        }
+    
+        fetchProfile();
+      }, []);
+
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="px-5 mt-10 rounded-2xl shadow-lg bg-white mx-1 mb-10 w-[40%] h-[400px]">
@@ -10,25 +44,25 @@ export function UserProfile() {
                     {/* Name */}
                     <div className="sm:col-span-3">
                         <label className="block text-sm font-medium text-gray-700">Name</label>
-                        <p className="mt-1">Gaurav Sharma</p>
+                        <p className="mt-1">{profile.name}</p>
                     </div>
 
                     {/* Email */}
                     <div className="sm:col-span-4">
                         <label className="block text-sm font-medium text-gray-700">Email address</label>
-                        <p className="mt-1">gaurav@example.com</p>
+                        <p className="mt-1">{profile.email}</p>
                     </div>
 
                     {/* Contact */}
                     <div className="col-span-3">
                         <label className="block text-sm font-medium text-gray-700">Contact</label>
-                        <p className="mt-1">+91 9876543210</p>
+                        <p className="mt-1">{profile.contact}</p>
                     </div>
 
                     {/* Gender */}
                     <div className="sm:col-span-2">
                         <label className="block text-sm font-medium text-gray-700">Gender</label>
-                        <p className="mt-1">Male</p>
+                        <p className="mt-1">{profile.gender}</p>
                     </div>
 
                     {/* Button */}
