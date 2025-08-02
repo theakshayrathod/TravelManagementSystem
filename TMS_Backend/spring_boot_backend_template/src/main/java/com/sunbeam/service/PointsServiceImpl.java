@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.custom_exception.InvalidInputException;
-import com.sunbeam.dao.PointsDao;
+import com.sunbeam.dao.PointDao;
 import com.sunbeam.dao.RouteDao;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.PointDto;
@@ -23,7 +23,7 @@ public class PointsServiceImpl implements PointsService {
 
 	private RouteDao routeDao;
 	private ModelMapper mapper;
-	private PointsDao pointsDao;
+	private PointDao pointsDao;
 
 	@Override
 	public ApiResponse addPoints(PointDto dto, Long routId) {

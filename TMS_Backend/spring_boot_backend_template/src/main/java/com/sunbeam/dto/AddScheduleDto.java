@@ -1,9 +1,12 @@
 package com.sunbeam.dto;
 
 import java.time.LocalTime;
+import java.util.List;
 
-import com.sunbeam.entity.Recurrance;
+import com.sunbeam.entity.Recurrence;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +14,21 @@ import lombok.Setter;
 @Setter
 public class AddScheduleDto {
 	
+	@NotNull
 	private Long routeId;
+	@NotNull
 	private Long busId;
-	private LocalTime startTime;
-	private LocalTime endTime;
+	@NotNull
+	private LocalTime departureTime;
+	@NotNull
+	private LocalTime reachingTime;
+	@NotNull
 	private Double fare;
-	private Recurrance recurrance;	
+	@NotBlank(message = "Recurrence is required")
+	private Recurrence recurrence;	
+	@NotBlank(message = "Recurrence is required")
+	private String recurrenceDetail;	
+	private List<SchedulePointDto> schedulePoints;
 	
 
 }

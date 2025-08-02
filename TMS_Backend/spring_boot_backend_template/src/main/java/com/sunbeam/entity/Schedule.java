@@ -1,7 +1,5 @@
 package com.sunbeam.entity;
 
-import java.math.BigDecimal;
-import java.security.KeyStore.PrivateKeyEntry;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,21 +27,30 @@ public class Schedule extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "route_id",nullable = false)
 	private Route route;
-	@Column(name = "start_time")
-	private LocalTime startTime;
-	@Column(name = "end_time")
-	private LocalTime endTime;
+	@Column(name = "departure_time")
+	private LocalTime departureTime;
+	@Column(name = "reaching_time")
+	private LocalTime reachingTime;
 	
 	private Double fare;
 	@Enumerated(EnumType.STRING)
-	private Recurrance recurrnce;
+	private Recurrence recurrence;
 	@Column(name = "recurrence_detail")
-	private String recurenceDetail;
+	private String recurrenceDetail;
 	@Enumerated(EnumType.STRING)
 	private ScheduleStatus status;
 	
 	@OneToMany(mappedBy = "schedule" , cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SchedulePoint> schedulePoints = new ArrayList<>();
+	
+	
+	public void addSchedulePoints(SchedulePoint sp) {
+		schedulePoints.add(sp);
+		sp.setSchedule(this);
+	}
+	
+	
+	
 	
 	
 	

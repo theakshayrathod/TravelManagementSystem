@@ -1,5 +1,3 @@
-import React from 'react';
-// import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import type { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
