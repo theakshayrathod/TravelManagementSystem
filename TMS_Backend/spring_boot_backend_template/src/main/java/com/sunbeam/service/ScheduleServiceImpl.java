@@ -1,8 +1,13 @@
 package com.sunbeam.service;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.util.Separators.Spacing;
 import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.BusDao;
 import com.sunbeam.dao.PointDao;
@@ -10,7 +15,9 @@ import com.sunbeam.dao.RouteDao;
 import com.sunbeam.dao.ScheduleDao;
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.ApiResponse;
+import com.sunbeam.dto.GetScheduleForOperatorDTO;
 import com.sunbeam.dto.SchedulePointDto;
+import com.sunbeam.dto.SchedulePointInfo;
 import com.sunbeam.entity.Bus;
 import com.sunbeam.entity.Point;
 import com.sunbeam.entity.Route;
@@ -64,7 +71,65 @@ public class ScheduleServiceImpl implements ScheduleService {
 		scheduleDao.save(s);
 
 		return new ApiResponse("Schedule Added SuccesFully");
+	}
+
+	@Override
+	public ApiResponse deleteSchedule(Long id) {
+		if(!scheduleDao.existsById(id)) {
+			return new ApiResponse("Schedule Does not Exist");
+		}
+		scheduleDao.deleteById(id);		
+		return new ApiResponse("Schedule Deleted SuccesFully");
+	}
+
+	@Override
+	public List<GetScheduleForOperatorDTO> getSchedulesByOperatorId(Long id) {
+		List<Schedule> schedules = scheduleDao.findSchedulesByOperatorId(id);
+		
+		return schedules.stream().map(s->
+			mapScheduleToDto(s)).collect(Collectors.toList());
+		
+		
+		
 	}	
+	
+	public GetScheduleForOperatorDTO mapScheduleToDto(Schedule schedule) {
+		
+		GetScheduleForOperatorDTO dto = new GetScheduleForOperatorDTO();
+		
+		dto.setScheduleId(schedule.getId());
+		dto.setBusId(schedule.getBus().getId());
+		dto.setBusName(schedule.getBus().getBusName());
+		dto.setBusType(schedule.getBus().getBusType());
+		dto.setRouteId(schedule.getRoute().getId());
+		dto.setSource(schedule.getRoute().getSource());
+		dto.setDestination(schedule.getRoute().getDestination());
+		dto.setDepartureTime(schedule.getDepartureTime());
+		dto.setReachingTime(schedule.getReachingTime());
+		dto.setFare(schedule.getFare());
+		dto.setRecurrence(schedule.getRecurrence());
+		dto.setRecurrenceDetail(schedule.getRecurrenceDetail());
+		dto.setStatus(schedule.getStatus());
+		
+		
+		List<SchedulePointInfo> pointInfos = schedule.getSchedulePoints().stream().map(sp->{
+			SchedulePointInfo spDto = new SchedulePointInfo();
+			spDto.setSchedulePointId(sp.getId());
+			spDto.setPointId(sp.getPoint().getId());
+			spDto.setPointName(sp.getPoint().getName());
+			spDto.setPointAddress(sp.getPoint().getAddress());
+			spDto.setArrivalTime(sp.getArrivalTime());
+			spDto.setType(sp.getType());
+			return spDto;
+		}).collect(Collectors.toList());
+		
+		dto.setSchedulePointInfos(pointInfos);
+		
+		
+		return dto;
+		
+		
+	}
 	
 	
 	
