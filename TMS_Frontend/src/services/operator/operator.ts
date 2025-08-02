@@ -35,65 +35,65 @@ export async function OperatorRegistration(name: string, email: string, contactN
     return null;
 }
 
-}
+
 
 const operatorId = 1;
 
 export async function getOperatorProfile(id: number) {
 
-    try{
+    try {
 
 
-        const URL =  `http://localhost:8080/operator/update-profile/${operatorId}`;
-  const res = await axios.get(URL);
-   if (res.status == 200)
-      return res.data;
-  } catch (e) {
-    console.log(e);
-  }
-
-}
-
-export async function getOpProfile(id: number) {
-
-    try{
-
-
-        const URL =  `http://localhost:8080/operator/profile/${operatorId}`;
-  const res = await axios.get(URL);
-   if (res.status == 200)
-      return res.data;
-  } catch (e) {
-    console.log(e);
-  }
+        const URL = `${config.serverUrl}/operator/profile/${id}`;
+        const res = await axios.get(URL);
+        if (res.status == 200)
+            return res.data;
+    } catch (e) {
+        console.log(e);
+    }
 
 }
 
- export type operatorProfile = {
-            name:string,
-            email:string,
-            contactNo:string,
-            companyName:string,
-            licenseNumber:string,
-            address:string
-        }
+// export async function getOpProfile(id: number) {
+
+//     try {
+
+
+//         const URL = `${config.serverUrl}/operator/profile/${id}`;
+//         const res = await axios.get(URL);
+//         if (res.status == 200)
+//             return res.data;
+//     } catch (e) {
+//         console.log(e);
+//     }
+
+// }
+
+export type operatorProfile = {
+    name: string,
+    email: string,
+    contactNo: string,
+    companyName: string,
+    licenseNumber: string,
+    address: string
+}
 
 export async function updateOperatorProfile(id: number, body: operatorProfile) {
 
     try {
-        const url = `http://localhost:8080/operator/update-profile/${operatorId}`;
+        const url = `${config.serverUrl}/operator/update-profile/${operatorId}`;
 
-       
 
-        const res = await axios.put(url,body);
-        
+
+        const res = await axios.put(url, body);
+
         if (res.status == 200)
-            
+
             return res.data;
 
-    }catch (e) {
-    console.log(e);
-  }
+    } catch (e) {
+        console.log(e);
+    }
 
 }
 
