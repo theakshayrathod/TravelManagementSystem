@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { addBus as addBusService } from "../../services/operator/bus";
-import type { JSX } from "react"
+import type { JSX } from "react";
 
 type BusInfo = {
   busName: string
