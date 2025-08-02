@@ -26,5 +26,10 @@ public class GlobalExceptionHandling {
 	}
 	
 	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> handleException(Exception e){
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage()));
+	}
+	
 
 }

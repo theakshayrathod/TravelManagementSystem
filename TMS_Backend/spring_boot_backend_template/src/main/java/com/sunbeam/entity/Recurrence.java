@@ -1,9 +1,9 @@
 package com.sunbeam.entity;
 
-public enum Recurrance {
+public enum Recurrence {
 	
 	DAILY,
 	WEEKLY,
-	DAYWISE
+	SPECIFIC_DATE
 
 }

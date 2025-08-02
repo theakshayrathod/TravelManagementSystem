@@ -1,5 +1,6 @@
 package com.sunbeam.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CollectionId;
@@ -37,9 +38,15 @@ public class Point {
 	@JoinColumn(name = "route_id",nullable = false)
 	private Route route;
 	@OneToMany(mappedBy = "point",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<SchedulePoint> schedulePoints;
+	private List<SchedulePoint> schedulePoints = new ArrayList<>();
 	@Column(name = "map_link", length = 500)
 	private String mapLink;
+	
+	public void addSchedulePoints(SchedulePoint sp) {
+		schedulePoints.add(sp);
+		sp.setPoint(this);
+		
+	}
 	
 	
 	
