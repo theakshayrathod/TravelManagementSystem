@@ -1,13 +1,12 @@
 package com.sunbeam.service;
 
+import java.time.DayOfWeek;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.util.Separators.Spacing;
 import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.BusDao;
 import com.sunbeam.dao.PointDao;
@@ -16,8 +15,10 @@ import com.sunbeam.dao.ScheduleDao;
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.GetScheduleForOperatorDTO;
+import com.sunbeam.dto.GetSchedulesDto;
 import com.sunbeam.dto.SchedulePointDto;
 import com.sunbeam.dto.SchedulePointInfo;
+import com.sunbeam.dto.ScheduleSearchDto;
 import com.sunbeam.entity.Bus;
 import com.sunbeam.entity.Point;
 import com.sunbeam.entity.Route;
@@ -87,10 +88,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		List<Schedule> schedules = scheduleDao.findSchedulesByOperatorId(id);
 		
 		return schedules.stream().map(s->
-			mapScheduleToDto(s)).collect(Collectors.toList());
-		
-		
-		
+			mapScheduleToDto(s)).collect(Collectors.toList());		
 	}	
 	
 	public GetScheduleForOperatorDTO mapScheduleToDto(Schedule schedule) {
@@ -129,6 +127,31 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return dto;
 		
 		
+	}
+
+	@Override
+	public List<ScheduleSearchDto> getSchedulesBySourceAndDestination(GetSchedulesDto dto) {
+		
+		String dayofweek=dto.getJourneyDate().getDayOfWeek().toString();
+		String dateStr = dto.getJourneyDate().toString();
+		
+		List<Schedule> schedules = scheduleDao.findScheduleBySourceAndDestinationAndDate(dto.getSource(), dto.getDestination(), dayofweek, dateStr);
+		
+		
+		
+		 
+		return schedules.stream().map(s -> {
+			ScheduleSearchDto sDto = new ScheduleSearchDto();
+			sDto.setScheduleId(s.getId());
+			sDto.setBusName(s.getBus().getBusName());
+			sDto.setCompanyName(s.getBus().getOperator().getCompanyName());
+			sDto.setDepartureTime(s.getDepartureTime());
+			sDto.setReachingTime(s.getReachingTime());
+			sDto.setFare(s.getFare());
+			sDto.setSource(s.getRoute().getSource());
+			sDto.setDestination(s.getRoute().getDestination());
+			return sDto;			
+		}).toList();
 	}
 	
 	
