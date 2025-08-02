@@ -32,7 +32,7 @@ public class OperatorController {
 		return ResponseEntity.ok(operatorService.signUp(dto));
 	}
 	
-	@GetMapping("/update-profile/{id}")
+	@GetMapping("/profile/{id}")
     public ResponseEntity<OperatorProfileDto> getProfile(@PathVariable Long id) {
         return ResponseEntity.ok(operatorService.getOperator(id));
     }
