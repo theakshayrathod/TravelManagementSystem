@@ -11,4 +11,6 @@ public interface PointsService {
 
 	List<PointDto> getPoints();
 
+	ApiResponse deletePoint(Long id);
+
 }

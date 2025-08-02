@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getRoutes, type RouteResponse } from "../../services/operator/route";
 import { toast } from "react-toastify";
 import { addpoints, getAllPoints as getPoints } from "../../services/operator/points";
-import { Link } from "react-router-dom";
+import type { JSX } from "react"
 
 
 type point = {
@@ -11,7 +11,7 @@ type point = {
   address: string,
   mapLink: string
 }
-export function Addpoints() {
+export function Addpoints(): JSX.Element {
 
   const [routes, setRoutes] = useState<RouteResponse[]>([]);
   const [routId, setRoutId] = useState<number>(0);
@@ -40,9 +40,7 @@ export function Addpoints() {
       setPoints(result)
   }
 
-  const onDelete = async (id:number) =>{
 
-  }
 
   useEffect(() => {
     getAllRoutes();
@@ -62,8 +60,11 @@ export function Addpoints() {
 
       if (!result) {
         toast.error("Error while adding points")
+      } else if (result.message == "Point already exist") {
+        toast.warn(result.message)
       } else
-        toast.success("Add Point successfully")
+        toast.success(result.message)
+      getAllPoints()
     }
   }
   return (
@@ -117,32 +118,34 @@ export function Addpoints() {
         <div className="  rounded p-5">
           <h3 className="text-center font-medium mb-4">PickUp/Drop points</h3>
 
-          <table className="w-full
-           table-auto  rounded-2xl shadow-2xl ">
-            <thead className="bo">
-              <tr className="bg-gray-200">
-                <th className="p-2  text-left">Point Name</th>
-                <th className="p-2  text-left">Address</th>
-                <th className="p-2  text-left">Map Link</th>
-                <th className="p-2  text-center">Actions</th>
+          <table className="w-full table-auto rounded-2xl shadow-2xl ">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="px-4 py-2 text-left">Point Name</th>
+                <th className="px-4 py-2 text-left">Address</th>
+                <th className="px-4 py-2 text-left">Map Link</th>
               </tr>
             </thead>
             <tbody>
-              {points.map((e) => {
-                return (
-                  <tr className="hover:bg-gray-50" > 
-                    <td>  {e.name}</td>
-                    <td>{e.address}</td>
-                    <td>
-                      <a href={e.mapLink} className="text-blue-600">View Location</a>
-                    </td>
-                    <td><button onClick={()=>onDelete(e.id) }
-                      className="px-2 py-2 bg-red-500 text-white rounded hover:bg-red-700 text-sm">Delete</button></td>
-                  </tr>
-                )
-              })}
+              {points.map((e, idx) => (
+                <tr key={idx} className="hover:bg-gray-50 border-t">
+                  <td className="px-4 py-2">{e.name}</td>
+                  <td className="px-4 py-2">{e.address}</td>
+                  <td className="px-4 py-2">
+                    <a
+                      href={e.mapLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      View Location
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
+
         </div>
       </div>
     </div>
