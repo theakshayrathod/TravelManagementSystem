@@ -2,6 +2,7 @@ import axios from "axios"
 // import { config } from "../config"
 import { UserProfileUpdate } from './../../Pages/user/UpdateProfile';
 import { UserProfile } from './../../Pages/user/Profile';
+import { config } from "../../config";
 
 export async function UserRegistration(name: string, email: string, contactNo: string, password: string) {
     try {
@@ -89,7 +90,7 @@ export type userProfile ={
 
 export async function updateUserProfile(userId:number, body: userProfile ){
     try{
-        const url = `http://localhost:8080/user/update-user/${userId}`;
+        const url:string = `http://localhost:8080/user/update-user/${userId}`;
         const res = await axios.put(url,body);
         if(res.status == 200)
             return res.data;
@@ -97,3 +98,6 @@ export async function updateUserProfile(userId:number, body: userProfile ){
         console.log(e);
     }
 }
+
+
+
