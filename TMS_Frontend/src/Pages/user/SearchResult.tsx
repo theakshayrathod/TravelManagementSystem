@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import type { JSX } from 'react';
+import { useEffect, useState } from 'react';
 import BusCard from '../../components/user/BusesResultCard';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getScheduleForUser } from '../../services/user/Schedule';
