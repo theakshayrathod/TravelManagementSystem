@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.AddScheduleDto;
-import com.sunbeam.dto.GetSchedulesDto;
 import com.sunbeam.service.ScheduleService;
 
 import lombok.AllArgsConstructor;

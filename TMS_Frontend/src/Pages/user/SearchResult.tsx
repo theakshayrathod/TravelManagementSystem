@@ -6,32 +6,32 @@ import { getScheduleForUser } from '../../services/user/Schedule';
 import type { Schedule } from '../../services/user/Schedule';
 import { toast } from 'react-toastify';
 
-export function SearchResult(){
+export function SearchResult() {
 
   const [params] = useSearchParams();
 
-  const from:string = params.get("from") ?? "";
-  const to:string = params.get("to") ?? "";
-  const date:string = params.get("date") ?? "";
-  const [schedules , setSchedules] = useState<Schedule[]>([]);
+  const from: string = params.get("from") ?? "";
+  const to: string = params.get("to") ?? "";
+  const date: string = params.get("date") ?? "";
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    getSearch(); 
+    getSearch();
 
-  },[from,to,date])
+  }, [from, to, date])
 
-  const getSearch = async()=>{
+  const getSearch = async () => {
 
-    const result:Schedule[] | null = await getScheduleForUser(from,to,date);
+    const result: Schedule[] | null = await getScheduleForUser(from, to, date);
 
-    if(result){
+    if (result) {
 
       setSchedules(result)
-      
-    }else{     
+
+    } else {
       toast.error("An Error Occured")
 
 
@@ -52,13 +52,13 @@ export function SearchResult(){
         <p className="text-sm text-gray-600 mb-6">Here are the results for your search</p>
       </div>
 
-      {schedules.length === 0 ? <p>No Schedule Available</p> : (schedules.map((s)=> (
+      {schedules.length === 0 ? <p>No Schedule Available</p> : (schedules.map((s) => (
         <BusCard key={s.scheduleId} schedule={s} />
       )))}
 
 
 
-      
+
     </div>
   );
 }
