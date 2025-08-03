@@ -1,5 +1,7 @@
 package com.sunbeam.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class OperatorController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> signUp(@RequestBody OperatorSignUpDto dto){
-		return ResponseEntity.ok(operatorService.signUp(dto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(operatorService.signUp(dto));
 	}
 	
 	@GetMapping("/profile/{id}")

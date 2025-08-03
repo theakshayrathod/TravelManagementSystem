@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BookingDetails extends BaseEntity { 
+public class BookingDetail extends BaseEntity { 
 	@ManyToOne
 	@JoinColumn(name = "booking_id",nullable = false)
 	private Booking booking;

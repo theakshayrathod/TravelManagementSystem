@@ -1,6 +1,6 @@
 package com.sunbeam.service;
 
-import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +12,7 @@ import com.sunbeam.dao.BusDao;
 import com.sunbeam.dao.PointDao;
 import com.sunbeam.dao.RouteDao;
 import com.sunbeam.dao.ScheduleDao;
+import com.sunbeam.dao.SeatDao;
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.GetScheduleForOperatorDTO;
@@ -25,6 +26,8 @@ import com.sunbeam.entity.Route;
 import com.sunbeam.entity.Schedule;
 import com.sunbeam.entity.SchedulePoint;
 import com.sunbeam.entity.ScheduleStatus;
+import com.sunbeam.entity.Seat;
+import com.sunbeam.entity.SeatStatus;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -39,6 +42,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private RouteDao routeDao;
 	private PointDao pointDao;
 	private ModelMapper mapper;
+	
+	private SeatDao seatDao;
 
 	@Override
 	public ApiResponse createSchedule(AddScheduleDto dto) {
@@ -70,6 +75,19 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 
 		scheduleDao.save(s);
+//----------------------------Seats creation ---------------------------------		
+		List<Seat>seats = new ArrayList<>();
+		
+		for(int i=1;i<=bus.getTotalSeats();i++) {
+			Seat seat = new Seat();
+			seat.setSeatNumber("S"+i);
+			seat.setStatus(SeatStatus.AVAILABLE);
+			seat.setSchedule(s);
+			seats.add(seat);
+		}
+		
+		seatDao.saveAll(seats);
+		
 
 		return new ApiResponse("Schedule Added SuccesFully");
 	}
