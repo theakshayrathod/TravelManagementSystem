@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,33 +12,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sunbeam.dto.PointDto;
-import com.sunbeam.service.PointsService;
+import com.sunbeam.dto.BookDto;
+import com.sunbeam.dto.BookingDto;
+import com.sunbeam.service.BookingService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/points")
 @AllArgsConstructor
+@RequestMapping("/booking")
 @CrossOrigin(origins = "http://localhost:5173")
-public class PointsController {
-	
-	private PointsService pointsService;
-	
-	@PostMapping("/add/{routeId}")
-	
-	public ResponseEntity<?> addPoints(@RequestBody PointDto dto, @PathVariable Long routeId){ 
-		
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(pointsService.addPoints(dto,routeId));
-	}
-	@GetMapping("/getAll")
-	public ResponseEntity<?> getAllPoints(){
-		
-		List<PointDto>points = pointsService.getPoints();
-		return ResponseEntity.ok(points);
+public class BookingController {
+
+	private BookingService bookingService;
+
+	@PostMapping("/book/{userId}")
+	public ResponseEntity<?> createBooking(@RequestBody BookDto dto, @PathVariable Long userId) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.bookingByUserId(dto, userId));
 	}
 
-	
+	@GetMapping("/get/{id}")
+	public ResponseEntity<?> getBookings(@PathVariable Long id) {
+		List<BookingDto> bookings = bookingService.getBookingById(id);
+		return ResponseEntity.ok(bookings);
+	}
 
 }

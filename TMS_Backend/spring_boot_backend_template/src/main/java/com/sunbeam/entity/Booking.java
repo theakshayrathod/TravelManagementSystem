@@ -15,9 +15,9 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
-@Table(name = "bookings")
 @Getter
 @Setter
+@Table(name = "bookings")
 public class Booking extends BaseEntity {
 	
 	@ManyToOne
@@ -27,14 +27,15 @@ public class Booking extends BaseEntity {
 	@JoinColumn(name = "schedule_id",nullable = false)
 	private Schedule schedule;
 	@Column(name = "booking_time")
+	
 	private LocalDateTime bookingTime;
 	@Column(name = "total_amount")
-	private double totaleAmount;
+	private double totalAmount;
 	@Enumerated(EnumType.STRING)
 	private BookingStatus status;
 	
 	@OneToMany(mappedBy = "booking",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<BookingDetails>bookingDetails;
+	private List<BookingDetail>bookingDetails;
 	
 	
 	
