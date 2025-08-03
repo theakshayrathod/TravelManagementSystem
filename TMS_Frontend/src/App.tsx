@@ -16,7 +16,7 @@ import { AddSchedule } from './Pages/operator/AddSchedule'
 import UserDashboard from './Pages/user/UserDashboard'
 import { Schedule } from './Pages/operator/Schedule'
 import { ForgotPassword } from './Pages/auth/ForgotPassword'
-import { SearchResult } from './Pages/user/SerachResult'
+import { SearchResult } from './Pages/user/SearchResult'
 import { BookingSummary } from './Pages/user/BookingSummary'
 import { Bookings } from './Pages/operator/Bookings'
 import { ToastContainer } from 'react-toastify'
@@ -57,6 +57,7 @@ function App(): JSX.Element {
           <Route path='my-booking' element={<MyBookings />} />
           <Route path='pickup-drop' element={<BookPickAndDrop />} />
           <Route path='seat-selection' element={<SeatSelection />} />
+          
         </Route>
         {/* Operator */}
         <Route path='operator' element={<OperatorHome />} >
