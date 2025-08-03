@@ -17,6 +17,11 @@ export type Schedule = {
 }
 
 
+
+
+
+
+
 export async function getScheduleForUser(source:string, destination:string, journeyDate:string) : Promise<Schedule[] | null>{
 
     try{
@@ -31,3 +36,9 @@ export async function getScheduleForUser(source:string, destination:string, jour
     return null;
 
 }
+
+
+
+
+
+

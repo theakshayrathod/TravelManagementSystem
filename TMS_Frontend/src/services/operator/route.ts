@@ -20,7 +20,7 @@ export async function getRoutes():Promise<RouteResponse[] | null>{
         const url:string = `${config.serverUrl}/route`
 
         const response:AxiosResponse<RouteResponse[]> = await axios.get(url);
-        console.log(response);
+        // console.log(response);
         
         if(response.status == 200){
             return response.data

@@ -179,6 +179,24 @@ public class ScheduleServiceImpl implements ScheduleService {
 			return sDto;			
 		}).toList();
 	}
+
+	@Override
+	public ApiResponse updateStatus(Long id, ScheduleStatus status) {
+
+	
+	Schedule s=scheduleDao.findById(id).orElseThrow(()-> new InvalidInputException("Schedule does not exist"));
+	if(s.getBus().getOperator().getOperatorId() != 1) {
+		throw new InvalidInputException("You can update only your schedules");
+	}
+	Long sid = s.getId();
+	s.setStatus(status);
+	
+	
+		
+		
+		return new ApiResponse("Schedule with id "+ sid + " updated succesfully" );
+	}
+
 	
 	
 	

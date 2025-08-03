@@ -1,10 +1,7 @@
 import { FaSearch, FaBus, FaRegCalendarAlt } from "react-icons/fa";
-import React, { useEffect, useState } from "react";
-import { data, Link, useNavigate } from "react-router-dom";
-
-import { RxValue } from "react-icons/rx";
+import  { useEffect, useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import { getRoutes, type RouteResponse } from "../../services/operator/route";
-import { getScheduleForUser } from "../../services/user/Schedule";
 import { toast } from "react-toastify";
 
 
