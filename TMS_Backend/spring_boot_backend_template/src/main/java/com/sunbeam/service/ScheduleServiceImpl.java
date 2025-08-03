@@ -1,11 +1,13 @@
 package com.sunbeam.service;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.BusDao;
@@ -130,12 +132,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public List<ScheduleSearchDto> getSchedulesBySourceAndDestination(GetSchedulesDto dto) {
+	public List<ScheduleSearchDto> getSchedulesBySourceAndDestination(String source, String destination, LocalDate date) {
 		
-		String dayofweek=dto.getJourneyDate().getDayOfWeek().toString();
-		String dateStr = dto.getJourneyDate().toString();
+		String dayofweek=date.getDayOfWeek().toString();
+		String dateStr = date.toString();
 		
-		List<Schedule> schedules = scheduleDao.findScheduleBySourceAndDestinationAndDate(dto.getSource(), dto.getDestination(), dayofweek, dateStr);
+		List<Schedule> schedules = scheduleDao.findScheduleBySourceAndDestinationAndDate(source, destination, dayofweek, dateStr);
 		
 		
 		
@@ -150,6 +152,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 			sDto.setFare(s.getFare());
 			sDto.setSource(s.getRoute().getSource());
 			sDto.setDestination(s.getRoute().getDestination());
+			sDto.setTv(s.getBus().isTv());
+			sDto.setWifi(s.getBus().isWifi());
+			sDto.setPowerOutlet(s.getBus().isPowerOutlet());
 			return sDto;			
 		}).toList();
 	}

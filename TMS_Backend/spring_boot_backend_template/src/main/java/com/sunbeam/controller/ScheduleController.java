@@ -1,5 +1,7 @@
 package com.sunbeam.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,9 +36,9 @@ public class ScheduleController {
 		return ResponseEntity.ok(scheduleService.getSchedulesByOperatorId(id));		
 	}
 	
-	@PostMapping("/get")
-	public ResponseEntity<?> getSchedules(@RequestBody GetSchedulesDto dto){
-		return ResponseEntity.ok(scheduleService.getSchedulesBySourceAndDestination(dto));
+	@GetMapping("/get/{source}/{destination}/{date}")
+	public ResponseEntity<?> getSchedules(@PathVariable String source, @PathVariable String destination, @PathVariable LocalDate date){
+		return ResponseEntity.ok(scheduleService.getSchedulesBySourceAndDestination(source,destination,date));
 	}
 	
 	

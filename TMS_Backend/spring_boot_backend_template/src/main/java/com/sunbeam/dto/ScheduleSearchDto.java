@@ -16,5 +16,8 @@ public class ScheduleSearchDto {
 	private LocalTime departureTime;
 	private LocalTime reachingTime;
 	private Double fare;
+	private boolean isWifi;
+	private boolean isTv;
+	private boolean powerOutlet;
 
 }

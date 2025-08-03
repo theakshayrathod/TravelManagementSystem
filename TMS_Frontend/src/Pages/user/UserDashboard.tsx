@@ -1,9 +1,11 @@
 import { FaSearch, FaBus, FaRegCalendarAlt } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 
 import { RxValue } from "react-icons/rx";
 import { getRoutes, type RouteResponse } from "../../services/operator/route";
+import { getScheduleForUser } from "../../services/user/Schedule";
+import { toast } from "react-toastify";
 
 
 export default function UserDashboard() {
@@ -13,6 +15,8 @@ export default function UserDashboard() {
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
   const [journeyDate, setJourneyDate] = useState<string>("");
+
+  const navigate = useNavigate();
 
   async function fetchRoutes() {
     const result: RouteResponse[] | null = await getRoutes();
@@ -26,6 +30,22 @@ export default function UserDashboard() {
   useEffect(() => {
     fetchRoutes();
   }, []);
+
+
+  const onClickShowBuses = () =>{
+    if(from.length == 0 || to.length ==0 || journeyDate.length == 0){
+      toast.warn("Please Select source , destination and journey date.")
+      return;
+    }else if(from === to){
+      toast.warn("Source And Destination Must be different")
+      return;
+
+    }
+
+    navigate(`/user/search-results?from=${from}&to=${to}&date=${journeyDate}`) 
+    
+
+  }
 
 
 
@@ -116,13 +136,13 @@ export default function UserDashboard() {
                 value={journeyDate}
                 onChange={(e) => setJourneyDate(e.target.value)}
               />
+              
 
-              <Link
-                to="/user/search-results"
+              <button onClick={onClickShowBuses}
                 className="mt-5 w-full text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 "
               >
                 Show Buses
-              </Link>
+              </button>
             </div>
           </div>
         </div>
