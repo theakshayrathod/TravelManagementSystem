@@ -48,6 +48,8 @@ public class BookingServiceImpl implements BookingService {
 			BookingDto bDto = new BookingDto();
 			bDto.setBookingId(b.getId());
 			bDto.setPassengerName(b.getUser().getName());
+			bDto.setScheduleId(b.getSchedule().getId());
+			bDto.setBusNumber(b.getSchedule().getBus().getRegistrationNumber());
 			bDto.setRoute(b.getSchedule().getRoute().getSource() + b.getSchedule().getRoute().getDestination());
 			bDto.setDate(b.getBookingTime().toString());
 			bDto.setTotaleAmount(b.getTotalAmount());

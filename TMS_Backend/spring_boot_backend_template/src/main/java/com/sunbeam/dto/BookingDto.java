@@ -12,7 +12,10 @@ public class BookingDto {
 	private Long bookingId;
 
 	private String passengerName;
-
+	
+	private Long scheduleId;
+	private String BusNumber;
+	
 	private String route;
 
 	private String date;
