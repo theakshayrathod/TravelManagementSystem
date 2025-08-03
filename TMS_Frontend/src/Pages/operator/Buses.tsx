@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { deleteBus, getAllBuses } from "../../services/operator/bus";
 import { toast } from "react-toastify";
 
-type Bus = {
+export type Bus = {
   id: number,
   busName: string,
   busType: string,
@@ -25,7 +25,7 @@ export function Buses() {
 
   const getBuses = async () => {
 
-    const result = await getAllBuses(2);
+    const result = await getAllBuses(1);
 
 
     if (!result) {

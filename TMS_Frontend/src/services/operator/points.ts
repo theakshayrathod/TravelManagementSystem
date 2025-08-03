@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { type AxiosResponse } from "axios"
 import { config } from "../../config"
 
 export async function addpoints(routId: number, pointName: string, address: string, mapLink: string) {
@@ -26,11 +26,18 @@ export async function addpoints(routId: number, pointName: string, address: stri
     }
 }
 
-export async function getAllPoints() {
+export type Points = {
+    id:number,
+    name:string,
+    address:string,
+    mapLink:string
+}
+
+export async function getAllPoints():Promise<Points[] | null> {
     try {
         const url = `${config.serverUrl}/points/getAll`
 
-        const response = await axios.get(url)
+        const response:AxiosResponse<Points[]> = await axios.get(url)
         console.log(response)
 
         if (response.status == 200)
@@ -41,6 +48,7 @@ export async function getAllPoints() {
     } catch (e) {
         console.log(e)
     }
+    return null;
 }
 
 export async function deletePoint(id: number) {

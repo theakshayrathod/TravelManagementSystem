@@ -55,4 +55,11 @@ public class PointsServiceImpl implements PointsService {
 		return new ApiResponse("Point delete successfully");
 	}
 
+	@Override
+	public List<PointDto> getByRouteId(Long id) {
+		
+		List<Point> points=pointsDao.findByRouteId(id);		
+		return points.stream().map(p->mapper.map(p, PointDto.class)).toList();
+	}
+
 }

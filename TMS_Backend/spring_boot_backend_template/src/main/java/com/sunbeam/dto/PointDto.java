@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 public class PointDto {
 	
+	private Long id;
 	private String name;
 	private String address;
 	private String mapLink;

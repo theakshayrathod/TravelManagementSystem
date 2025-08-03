@@ -13,4 +13,6 @@ public interface PointsService {
 
 	ApiResponse deletePoint(Long id);
 
+	List<PointDto> getByRouteId(Long id);
+
 }

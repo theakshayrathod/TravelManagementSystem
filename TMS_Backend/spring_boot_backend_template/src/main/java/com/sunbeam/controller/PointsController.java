@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sunbeam.dao.PointDao;
 import com.sunbeam.dto.PointDto;
 import com.sunbeam.service.PointsService;
 
@@ -38,6 +39,13 @@ public class PointsController {
 		
 		List<PointDto>points = pointsService.getPoints();
 		return ResponseEntity.ok(points);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getPointsByRouteId(@PathVariable Long id){
+		
+		return ResponseEntity.ok(pointsService.getByRouteId(id));
+		
 	}
 
 	

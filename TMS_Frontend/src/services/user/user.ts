@@ -4,6 +4,9 @@ import { UserProfileUpdate } from './../../Pages/user/UpdateProfile';
 import { UserProfile } from './../../Pages/user/Profile';
 import { config } from "../../config";
 
+
+
+
 export async function UserRegistration(name: string, email: string, contactNo: string, password: string) {
     try {
         const url = `http://localhost:8080/user/signup`
