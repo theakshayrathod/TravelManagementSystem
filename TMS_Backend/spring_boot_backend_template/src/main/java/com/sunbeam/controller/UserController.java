@@ -1,6 +1,5 @@
 package com.sunbeam.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import com.sunbeam.dto.SignInDto;
 import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
 import com.sunbeam.dto.UserProfileDto;
-import com.sunbeam.entity.User;
 import com.sunbeam.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +21,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "*")
 public class UserController {
 	
 	private UserService userService;
@@ -33,9 +31,7 @@ public class UserController {
 	public ResponseEntity<?> loginUser(@RequestBody SignInDto dto){
 		
 		SignInResDto u = userService.loginUser(dto);
-		
-		
-		
+
 		return ResponseEntity.ok(u);
 		
 	}
@@ -47,23 +43,15 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/user-profile/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getProfile(@PathVariable Long id){
 		return ResponseEntity.ok(userService.getUser(id));
 	}
 	
-	@PutMapping("/update-user/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody UserProfileDto dto){
-		userService.updateProfile(id, dto);
-		return ResponseEntity.ok("user updated successfully");
+		;
+		return ResponseEntity.ok(userService.updateProfile(id, dto));
 	}
-	
-	@GetMapping("/update-user/{id}")
-	public ResponseEntity<?> getProfileForUpdate(@PathVariable Long id){
-		return ResponseEntity.ok(userService.getUser(id));
-	}
-	
-	
-	
 
 }

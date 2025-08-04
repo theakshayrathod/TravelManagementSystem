@@ -22,7 +22,7 @@ export async function OperatorRegistration(name: string, email: string, contactN
         console.log(body)
         const response = await axios.post(url, body);
         console.log(response)
-        if (response.status === 200) {
+        if (response.status === 201) {
             return response.data;
         } else {
             return null;
@@ -37,14 +37,14 @@ export async function OperatorRegistration(name: string, email: string, contactN
 
 
 
-const operatorId = 1;
+const operatorId = 2;
 
 export async function getOperatorProfile(id: number) {
 
     try {
 
 
-        const URL = `${config.serverUrl}/operator/profile/${id}`;
+        const URL = `${config.serverUrl}/operator/get/${id}`;
         const res = await axios.get(URL);
         if (res.status == 200)
             return res.data;
@@ -54,20 +54,7 @@ export async function getOperatorProfile(id: number) {
 
 }
 
-// export async function getOpProfile(id: number) {
 
-//     try {
-
-
-//         const URL = `${config.serverUrl}/operator/profile/${id}`;
-//         const res = await axios.get(URL);
-//         if (res.status == 200)
-//             return res.data;
-//     } catch (e) {
-//         console.log(e);
-//     }
-
-// }
 
 export type operatorProfile = {
     name: string,
@@ -81,7 +68,7 @@ export type operatorProfile = {
 export async function updateOperatorProfile(id: number, body: operatorProfile) {
 
     try {
-        const url = `${config.serverUrl}/operator/update-profile/${operatorId}`;
+        const url = `${config.serverUrl}/operator/update/${operatorId}`;
 
 
 

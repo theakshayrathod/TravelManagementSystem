@@ -52,12 +52,6 @@ public class UserServiceImpl implements UserService {
 		
 		userDao.save(u);
 		
-		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
 		return new ApiResponse("Account Created Succesfully");
 	}
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { OperatorRegistration as operatorRegister } from "../../../services/operator/operator";
 import { Link } from "react-router-dom";
 
@@ -29,7 +29,7 @@ export function OperatorRegistration() {
       toast.warn("Confirm Password is required");
     } else if (password != confirmPassword) {
       toast.warn("Passwords do not match");
-    }else if (companyName.length == 0) {
+    } else if (companyName.length == 0) {
       toast.warn("Company Name is required");
     } else if (licenseNo.length == 0) {
       toast.warn("License Number is required");
@@ -56,7 +56,7 @@ export function OperatorRegistration() {
               Create a new account
             </h2>
 
-            <div  className="space-y-6">
+            <div className="space-y-6">
               <div className="mt-10 sm:mx-auto sm:w-[50vw]   grid grid-cols-2 gap-5 ">
 
                 {/* Name  */}
@@ -156,8 +156,9 @@ export function OperatorRegistration() {
                       required
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     >
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option value="">Select gender</option>
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
                     </select>
                   </div>
                 </div>
@@ -225,7 +226,7 @@ export function OperatorRegistration() {
                 <div className=" mt-2 ">
                   <p className="text-sm text-gray-700">
                     Already have an account?{"  "}
-                   <Link to="/" className="text-indigo-600 hover:underline font-bold">
+                    <Link to="/" className="text-indigo-600 hover:underline font-bold">
                       Click here
                     </Link>
                   </p>
