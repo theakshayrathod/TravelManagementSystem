@@ -52,7 +52,7 @@ export function SearchResult() {
       </div>
 
       {schedules.length === 0 ? <p>No Schedule Available</p> : (schedules.map((s) => (
-        <BusCard key={s.scheduleId} schedule={s} />
+        <BusCard key={s.scheduleId} schedule={s} date={date} />
       )))}
 
 

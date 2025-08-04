@@ -1,96 +1,186 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { getSeatsByScheduleId, type Seat, type SeatResponse } from "../../services/user/seats";
+import { useLocation } from "react-router-dom";
 
-type SeatStatus = 'available' | 'booked' | 'selected';
-
-interface Seat {
-    number: string;
-    status: SeatStatus;
+type MyState = {
+    id: number,
+    date: string
 }
 
-interface Props {
-    scheduleId?: string; // Pass scheduleId via route or props
-}
 
-export function SeatSelection({ scheduleId }: Props) {
-    const [seats, setSeats] = useState<Seat[]>([]);
+export function SeatSelection() {
+
+
+    const location = useLocation();
+    const { id, date } = location.state as MyState
+
+
+
+    //   const initialSeats: Seat[] = [
+    //     { number: 1, status: "available" },
+    //     { number: 2, status: "available" },
+    //     { number: 3, status: "occupied" },
+    //     { number: 4, status: "available" },
+    //     { number: 5, status: "occupied" },
+    //     { number: 6, status: "available" },
+    //     { number: 7, status: "available" },
+    //     { number: 8, status: "occupied" },
+    //     { number: 9, status: "occupied" },
+    //     { number: 10, status: "occupied" },
+    //     { number: 11, status: "occupied" },
+    //     { number: 12, status: "occupied" },
+    //     { number: 13, status: "occupied" },
+    //     { number: 14, status: "occupied" },
+    //     { number: 15, status: "occupied" },
+    //     { number: 16, status: "occupied" },
+    //     { number: 17, status: "occupied" },
+    //   ];
+
     const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-    const navigate = useNavigate();
-    // const location = useLocation();
+    const [seats, setSeats] = useState<Seat[]>([])
+    const [schedule, setSchedules] = useState<SeatResponse>()
 
-    // Fetch seat status from backend (mocked here)
-    useEffect(() => {
-        // Replace with API call: `/api/schedules/${scheduleId}/seats`
-        setSeats([
-            { number: '1A', status: 'available' },
-            { number: '1B', status: 'booked' },
-            { number: '1C', status: 'available' },
-            { number: '2A', status: 'available' },
-            { number: '2B', status: 'booked' },
-            { number: '2C', status: 'available' },
-            // ...more seats
-        ]);
-    }, [scheduleId]);
 
-    // Real-time update simulation (polling or websocket in production)
+    const getSeats = async (id: number) => {
+
+        const result: SeatResponse | null = await getSeatsByScheduleId(id)
+        if (result) {
+            setSchedules(result)
+            setSeats(result.seats)
+        } else {
+            setSeats([])
+        }
+
+    }
+
     useEffect(() => {
-        const interval = setInterval(() => {
-            // Fetch latest seat status here
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+        getSeats(id)
+
+    }, [])
+
 
     const handleSeatClick = (seat: Seat) => {
-        if (seat.status === 'booked') return;
-        if (selectedSeats.includes(seat.number)) {
-            setSelectedSeats(selectedSeats.filter(s => s !== seat.number));
-        } else {
-            setSelectedSeats([...selectedSeats, seat.number]);
-        }
+        if (seat.status === "BOOKED") return;
+
+        setSelectedSeats((prev) => prev.includes(seat.seatNumber) ? prev.filter((s) => s !== seat.seatNumber) : [...prev, seat.seatNumber]);
     };
 
-    const handleConfirm = () => {
-        // Validate again before confirming (in case of race condition)
-        const booked = seats.filter(s => s.status === 'booked').map(s => s.number);
-        if (selectedSeats.some(s => booked.includes(s))) {
-            alert('Some selected seats are already booked. Please reselect.');
-            return;
-        }
-        // Proceed to booking view, pass selectedSeats
-        navigate('/user/booking-view', { state: { selectedSeats, scheduleId } });
+    const getSeatClass = (seat: Seat) => {
+        if (seat.status === "BOOKED") return "bg-red-500 text-white";
+        if (selectedSeats.includes(seat.seatNumber)) return "bg-blue-500 text-white";
+        return "bg-gray-200";
     };
+
+    const baseFare: number | undefined = schedule?.fare ?? 0;
+    const totalFare: number = baseFare * selectedSeats.length;
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-            <Link to="/user/search-results" className="absolute top-20 left-5 text-base text-blue-600 mb-4">{'< Back to Search Results'}</Link>
-            <h2 className="text-2xl font-semibold mb-4">Select Your Seats</h2>
-            <div className="grid grid-cols-6 gap-4 mb-8">
-                {seats.map(seat => (
-                    <button
-                        key={seat.number}
-                        disabled={seat.status === 'booked'}
-                        onClick={() => handleSeatClick(seat)}
-                        className={`w-16 h-16 rounded border
-              ${seat.status === 'booked' ? 'bg-red-300 cursor-not-allowed': selectedSeats.includes(seat.number) ? 'bg-green-400': 'bg-white hover:bg-green-100'}
-            `}
-                        title={seat.status === 'booked' ? 'Booked' : 'Available'}
-                    >
-                        {seat.number}
-                    </button>
-                ))}
+        <div className="min-h-screen bg-gray-100 p-6 flex flex-col md:flex-row gap-8">
+            {/* Seat Selection */}
+            <div className="flex-1 bg-white rounded shadow p-6">
+                <h1 className="text-xl font-bold mb-1">Select Your Seats</h1>
+                <p className="text-sm text-gray-500 mb-4">
+                    • {schedule?.source} • {date} · {schedule?.departureTime}
+                </p>
+
+                <div className="ml-39 text-sm mb-2 text-gray-700">Driver</div>
+                <div className="grid grid-cols-4 gap-2 w-fit">
+                    {seats.map((seat) => (
+                        <button
+                            key={seat.seatNumber}
+                            onClick={() => handleSeatClick(seat)}
+                            className={`p-2 text-center rounded ${getSeatClass(seat)} cursor-pointer`}
+                        >
+                            {seat.seatNumber}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Legend */}
+                <div className="mt-4 flex flex-wrap gap-4 text-sm">
+                    <span className="flex items-center">
+                        <span className="w-4 h-4 mr-2 rounded bg-gray-200"></span>Available
+                    </span>
+                    <span className="flex items-center">
+                        <span className="w-4 h-4 mr-2 rounded bg-blue-500"></span>Selected
+                    </span>
+                    <span className="flex items-center">
+                        <span className="w-4 h-4 mr-2 rounded bg-red-500"></span>Occupied
+                    </span>
+                </div>
             </div>
-            <div className="mb-4">
-                <span className="mr-4"><span className="inline-block w-4 h-4 bg-green-400 mr-1"></span>Selected</span>
-                <span className="mr-4"><span className="inline-block w-4 h-4 bg-red-300 mr-1"></span>Booked</span>
-                <span><span className="inline-block w-4 h-4 bg-white border mr-1"></span>Available</span>
+
+
+
+            <div className="bg-white rounded-lg shadow-sm border p-6 w-full max-w-sm">
+                <h2 className="text-xl font-bold mb-4">Trip Details</h2>
+
+                <div className="mb-4">
+                    <p className="text-sm text-gray-500">Route</p>
+                    <p className="text-md font-semibold">{schedule?.source} → {schedule?.destination}</p>
+                </div>
+
+                <div className="mb-4">
+                    <p className="text-sm text-gray-500">Operator</p>
+                    <p className="text-md font-semibold">{schedule?.companyName}</p>
+                </div>
+
+                <div className="mb-4">
+                    <p className="text-sm text-gray-500">Bus Number</p>
+                    <p className="text-md font-semibold">{schedule?.registrationNumber}</p>
+                </div>
+
+                <div className="mb-4">
+                    <p className="text-sm text-gray-500">Departure</p>
+                    <p className="text-md font-semibold">{schedule?.departureTime.substring(0,5)}</p>
+                </div>
+
+                <div>
+                    <p className="text-sm text-gray-500">Scheduled Arrival</p>
+                    <p className="text-md font-semibold">{schedule?.reachingTime.substring(0,5)}</p>
+                </div>
+
+
+               <div className="text-sm">
+          <div className="mt-2.5 flex justify-between">
+            <span>Base fare ({selectedSeats.length} × ₹{baseFare})</span>
+            <span>₹{totalFare}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Taxes & fees</span>
+            <span>₹0</span>
+          </div>
+          <div className="border-t my-2"></div>
+          <div className="flex justify-between font-bold">
+            <span>Total</span>
+            <span>₹{totalFare}</span>
+          </div>
+        </div>
+
+
+
+                <button 
+                    disabled={selectedSeats.length === 0}
+                    className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800 disabled:opacity-50"
+                >
+                    Continue to Checkout
+                </button>
             </div>
-            <button
-                className="bg-black text-white px-6 py-2 rounded disabled:opacity-50"
-                disabled={selectedSeats.length === 0}
-                onClick={handleConfirm}
-            >
-                Confirm Selection ({selectedSeats.length})
-            </button>
+
+
+
+
+
+
+
         </div>
     );
 }
+
+
+
+
+
+
+
+
