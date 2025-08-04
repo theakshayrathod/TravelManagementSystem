@@ -3,38 +3,38 @@ import { config } from "../../config"
 
 
 export type RouteResponse = {
-    id:number,
-    source:string,
-    destination:string,
-    distance:number
+    id: number,
+    source: string,
+    destination: string,
+    distance: number
 }
 export type ApiResponse = {
-    message:string
-    timestamp:string
+    message: string
+    timestamp: string
 }
 
 
-export async function getRoutes():Promise<RouteResponse[] | null>{
+export async function getRoutes(): Promise<RouteResponse[] | null> {
 
-    try{
-        const url:string = `${config.serverUrl}/route`
+    try {
+        const url: string = `${config.serverUrl}/route`
 
-        const response:AxiosResponse<RouteResponse[]> = await axios.get(url);
-        // console.log(response);
-        
-        if(response.status == 200){
+        const response: AxiosResponse<RouteResponse[]> = await axios.get(url);
+        console.log(response);
+
+        if (response.status == 200) {
             return response.data
-        }else{
+        } else {
             return null;
         }
-        
 
-    }catch(error : unknown){
 
-        if(error instanceof Error){
+    } catch (error: unknown) {
+
+        if (error instanceof Error) {
             console.error(error);
-        }else{
-            console.error("An Unknown Error Occured",error)
+        } else {
+            console.error("An Unknown Error Occured", error)
         }
 
 
@@ -43,34 +43,34 @@ export async function getRoutes():Promise<RouteResponse[] | null>{
 
     return null;
 
-    
+
 }
 
-export async function addRoute(source:string, destination:string, distance:number):Promise<ApiResponse | null>{
+export async function addRoute(source: string, destination: string, distance: number): Promise<ApiResponse | null> {
 
-    try{
-        const url : string = `${config.serverUrl}/route`
+    try {
+        const url: string = `${config.serverUrl}/route`
         const body = {
-            source, destination,distance
+            source, destination, distance
         }
 
-        const response :AxiosResponse<ApiResponse>= await axios.post(url,body);
+        const response: AxiosResponse<ApiResponse> = await axios.post(url, body);
 
-        if(response.status == 201){
+        if (response.status == 201) {
             return response.data
-        }else{
+        } else {
             return null;
         }
 
 
-    }catch(error : unknown){
-        if(error instanceof Error)
-            console.error("Error while adding Route",error)
+    } catch (error: unknown) {
+        if (error instanceof Error)
+            console.error("Error while adding Route", error)
         else
             console.error("Unknown error while adding route", error)
 
     }
 
-   return null;
+    return null;
 
 }

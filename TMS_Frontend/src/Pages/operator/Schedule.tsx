@@ -19,7 +19,7 @@ export function Schedule() {
 
   const getSchedules = async()=>{
 
-    const result = await getScheduleForOperator(1);
+    const result = await getScheduleForOperator(2);
 
     if(result){
       setSchedules(result);

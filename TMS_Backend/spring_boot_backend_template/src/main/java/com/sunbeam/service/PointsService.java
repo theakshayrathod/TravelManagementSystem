@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.PointDto;
+import com.sunbeam.dto.SchedulePointInfo;
 
 public interface PointsService {
 
@@ -14,5 +15,7 @@ public interface PointsService {
 	ApiResponse deletePoint(Long id);
 
 	List<PointDto> getByRouteId(Long id);
+
+	List<SchedulePointInfo> getPointBySchedule(Long scheduleId);
 
 }

@@ -33,13 +33,7 @@ public class SeatServiceImpl implements SeatService{
 		
 		
 		SeatDto sDto = new SeatDto();
-		
-		
-		
-		
 	
-			
-			
 			sDto.setSource(schedule.getRoute().getSource());
 			sDto.setDestination(schedule.getRoute().getDestination());
 			sDto.setCompanyName(schedule.getBus().getOperator().getCompanyName());

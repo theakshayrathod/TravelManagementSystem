@@ -3,7 +3,8 @@ import { getAllBooking, type Booking } from "../../services/Booking";
 
 export function Bookings() {
 
-    const[booking,setBooking]=useState<Booking[]>([]);
+    const[bookings,setBooking]=useState<Booking[]>([]);
+    
 
     const userId = 1;
 
@@ -12,6 +13,9 @@ export function Bookings() {
       .then(data => setBooking(data))
       .catch(error => console.error('Error fetching bookings:', error));
   }, []);
+
+      console.log(bookings)
+
 
     return (
         <div className="p-6 min-h-screen bg-gray-100">
@@ -35,7 +39,7 @@ export function Bookings() {
                         </tr>
                     </thead>
                     <tbody>
-                        {booking.map((booking) => (
+                        {bookings.map((booking) => (
                             <tr key={booking.bookingId} className="border-b hover:bg-gray-50">
                                 <td className="p-3">{booking.bookingId}</td>
                                 <td className="p-3">{booking.passengerName}</td>
