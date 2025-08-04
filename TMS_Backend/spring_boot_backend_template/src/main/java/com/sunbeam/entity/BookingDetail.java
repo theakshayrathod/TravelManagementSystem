@@ -24,7 +24,7 @@ public class BookingDetail extends BaseEntity {
 	@JoinColumn(name ="pickup_point_id",nullable = false )
 	private Point pickupPoint;
 	@ManyToOne
-	@JoinColumn(name = "drop_point-id",nullable = false)
+	@JoinColumn(name = "drop_point_id",nullable = false)
 	private Point dropPoint;
 
 }
