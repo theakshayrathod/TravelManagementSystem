@@ -3,6 +3,7 @@ package com.sunbeam.dto;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sunbeam.entity.Recurrence;
 
 import jakarta.validation.constraints.NotBlank;
