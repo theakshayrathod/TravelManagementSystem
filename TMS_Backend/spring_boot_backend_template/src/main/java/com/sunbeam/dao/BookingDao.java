@@ -8,4 +8,7 @@ import com.sunbeam.entity.Booking;
 
 public interface BookingDao extends JpaRepository<Booking, Long> {
 List<Booking> findByScheduleBusOperatorOperatorId(Long id);
+
+List<Booking> findByUserId(Long id);
+
 }

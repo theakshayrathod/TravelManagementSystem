@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.BookDto;
 import com.sunbeam.dto.BookingDto;
+import com.sunbeam.dto.MyBookingDto;
 import com.sunbeam.service.BookingService;
 
 import lombok.AllArgsConstructor;
@@ -31,9 +32,15 @@ public class BookingController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.bookingByUserId(dto, userId));
 	}
 
-	@GetMapping("/get/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getBookings(@PathVariable Long id) {
 		List<BookingDto> bookings = bookingService.getBookingById(id);
+		return ResponseEntity.ok(bookings);
+	}
+	
+	@GetMapping("/user/{id}")
+	public ResponseEntity<?>getBooking(@PathVariable Long id){
+		List<MyBookingDto> bookings =	bookingService.getMyBookings(id); 
 		return ResponseEntity.ok(bookings);
 	}
 

@@ -16,6 +16,7 @@ import com.sunbeam.dao.UserDao;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.BookDto;
 import com.sunbeam.dto.BookingDto;
+import com.sunbeam.dto.MyBookingDto;
 import com.sunbeam.entity.Booking;
 import com.sunbeam.entity.BookingDetail;
 import com.sunbeam.entity.BookingStatus;
@@ -61,6 +62,29 @@ public class BookingServiceImpl implements BookingService {
 
 		}).toList();
 
+	}
+	
+	@Override
+	public List<MyBookingDto> getMyBookings(Long id) {
+		List<Booking> bookings = bookingDao.findByUserId(id);
+
+		return bookings.stream().map(b -> {
+			MyBookingDto bDto = new MyBookingDto();
+			bDto.setSource(b.getSchedule().getRoute().getSource());
+			bDto.setDestination(b.getSchedule().getRoute().getDestination());
+			bDto.setDepartureTime(b.getSchedule().getDepartureTime());
+			bDto.setReachingTime(b.getSchedule().getReachingTime());
+			List<String>point=b.getSchedule().getSchedulePoints().stream().map( p -> p.getPoint().getName()).collect(Collectors.toList());
+			bDto.setPoints(point);
+			bDto.setDate(b.getBookingTime());
+			List<String> seats = b.getBookingDetails().stream().map(d -> d.getSeat().getSeatNumber())
+					.collect(Collectors.toList());
+			bDto.setSeatNumbers(seats);
+			bDto.setTotaleAmount(b.getTotalAmount());
+			return bDto;
+			
+		}).toList();	
+		
 	}
 
 	@Override
@@ -114,5 +138,7 @@ public class BookingServiceImpl implements BookingService {
 
 		return new ApiResponse("Booking successfull");
 	}
+
+	
 
 }

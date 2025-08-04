@@ -21,7 +21,11 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
+
+
+
 @CrossOrigin(origins = "*")
+
 
 public class UserController {
 	
