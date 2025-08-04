@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dao.PointDao;
 import com.sunbeam.dto.PointDto;
+import com.sunbeam.dto.SchedulePointInfo;
 import com.sunbeam.service.PointsService;
 
 import lombok.AllArgsConstructor;
@@ -41,11 +42,16 @@ public class PointsController {
 		return ResponseEntity.ok(points);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<?> getPointsByRouteId(@PathVariable Long id){
+	@GetMapping("/{routeId}")
+	public ResponseEntity<?> getPointsByRouteId(@PathVariable Long routeId){
 		
-		return ResponseEntity.ok(pointsService.getByRouteId(id));
+		return ResponseEntity.ok(pointsService.getByRouteId(routeId));
 		
+	}
+	@GetMapping("/{scheduleId}")
+	public ResponseEntity<?> getPointsByScheduleId(@PathVariable Long scheduleId){
+		List<SchedulePointInfo> schedulePointInfos = pointsService.getPointBySchedule(scheduleId);
+		return ResponseEntity.ok(schedulePointInfos);
 	}
 
 	

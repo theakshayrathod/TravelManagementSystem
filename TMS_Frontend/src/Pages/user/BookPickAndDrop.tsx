@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import { BookPickDrop } from "../../components/BookPickDrop";
+import { useState } from "react";
 
 export function BookPickAndDrop() {
+
+  const [pickupPoints, setPickupPoints] = useState<string[]>([]);
+  const [dropPoints, setDropPoints] = useState<string[]>([]);
+
+  // const async (params:type) => {
+
+  // }
   return (
     <div className="min-h-screen bg-gray-100 p-8">
 

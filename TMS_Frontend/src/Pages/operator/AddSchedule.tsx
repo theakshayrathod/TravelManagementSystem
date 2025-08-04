@@ -46,7 +46,7 @@ export function AddSchedule(): JSX.Element {
 
 
   const getBuses = async () => {
-    const result = await getAllBuses(1);
+    const result = await getAllBuses(2);
     if (result) {
       setBuses(result)
     } else {
@@ -65,7 +65,7 @@ export function AddSchedule(): JSX.Element {
   }
 
 
-  
+
 
 
 
@@ -95,7 +95,7 @@ export function AddSchedule(): JSX.Element {
   const onCreateSchedule = async () => {
 
 
-    const result: ApiResponse | null = await createSchedule(routeId, busId, fare, departureTime, reachingTime,  recurrence, recurrenceDetail, schedulePoints)
+    const result: ApiResponse | null = await createSchedule(routeId, busId, fare, departureTime, reachingTime, recurrence, recurrenceDetail, schedulePoints)
     if (result) {
       toast.success(result.message)
     } else {

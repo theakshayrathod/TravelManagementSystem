@@ -2,9 +2,9 @@ import axios from "axios";
 import { config } from "../config";
 
 
-export type Booking ={
+export type Booking = {
 
-
+  bookingId: number
   source: string;
   destination: string;
   departureTime: string; // "HH:mm" format
@@ -17,22 +17,24 @@ export type Booking ={
 
 
 export async function getAllBooking(userId: number): Promise<Booking[]> {
-    try {
-        const url = `${config.serverUrl}/booking/user/${userId}`;
-        const res = await axios.get<Booking[]>(url);
-        if (res.status == 200)
-            return res.data;
-    } catch (e) {
-        console.log(e);
-    }
-    return[];
+  try {
+    const url = `${config.serverUrl}/booking/user/${userId}`;
+    const res = await axios.get<Booking[]>(url);
+
+
+    if (res.status == 200)
+      return res.data;
+  } catch (e) {
+    console.log(e);
+  }
+  return [];
 }
 
 export function getTimeDifference(start: string, end: string): string {
   const [startH, startM] = start.split(":").map(Number);
   const [endH, endM] = end.split(":").map(Number);
 
-  let startTotal = startH * 60 + startM;
+  const startTotal = startH * 60 + startM;
   let endTotal = endH * 60 + endM;
 
   // If end time is smaller (next day), add 24 hrs

@@ -159,7 +159,7 @@ export function SeatSelection() {
 
 
 
-                <button 
+                <button     
                     disabled={selectedSeats.length === 0}
                     className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800 disabled:opacity-50"
                 >
