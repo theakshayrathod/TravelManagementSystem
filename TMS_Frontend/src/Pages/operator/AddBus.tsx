@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { addBus as addBusService } from "../../services/operator/bus";
@@ -18,6 +18,7 @@ export function AddBus(): JSX.Element {
 
   const [busPhotos, setBusPhotos] = useState<string[]>([]);
   const busTypeOptions: string[] = ["AC", "NONAC"];
+  const navigate = useNavigate();
   const [info, setInfo] = useState<BusInfo>({
     busName: "",
     seatingCapacity: 0,
@@ -66,6 +67,7 @@ export function AddBus(): JSX.Element {
           isTV: false,
           isPowerOutlets: false,
         });
+        navigate(-1)
       }
     }
   }

@@ -102,7 +102,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if(!scheduleDao.existsById(id)) {
 			return new ApiResponse("Schedule Does not Exist");
 		}
-		scheduleDao.deleteById(id);		
+		Schedule s=scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Invalid Input"));
+		
+		scheduleDao.delete(s);
 		return new ApiResponse("Schedule Deleted SuccesFully");
 	}
 

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { getScheduleForOperator, updateScheduleStatus } from "../../services/operator/schedule";
+import { deleteSchedule, getScheduleForOperator, updateScheduleStatus } from "../../services/operator/schedule";
 import { useEffect, useState } from "react";
 import type { OperatorSchedule } from "../../services/operator/schedule";
 import { toast } from "react-toastify";
+import type { ApiResponse } from "../../services/operator/route";
 
 export function Schedule() {
 
@@ -32,10 +33,23 @@ export function Schedule() {
   }
 
 
-  const onDeleteButton = async()=>{
+  
+
+    const onDelete=async(scheduleId:number)=>{
+    
+        const result:ApiResponse | null = await deleteSchedule(scheduleId);
+    
+        if(result){
+          toast.success(result.message)
+          getSchedules()
+        }else{
+          toast.warn("Error Occured")
+        }
+    
+      }
     
 
-  }
+  
 
   const changeStatus = async(id:number,status:string)=>{
 
@@ -122,7 +136,7 @@ export function Schedule() {
 
                   <Link to="#" className="text-blue-600 hover:underline">Edit</Link>
                   {' | '}
-                  <button onClick={onDeleteButton} className=" hover:underline text-red-600 font-medium ">Delete</button>
+                  <button onClick={()=> onDelete(s.scheduleId)}  className="cursor-pointer hover:underline text-red-600 font-medium ">Delete</button>
                 </td>
               </tr>
                 )

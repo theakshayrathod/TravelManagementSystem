@@ -43,6 +43,9 @@ public class Schedule extends BaseEntity {
 	@OneToMany(mappedBy = "schedule" , cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SchedulePoint> schedulePoints = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "schedule",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Seat> seats = new ArrayList<>();
+	
 	
 	public void addSchedulePoints(SchedulePoint sp) {
 		schedulePoints.add(sp);

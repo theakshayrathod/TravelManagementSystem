@@ -1,55 +1,48 @@
-import axios, { type AxiosResponse } from "axios"
+import axios, {  type AxiosResponse } from "axios"
 import { config } from "../../config"
 import type { ApiResponse } from "./route"
+import type { SchedulePoint } from "../../Pages/operator/AddSchedule"
 
 
 export type OperatorSchedule = {
-    scheduleId:number,
-    busId:number,
-    busName:string,
-    busType:string,
-    routeId : number,
-    source:string,
-    destination:string,
-    departureTime:string,
-    reachingTime:string,
-    fare:number,
-    recurrence : "DAILY" | "WEEKLY" | "SPECIFIC_DATE"
-    recurrenceDetail : string
-    status : "ACTIVE" | "INACTIVE"
-    schedulePoint : SchedulePointInfo
+    scheduleId: number,
+    busId: number,
+    busName: string,
+    busType: string,
+    routeId: number,
+    source: string,
+    destination: string,
+    departureTime: string,
+    reachingTime: string,
+    fare: number,
+    recurrence: "DAILY" | "WEEKLY" | "SPECIFIC_DATE"
+    recurrenceDetail: string
+    status: "ACTIVE" | "INACTIVE"
+    schedulePoint: SchedulePoint[]
 
 
 }
 
-type SchedulePointInfo = {
-
-    schedulePointId : number
-    pointId : number
-    pointName : string
-    pointAddress :string
-    type : "PICKUP" | "DROP"
-    arrivalTime :string
-
-}
 
 
-export async function getScheduleForOperator(id:number):Promise<OperatorSchedule[] | null>{
 
-    try{
-        const url:string = `${config.serverUrl}/schedule/operator/${id}`
-        const response : AxiosResponse<OperatorSchedule[]> = await axios.get(url)
 
-        if(response.status == 200){
+export async function getScheduleForOperator(id: number): Promise<OperatorSchedule[] | null> {
+
+    try {
+        const url: string = `${config.serverUrl}/schedule/operator/${id}`
+        const response: AxiosResponse<OperatorSchedule[]> = await axios.get(url)
+
+        if (response.status == 200) {
             return response.data
         }
 
 
-    }catch(e : unknown){
+    } catch (e: unknown) {
 
-        if(e instanceof Error){
+        if (e instanceof Error) {
             console.log(e.message)
-        }else{
+        } else {
             console.log(e)
         }
     }
@@ -61,25 +54,102 @@ export async function getScheduleForOperator(id:number):Promise<OperatorSchedule
 
 }
 
-
-export async function updateScheduleStatus(id:number, status:string):Promise<ApiResponse | null> {
-    
+export async function deleteSchedule(id:number):Promise<ApiResponse | null>{
     try{
-        const url : string = `${config.serverUrl}/schedule/${id}/${status}`
-        const result = await axios.put(url);
-
-        if(result.status == 200){
-            return result.data
+        const url:string = `${config.serverUrl}/schedule/${id}`
+        const response:AxiosResponse<ApiResponse> = await axios.delete(url);
+        if(response.status == 200){
+            return response.data
         }
-
-    }catch(e : unknown){
-
+    }catch(e){
         if(e instanceof Error){
             console.log(e.message)
         }else{
             console.log(e)
         }
+    }
+    return null;
+}
+
+export async function createSchedule(routeId: number,
+    busId: number,
+    fare:number,
+    departureTime: string,
+    reachingTime: string,
+    recurrence: string,
+    recurrenceDetail: string,
+    schedulePoints: SchedulePoint[]):Promise<ApiResponse | null> {
+
+
+    try {
+
+        const url: string = `${config.serverUrl}/schedule`
+
+        const body = {
+            routeId,
+            busId,
+            fare,
+            departureTime,
+            reachingTime,
+            recurrence,
+            recurrenceDetail,
+            schedulePoints
+
+        }
+
+
+        const response: AxiosResponse<ApiResponse> = await axios.post(url,body)
         
+        if(response.status == 201){
+
+            return response.data
+
+        }
+
+       
+
+
+
+
+    } catch (e) {
+
+        if (e instanceof Error) {
+            console.log(e.message)
+        } else {
+            console.log(e)
+        }
+
+
+    }
+
+
+    return null;
+
+
+
+
+
+}
+
+
+export async function updateScheduleStatus(id: number, status: string): Promise<ApiResponse | null> {
+
+    try {
+        const url: string = `${config.serverUrl}/schedule/${id}/${status}`
+        const result = await axios.put(url);
+
+        if (result.status == 200) {
+            return result.data
+        }
+
+    } catch (e: unknown) {
+
+        if (e instanceof Error) {
+            console.log(e.message)
+        } else {
+            console.log(e)
+        }
+
 
     }
 
