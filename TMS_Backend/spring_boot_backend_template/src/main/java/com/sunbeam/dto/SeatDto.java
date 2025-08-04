@@ -19,6 +19,7 @@ public class SeatDto {
 	
 	private String companyName;
 	private String busName;
+	private String registrationNumber;
 	
 	private double fare;
 	private LocalTime departureTime;

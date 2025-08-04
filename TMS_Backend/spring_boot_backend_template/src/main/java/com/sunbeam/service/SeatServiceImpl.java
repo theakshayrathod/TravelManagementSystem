@@ -44,6 +44,7 @@ public class SeatServiceImpl implements SeatService{
 			sDto.setDestination(schedule.getRoute().getDestination());
 			sDto.setCompanyName(schedule.getBus().getOperator().getCompanyName());
 			sDto.setBusName(schedule.getBus().getBusName());
+			sDto.setRegistrationNumber(schedule.getBus().getRegistrationNumber());
 			sDto.setFare(schedule.getFare());
 			sDto.setDepartureTime(schedule.getDepartureTime());
 			sDto.setReachingTime(schedule.getReachingTime());
