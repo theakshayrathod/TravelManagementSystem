@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/operator")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class OperatorController {
 	
 	private OperatorService operatorService;
@@ -34,15 +34,15 @@ public class OperatorController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(operatorService.signUp(dto));
 	}
 	
-	@GetMapping("/profile/{id}")
+	@GetMapping("/get/{id}")
     public ResponseEntity<OperatorProfileDto> getProfile(@PathVariable Long id) {
         return ResponseEntity.ok(operatorService.getOperator(id));
     }
 	
-	 @PutMapping("/update-profile/{operatorId}")
-	    public ResponseEntity<String> updateProfile(@PathVariable Long operatorId, @RequestBody OperatorProfileDto dto) {
-	        operatorService.updateProfile(operatorId, dto);
-	        return ResponseEntity.ok("Profile updated successfully");
+	 @PutMapping("/update/{operatorId}")
+	    public ResponseEntity<?> updateProfile(@PathVariable Long operatorId, @RequestBody OperatorProfileDto dto) {
+	        
+	        return ResponseEntity.ok(operatorService.updateProfile(operatorId, dto));
 	    }
 	
 
