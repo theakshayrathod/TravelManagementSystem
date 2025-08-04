@@ -37,5 +37,6 @@ public class Seat {
 	private SeatStatus status;
 	
 	
+	
 
 }
