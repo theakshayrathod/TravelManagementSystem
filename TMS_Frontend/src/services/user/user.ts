@@ -1,8 +1,9 @@
-import axios from "axios"
+import axios, { type AxiosResponse } from "axios"
 // import { config } from "../config"
 import { UserProfileUpdate } from './../../Pages/user/UpdateProfile';
 import { UserProfile } from './../../Pages/user/Profile';
 import { config } from "../../config";
+import type { User } from "../../Pages/auth/Login";
 
 
 
@@ -32,7 +33,7 @@ export async function UserRegistration(name: string, email: string, contactNo: s
     }
 }
 
-export async function loginUser(email: string, password: string) {
+export async function loginUser(email: string, password: string):Promise<User | null > {
     try {
         const url = `${config.serverUrl}/user`
 
@@ -41,18 +42,17 @@ export async function loginUser(email: string, password: string) {
             password,
         }
 
-        const response = await axios.post(url, body)
-        console.log(response)
+        const response:AxiosResponse<User> = await axios.post(url, body)
 
         if (response.status == 200) {
             return response.data
         } else {
-
             return null
         }
     } catch (ex) {
         console.log(`exception: `, ex)
     }
+    return null;
 }
 
 

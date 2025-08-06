@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const navigation = [
   { name: 'Dashboard', to: '/operator/dashboard', current: true },
@@ -18,6 +18,19 @@ function classNames(...classes:ClassValue[]) {
 }
 
 export default function OperatorNavbar() {
+
+  const navigate = useNavigate()
+
+
+  const signOut = ()=>{
+
+    navigate("/")
+
+  }
+
+
+
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="w-full mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -94,14 +107,23 @@ export default function OperatorNavbar() {
                     Your Profile
                   </Link>
                 </MenuItem>
+
+                 <MenuItem>
+                  <Link
+                    to="/operator/profile"
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden w-full"
+                  >
+                    Change Password
+                  </Link>
+                </MenuItem>
                 
                 <MenuItem>
-                  <Link
-                    to="#"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                  <button
+                  onClick={signOut}
+                    className="block text-left px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden w-full"
                   >
                     Sign out
-                  </Link>
+                  </button>
                 </MenuItem>
               </MenuItems>
             </Menu>
