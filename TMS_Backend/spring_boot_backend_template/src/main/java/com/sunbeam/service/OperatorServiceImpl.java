@@ -33,10 +33,7 @@ public class OperatorServiceImpl implements OperatorService {
   
 	private UserDao userDao;
 	private OperatorDao operatorDao;
-	private ModelMapper modelMapper;
-
-
-   
+	private ModelMapper modelMapper; 
 	
 	
 	@Override
@@ -47,7 +44,7 @@ public class OperatorServiceImpl implements OperatorService {
 		
 		User u = modelMapper.map(dto, User.class);
 		
-		u.setRole(UserRole.BUSOPERATOR);
+		u.setRole(UserRole.ROLE_BUSOPERATOR);
 		
 		Operator operator = new Operator();
 		operator.setAddress(dto.getAddress());
@@ -61,9 +58,6 @@ public class OperatorServiceImpl implements OperatorService {
 		
 		return new ApiResponse("Operator registration successfully");
 	}
-
-
-
 
 
 	@Override
@@ -86,37 +80,24 @@ public class OperatorServiceImpl implements OperatorService {
 	}
 
 
-
-
-
 	@Override
 	public ApiResponse updateProfile(Long operatorId, OperatorProfileDto dto) {
 		// TODO Auto-generated method stub
 		Operator operator = operatorDao.findByOperatorId(operatorId);
 		if(operator == null){
 			throw new RuntimeException("Operator not found");
-		}
-		
-		
+		}		
 		operator.setCompanyName(dto.getCompanyName());
         operator.setLicenseNumber(dto.getLicenseNumber());
-        operator.setAddress(dto.getAddress());
-        
+        operator.setAddress(dto.getAddress());        
         User user = operator.getUser();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setContactNo(dto.getContactNo());
-
         userDao.save(user);
-        operatorDao.save(operator);
-        
-        return new ApiResponse("Operator Updated succesfully");
-		
+        operatorDao.save(operator);        
+        return new ApiResponse("Operator Updated succesfully");		
 	}
-
-
-	
-	
 	
 
 }
