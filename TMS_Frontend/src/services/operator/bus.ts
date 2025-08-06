@@ -26,7 +26,7 @@ export async function addBus(
   powerOutlet: boolean
 ): Promise<ApiResponse | null> {
 
-  const operatorId = 2;
+  const operatorId = 1;
 
   try {
     const url: string = `${config.serverUrl}/bus/add/${operatorId}`;

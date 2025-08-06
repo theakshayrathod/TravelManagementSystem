@@ -29,6 +29,8 @@ import { PickupAndDropPoints } from './Pages/operator/PickupAndDropPoints'
 import AddedRoutes from './Pages/operator/AddRoutes'
 import { SeatSelection } from './Pages/user/SeatSelection'
 import { Addpoints } from './Pages/operator/AddPoints'
+import { UpdatePassword } from './Pages/user/ChangePassword'
+import { UpdateOpPassword } from './Pages/operator/UpdateOpPassword'
 
 
 
@@ -57,7 +59,8 @@ function App(): JSX.Element {
           <Route path='my-booking' element={<MyBookings />} />
           <Route path='pickup-drop' element={<BookPickAndDrop />} />
           <Route path='seat-selection' element={<SeatSelection />} />
-          
+          <Route path="change-password" element={<UpdatePassword />} />
+
         </Route>
         {/* Operator */}
         <Route path='operator' element={<OperatorHome />} >
@@ -73,6 +76,7 @@ function App(): JSX.Element {
           <Route path='pickup-drop' element={<PickupAndDropPoints />} />
           <Route path='add-route' element={<AddedRoutes />} />
           <Route path='add-pick-drop' element={<Addpoints />} />
+          <Route path="update-password" element={<UpdateOpPassword />} />
 
         </Route>
       </Routes>
