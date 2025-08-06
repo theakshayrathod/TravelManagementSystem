@@ -31,6 +31,10 @@ import { SeatSelection } from './Pages/user/SeatSelection'
 import { Addpoints } from './Pages/operator/AddPoints'
 import { UpdatePassword } from './Pages/user/ChangePassword'
 import { UpdateOpPassword } from './Pages/operator/UpdateOpPassword'
+import About from './components/About'
+import { Features } from './components/Feature'
+import { Contact } from './components/Contact'
+import { Privacy } from './components/Privacy'
 
 
 
@@ -46,6 +50,7 @@ function App(): JSX.Element {
         <Route path='user-register' element={<UserRegistration />} />
         <Route path='operator-register' element={<OperatorRegistration />} />
         <Route path='forgot-password' element={<ForgotPassword />} />
+        
 
         {/* User */}
         <Route path='user' element={<UserHome />} >
@@ -60,6 +65,10 @@ function App(): JSX.Element {
           <Route path='pickup-drop' element={<BookPickAndDrop />} />
           <Route path='seat-selection' element={<SeatSelection />} />
           <Route path="change-password" element={<UpdatePassword />} />
+          <Route path='about' element={<About />} />
+          <Route path='features' element={<Features />} />
+          <Route path='contact' element={<Contact />} />
+          <Route path='privacy' element={<Privacy />} />
 
         </Route>
         {/* Operator */}
