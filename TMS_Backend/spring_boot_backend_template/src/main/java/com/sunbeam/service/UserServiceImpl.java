@@ -1,7 +1,5 @@
 package com.sunbeam.service;
 
-import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +31,7 @@ public class UserServiceImpl implements UserService {
 		
 		User user = userDao.findByEmailAndPassword(dto.getEmail(), dto.getPassword()).orElseThrow(() -> new AuthenticationFailureException("User Not Found"));
 		SignInResDto userDto=modelMapper.map(user,SignInResDto.class);
-	
+		
 		return userDto;
 	}
 
@@ -42,16 +40,10 @@ public class UserServiceImpl implements UserService {
 		
 		if(userDao.existsByEmail(dto.getEmail())) {
 			throw new InvalidInputException("Email Already Exist");
-		}
-		
-		
-		
-		User u=modelMapper.map(dto, User.class);
-		
-		u.setRole(UserRole.valueOf("PASSANGER"));
-		
-		userDao.save(u);
-		
+		}		
+		User u=modelMapper.map(dto, User.class);		
+		u.setRole(UserRole.ROLE_PASSANGER);		
+		userDao.save(u);		
 		return new ApiResponse("Account Created Succesfully");
 	}
 

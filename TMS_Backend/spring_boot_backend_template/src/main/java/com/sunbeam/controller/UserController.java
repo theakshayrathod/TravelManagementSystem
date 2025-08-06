@@ -22,31 +22,21 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
-
-
-
 @CrossOrigin(origins = "*")
-
-
 public class UserController {
 	
 	private UserService userService;
 
 	
 	@PostMapping
-	public ResponseEntity<?> loginUser(@RequestBody SignInDto dto){
-		
+	public ResponseEntity<?> loginUser(@RequestBody SignInDto dto){		
 		SignInResDto u = userService.loginUser(dto);
-
-		return ResponseEntity.ok(u);
-		
+		return ResponseEntity.ok(u);		
 	}
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> signUp(@RequestBody SignUpDto dto){
-		
-		return ResponseEntity.ok(userService.signUp(dto));
-		
+	public ResponseEntity<?> signUp(@RequestBody SignUpDto dto){		
+		return ResponseEntity.ok(userService.signUp(dto));		
 	}
 	
 	@GetMapping("/get/{id}")
@@ -55,7 +45,8 @@ public class UserController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody UserProfileDto dto){
+	public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody UserProfileDto dto){		
+
 		return ResponseEntity.ok(userService.updateProfile(id, dto));
 	}
 	
