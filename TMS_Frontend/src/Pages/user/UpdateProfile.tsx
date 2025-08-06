@@ -9,15 +9,15 @@ export function UserProfileUpdate(): JSX.Element {
     gender: '',
   });
 
-  const userId=1;
+  const userId = 1;
 
   useEffect(() => {
     const fetchData = async () => {
-      try{
+      try {
         const data = await getUserProfile(userId);
         setProfile(data)
-      }catch(error){
-        console.error("profile not loaded");
+      } catch (error) {
+        console.error("profile not loaded" + error);
       }
     }
     fetchData();

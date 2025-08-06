@@ -1,5 +1,7 @@
+
 import axios from "axios";
 import { config } from "../config";
+import { BiBody } from "react-icons/bi";
 
 
 export type Booking = {
@@ -13,6 +15,31 @@ export type Booking = {
   date: string; // ISO or "yyyy-MM-dd"
   seatNumbers: string[];
   totaleAmount: number;
+}
+
+export async function createBooking(userId: number, scheduleId: number, seatnumber: string[], pickupId: number, dropId: number) {
+
+  try {
+
+    const body = {
+      scheduleId,
+      seatnumber,
+      pickupId,
+      dropId
+
+    }
+    const url = `${config.serverUrl}/booking/book/${userId}`
+
+    const response = await axios.post(url, body)
+
+    if (response.status == 201)
+      return response.data
+    else
+      return null
+  } catch (e) {
+    console.log(e)
+  }
+
 }
 
 
