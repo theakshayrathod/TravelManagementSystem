@@ -1,11 +1,22 @@
 import { useState } from "react";
 import { toast } from 'react-toastify'
 import { loginUser } from "../../services/user/user";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+export type User = {
+
+  name:string,
+  email:string,
+  role:string
+
+}
 
 export function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [user , setUser] =  useState<User>();
+
+  const navigate = useNavigate()
 
   const login = async () => {
     if (email.length == 0) {
@@ -13,11 +24,19 @@ export function Login() {
     } else if (password.length == 0) {
       toast.warn("Password required")
     } else {
-      const result = await loginUser(email, password);
-      if (!result)
-        toast.error("Error while login")
+      const result:User | null= await loginUser(email, password);
+      if (result){
+          setUser(result)
+        console.log(user)
+        if(result.role === "ROLE_PASSANGER"){
+          navigate("/user/dashboard")
+        }else{
+          navigate("/operator/dashboard")
+        }
+      }
       else {
-        toast.success("successfully login.....")
+        toast.error("Error while login")     
+
       }
     }
   }
