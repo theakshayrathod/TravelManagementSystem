@@ -89,5 +89,17 @@ export async function updateUserProfile(userId: number, body: userProfile) {
     }
 }
 
+export const changePassword = async (
+  userId: number,
+  currentPassword: string,
+  newPassword: string
+) => {
+  const response = await axios.put(`${config.serverUrl}/user/change-password/${userId}`, {
+    currentPassword,
+    newPassword,
+  });
+  return response.data;
+};
+
 
 

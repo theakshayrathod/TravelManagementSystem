@@ -84,4 +84,15 @@ export async function updateOperatorProfile(id: number, body: operatorProfile) {
 
 }
 
+export const changePassword = async (
+  userId: number,
+  currentPassword: string,
+  newPassword: string
+) => {
+  const response = await axios.put(`${config.serverUrl}/user/change-password/${operatorId}`, {
+    currentPassword,
+    newPassword,
+  });
+  return response.data;
+};
 
