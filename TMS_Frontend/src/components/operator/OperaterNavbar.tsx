@@ -108,10 +108,10 @@ export default function OperatorNavbar() {
                   </Link>
                 </MenuItem>
 
-                 <MenuItem>
+                <MenuItem>
                   <Link
-                    to="/operator/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden w-full"
+                    to="/operator/update-password"
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Change Password
                   </Link>

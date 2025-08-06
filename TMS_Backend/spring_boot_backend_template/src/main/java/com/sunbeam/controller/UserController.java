@@ -14,6 +14,7 @@ import com.sunbeam.dto.SignInDto;
 import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
 import com.sunbeam.dto.UserProfileDto;
+import com.sunbeam.service.UserPasswordDto;
 import com.sunbeam.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -45,7 +46,13 @@ public class UserController {
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody UserProfileDto dto){		
+
 		return ResponseEntity.ok(userService.updateProfile(id, dto));
+	}
+	
+	@PutMapping("/change-password/{id}")
+	public ResponseEntity<?> changePassword(@PathVariable Long id, @RequestBody UserPasswordDto dto){
+		return ResponseEntity.ok(userService.changePassword(id, dto));
 	}
 
 }

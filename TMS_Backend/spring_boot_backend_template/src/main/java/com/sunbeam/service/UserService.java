@@ -16,6 +16,7 @@ public interface UserService {
 	
 	ApiResponse updateProfile(Long id, UserProfileDto dto);
 	
+	ApiResponse changePassword(Long id, UserPasswordDto dto);
 	
 
 }
