@@ -31,12 +31,12 @@ export function BookingCard({ booking }: BookingCardProps) {
       <div className="flex items-center justify-between text-sm text-gray-700">
         <div>
           <div className="text-lg font-medium">{departureTime}</div>
-          <div className="text-xs">{new Date(date).toLocaleDateString()}</div>
+          <div className="text-xs">{ date}</div>
           <div className="text-xs">{points[0]}</div>
         </div>
         <div className="text-center text-sm">
           <div>
-    {departureTime} - {reachingTime} <br />
+    {/* {departureTime} - {reachingTime} <br /> */}
     <span className="text-xs text-gray-500">
       ({getTimeDifference(departureTime, reachingTime)})
     </span>

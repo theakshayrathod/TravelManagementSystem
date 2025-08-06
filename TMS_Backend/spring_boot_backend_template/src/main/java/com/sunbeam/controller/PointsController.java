@@ -48,11 +48,7 @@ public class PointsController {
 		return ResponseEntity.ok(pointsService.getByRouteId(routeId));
 		
 	}
-	@GetMapping("/{scheduleId}")
-	public ResponseEntity<?> getPointsByScheduleId(@PathVariable Long scheduleId){
-		List<SchedulePointInfo> schedulePointInfos = pointsService.getPointBySchedule(scheduleId);
-		return ResponseEntity.ok(schedulePointInfos);
-	}
+	
 
 	
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getSeatsByScheduleId, type Seat, type SeatResponse } from "../../services/user/seats";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type MyState = {
     id: number,
     date: string
 }
+
+
 
 
 export function SeatSelection() {
@@ -70,6 +72,15 @@ export function SeatSelection() {
         if (selectedSeats.includes(seat.seatNumber)) return "bg-blue-500 text-white";
         return "bg-gray-200";
     };
+    const navigate = useNavigate();
+    const onContinueCheckout = () => {
+        navigate("/user/pickup-drop", {
+            state: {
+                scheduleId: id,
+                selectedSeats: selectedSeats
+            }
+        })
+    }
 
     const baseFare: number | undefined = schedule?.fare ?? 0;
     const totalFare: number = baseFare * selectedSeats.length;
@@ -132,35 +143,36 @@ export function SeatSelection() {
 
                 <div className="mb-4">
                     <p className="text-sm text-gray-500">Departure</p>
-                    <p className="text-md font-semibold">{schedule?.departureTime.substring(0,5)}</p>
+                    <p className="text-md font-semibold">{schedule?.departureTime.substring(0, 5)}</p>
                 </div>
 
                 <div>
                     <p className="text-sm text-gray-500">Scheduled Arrival</p>
-                    <p className="text-md font-semibold">{schedule?.reachingTime.substring(0,5)}</p>
+                    <p className="text-md font-semibold">{schedule?.reachingTime.substring(0, 5)}</p>
                 </div>
 
 
-               <div className="text-sm">
-          <div className="mt-2.5 flex justify-between">
-            <span>Base fare ({selectedSeats.length} × ₹{baseFare})</span>
-            <span>₹{totalFare}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Taxes & fees</span>
-            <span>₹0</span>
-          </div>
-          <div className="border-t my-2"></div>
-          <div className="flex justify-between font-bold">
-            <span>Total</span>
-            <span>₹{totalFare}</span>
-          </div>
-        </div>
+                <div className="text-sm">
+                    <div className="mt-2.5 flex justify-between">
+                        <span>Base fare ({selectedSeats.length} × ₹{baseFare})</span>
+                        <span>₹{totalFare}</span>
+                    </div>
+                    <div className="flex justify-between">
+                        <span>Taxes & fees</span>
+                        <span>₹0</span>
+                    </div>
+                    <div className="border-t my-2"></div>
+                    <div className="flex justify-between font-bold">
+                        <span>Total</span>
+                        <span>₹{totalFare}</span>
+                    </div>
+                </div>
 
 
 
-                <button     
+                <button
                     disabled={selectedSeats.length === 0}
+                    onClick={onContinueCheckout}
                     className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-gray-800 disabled:opacity-50"
                 >
                     Continue to Checkout

@@ -16,6 +16,6 @@ public interface PointsService {
 
 	List<PointDto> getByRouteId(Long id);
 
-	List<SchedulePointInfo> getPointBySchedule(Long scheduleId);
+	
 
 }
