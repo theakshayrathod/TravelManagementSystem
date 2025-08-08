@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { PickAndDrop } from "../../components/PickAndDrop";
 
 export function PickupAndDropPoints() {
     return (

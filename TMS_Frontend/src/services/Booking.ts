@@ -15,6 +15,10 @@ export type Booking = {
   date: string; // ISO or "yyyy-MM-dd"
   seatNumbers: string[];
   totaleAmount: number;
+  passengerName: string
+  scheduleId: number
+  route: string
+  busNumber: string
 }
 
 export async function createBooking(userId: number, scheduleId: number, seatnumber: string[], pickupId: number, dropId: number) {
@@ -50,7 +54,8 @@ export async function getAllBooking(userId: number): Promise<Booking[]> {
 
 
     if (res.status == 200)
-      return res.data;
+      console.log(res)
+    return res.data;
   } catch (e) {
     console.log(e);
   }

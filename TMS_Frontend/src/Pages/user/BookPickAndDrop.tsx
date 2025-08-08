@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getSchedulePoint as getPoints, type SchedulePointInfo } from "../../services/operator/schedulePoint";
 import { BookPick } from "../../components/BookPick";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BookDrop } from "../../components/BookDrop";
 import { createBooking } from "../../services/Booking";
 
@@ -26,8 +26,9 @@ export function BookPickAndDrop() {
 
 
 
+  const navigate = useNavigate();
   const getSchedulePoint = async () => {
-    const result: SchedulePointInfo[] | null = await getPoints(2);
+    const result: SchedulePointInfo[] | null = await getPoints(scheduleId);
     if (!result || result.length === 0) {
       toast.error("Error while getting schedule points");
     } else {
@@ -46,6 +47,7 @@ export function BookPickAndDrop() {
       toast.error("Error while book ticket")
     else
       toast.success("successfull..")
+    navigate("user/booking-summary")
 
   }
 

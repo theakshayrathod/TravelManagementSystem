@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from 'react-toastify'
 import { OperatorRegistration as operatorRegister } from "../../../services/operator/operator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export function OperatorRegistration() {
@@ -14,6 +14,8 @@ export function OperatorRegistration() {
   const [companyName, setCompanyName] = useState<string>("");
   const [licenseNo, setLicenseNo] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+
+  const navigate = useNavigate()
 
 
   const onRegister = async () => {
@@ -41,6 +43,7 @@ export function OperatorRegistration() {
         toast.error("Registration failed. Please try again.");
       } else {
         toast.success("Registration success")
+        navigate("/")
       }
     }
   }

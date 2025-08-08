@@ -45,6 +45,7 @@ export function UserRegistration() {
         toast.error("Registration failed. Please try again.");
       } else {
         toast.success("Registration success")
+        navigate("/")
       }
     }
   }

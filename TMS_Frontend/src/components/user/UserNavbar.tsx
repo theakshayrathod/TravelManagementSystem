@@ -20,7 +20,7 @@ export function UserNavbar() {
 
   const navigate = useNavigate();
 
-  const signOut = ()=>{
+  const signOut = () => {
 
     navigate("/")
 
@@ -94,27 +94,27 @@ export function UserNavbar() {
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
                 <MenuItem>
-                  <Link 
-                  to="#"
+                  <Link
+                    to="#"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden "
                   >
                     Your Profile
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link  to={"/user/change-password"}
-                  
-                  
-                   
-                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  
+                  <Link to={"/user/change-password"}
+
+
+
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden">
+
                     Change Password
-                    </Link>
+                  </Link>
                 </MenuItem>
-               
+
                 <MenuItem>
                   <button onClick={signOut}
-                  
+
                     className="block text-left px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden "
                   >
                     Sign out
@@ -133,7 +133,7 @@ export function UserNavbar() {
               key={item.name}
               as="a"
               href={item.to}
-              aria-current={item.current ? 'page'  : undefined}
+              aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
