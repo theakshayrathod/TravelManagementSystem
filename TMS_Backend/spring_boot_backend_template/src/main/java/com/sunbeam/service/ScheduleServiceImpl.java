@@ -187,7 +187,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	
 	Schedule s=scheduleDao.findById(id).orElseThrow(()-> new InvalidInputException("Schedule does not exist"));
-	if(s.getBus().getOperator().getOperatorId() != 1) {
+	if(s.getBus().getOperator().getOperatorId() != 2) {
 		throw new InvalidInputException("You can update only your schedules");
 	}
 	Long sid = s.getId();

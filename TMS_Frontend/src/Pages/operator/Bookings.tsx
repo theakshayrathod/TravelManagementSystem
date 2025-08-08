@@ -3,18 +3,18 @@ import { getAllBooking, type Booking } from "../../services/Booking";
 
 export function Bookings() {
 
-    const[bookings,setBooking]=useState<Booking[]>([]);
-    
+    const [bookings, setBooking] = useState<Booking[]>([]);
+
 
     const userId = 1;
 
     useEffect(() => {
-    getAllBooking(userId)
-      .then(data => setBooking(data))
-      .catch(error => console.error('Error fetching bookings:', error));
-  }, []);
+        getAllBooking(userId)
+            .then(data => setBooking(data))
+            .catch(error => console.error('Error fetching bookings:', error));
+    }, []);
 
-      console.log(bookings)
+    console.log(bookings)
 
 
     return (
@@ -44,8 +44,8 @@ export function Bookings() {
                                 <td className="p-3">{booking.bookingId}</td>
                                 <td className="p-3">{booking.passengerName}</td>
                                 <td className="p-3">{booking.scheduleId}</td>
-                                <td className="p-3">{booking.route}</td>
-                                <td className="p-3">{new Date(booking.date).toLocaleString()}</td>
+                                <td className="p-3">{booking.source} to {booking.destination}</td>
+                                <td className="p-3">{booking.date.substring(0,2)}/{booking.date.substring(3,5)}</td>
                                 <td className="p-3">{booking.seatNumbers.join(', ')}</td>
                                 <td className="p-3">{booking.totaleAmount}</td>
                                 <td className="p-3">{booking.busNumber}</td>
