@@ -1,6 +1,10 @@
 package com.sunbeam.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sunbeam.dto.AuthResp;
 import com.sunbeam.dto.SignInDto;
-import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
 import com.sunbeam.dto.UserProfileDto;
+import com.sunbeam.security.JwtUtils;
 import com.sunbeam.service.UserPasswordDto;
 import com.sunbeam.service.UserService;
 
@@ -26,16 +31,30 @@ import lombok.AllArgsConstructor;
 public class UserController {
 	
 	private UserService userService;
+	
+	private AuthenticationManager authenticationManager;
+	private JwtUtils jwtUtils;
 
 	
 	@PostMapping
 	public ResponseEntity<?> loginUser(@RequestBody SignInDto dto){		
-		SignInResDto u = userService.loginUser(dto);
-		return ResponseEntity.ok(u);		
+//		SignInResDto u = userService.loginUser(dto);
+//		return ResponseEntity.ok(u);		
+		
+		Authentication authToken = new UsernamePasswordAuthenticationToken(dto.getEmail(),dto.getPassword());
+		
+		Authentication validAuth = authenticationManager.authenticate(authToken);
+		
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(new AuthResp("Succesful Login",jwtUtils.generateJwtToken(validAuth)));
+		
+		
+		
 	}
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> signUp(@RequestBody SignUpDto dto){		
+	public ResponseEntity<?> signUp(@RequestBody SignUpDto dto){	
+		
 		return ResponseEntity.ok(userService.signUp(dto));		
 	}
 	
