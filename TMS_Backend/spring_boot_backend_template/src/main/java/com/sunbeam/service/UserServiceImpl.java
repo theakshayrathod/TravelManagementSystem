@@ -1,6 +1,7 @@
 package com.sunbeam.service;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.custom_exception.AuthenticationFailureException;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
 	
 	private UserDao userDao;
 	private ModelMapper modelMapper;
+	private PasswordEncoder encoder;
 
 	@Override
 	public SignInResDto loginUser(SignInDto dto) {
@@ -41,7 +43,8 @@ public class UserServiceImpl implements UserService {
 		if(userDao.existsByEmail(dto.getEmail())) {
 			throw new InvalidInputException("Email Already Exist");
 		}		
-		User u=modelMapper.map(dto, User.class);		
+		User u=modelMapper.map(dto, User.class);	
+		u.setPassword(encoder.encode(u.getPassword()));
 		u.setRole(UserRole.ROLE_PASSANGER);		
 		userDao.save(u);		
 		return new ApiResponse("Account Created Succesfully");

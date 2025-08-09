@@ -1,5 +1,12 @@
 package com.sunbeam.entity;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 	
 	@Column(name = "name" , length = 30)
 	private String name;
@@ -35,6 +42,7 @@ public class User extends BaseEntity {
 	@Enumerated(EnumType.STRING)	
 	private UserRole role;
 	
+	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)   
 	private Operator operator;
 
@@ -50,6 +58,23 @@ public class User extends BaseEntity {
 		this.role = role;
 		this.operator = operator;
 	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		
+		
+		return List.of(new SimpleGrantedAuthority(this.role.name()));
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	}
+	
+	
+	
 	
 	
 	
