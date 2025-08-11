@@ -127,8 +127,8 @@ export function Addpoints(): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {points.map((e, idx) => (
-                <tr key={idx} className="hover:bg-gray-50 border-t">
+              {points.map((e) => (
+                <tr key={e.id} className="hover:bg-gray-50 border-t">
                   <td className="px-4 py-2">{e.name}</td>
                   <td className="px-4 py-2">{e.address}</td>
                   <td className="px-4 py-2">

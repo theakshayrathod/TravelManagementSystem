@@ -26,9 +26,7 @@ public interface ScheduleDao extends JpaRepository<Schedule, Long> {
 			+ " JOIN FETCH b.operator o "
 			+ " WHERE  s.status = com.sunbeam.entity.ScheduleStatus.ACTIVE  " 
 			+ " AND LOWER(r.destination) = LOWER(:destination) "
-			+ " AND (s.recurrence = com.sunbeam.entity.Recurrence.DAILY "
-			+ " OR (s.recurrence = com.sunbeam.entity.Recurrence.WEEKLY AND LOWER(s.recurrenceDetail) LIKE %:dayofweek%) "
-			+ " OR (s.recurrence = com.sunbeam.entity.Recurrence.SPECIFIC_DATE AND s.recurrenceDetail LIKE %:dateStr )) "
+			+ " AND (s.recurrence = com.sunbeam.entity.Recurrence.SPECIFIC_DATE AND s.recurrenceDetail LIKE %:dateStr ) "
 			)
 	List<Schedule> findScheduleBySourceAndDestinationAndDate(@Param("source") String source, @Param("destination") String destination,
 			@Param("dayofweek") String dayOfWeek, @Param("dateStr") String dateStr);

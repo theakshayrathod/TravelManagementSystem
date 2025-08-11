@@ -46,7 +46,7 @@ export function AddSchedule(): JSX.Element {
 
 
   const getBuses = async () => {
-    const result = await getAllBuses(2);
+    const result = await getAllBuses();
     if (result) {
       setBuses(result)
     } else {
@@ -187,10 +187,14 @@ export function AddSchedule(): JSX.Element {
             </select>
           </div>
           <div>
+
+             {recurrence == "DAILY" &&
+              <div className="mt-5"> Schedule Will be created For 30 days from today</div>
+            }
+
+
             {recurrence == "WEEKLY" &&
-              (<div> <label className="block text-sm mb-1">Recurrence Detail</label>
-                <input onChange={(e) => setRecurrenceDetail(e.target.value)} type="text" className="w-full border px-3 py-2 rounded" placeholder="e.g. Monday, Wednesday" />
-              </div>)
+               <div className="mt-5">4 Schedule will be created for today's day </div>
             }
 
             {

@@ -51,7 +51,7 @@ export function Login() {
         }
       }
       else {
-        toast.error("Error while login")     
+        toast.error("Incorrect Email or Password")     
 
       }
     }

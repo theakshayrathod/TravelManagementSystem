@@ -52,7 +52,7 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
 
         const response: AxiosResponse<AuthResponse> = await axios.post(url, body)
 
-        if (response.status == 200) {
+        if (response.status == 200 ) {
             return response.data
         } else {
             return null

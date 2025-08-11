@@ -21,12 +21,13 @@ List<Booking> findByUserId(Long id);
 
 
 
-@Query(" select b from Booking b "
-		+ " left join fetch b.schedule s"
-		+ " left join fetch s.route r "
-		+ " left join fetch b.bookingDetails bd"
-		+ " left join fetch bd.seat st"
-		+ " where b.user.id = :id  ")
+@Query( " select distinct b from Booking b "
+	   +" left join fetch b.schedule s "
+	    + " left join fetch s.route r "
+	   + " left join fetch s.bus bus "
+	    + " left join fetch bus.operator op "
+	   + "  where b.user.id = :id "
+	    + " order by b.bookingTime desc " )
 List<Booking> getByUserIdAndDetails(@Param("id") Long id);
 
 }
