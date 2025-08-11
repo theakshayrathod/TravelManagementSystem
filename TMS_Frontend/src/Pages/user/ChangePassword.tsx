@@ -23,8 +23,8 @@ export function UpdatePassword() {
     }
 
     try {
-      const userId = 1; // Replace with actual user ID from auth or context
-      await changePassword(userId, form.currentPassword, form.newPassword);
+     
+      await changePassword( form.currentPassword, form.newPassword);
       toast.success("Password updated successfully.");
     } catch (error: any) {
       toast.error(

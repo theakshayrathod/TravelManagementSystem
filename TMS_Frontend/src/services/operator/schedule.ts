@@ -27,11 +27,15 @@ export type OperatorSchedule = {
 
 
 
-export async function getScheduleForOperator(id: number): Promise<OperatorSchedule[] | null> {
+export async function getScheduleForOperator(): Promise<OperatorSchedule[] | null> {
 
     try {
-        const url: string = `${config.serverUrl}/schedule/operator/${id}`
-        const response: AxiosResponse<OperatorSchedule[]> = await axios.get(url)
+        const url: string = `${config.serverUrl}/schedule/operator`
+        const token: string | null = localStorage.getItem("jwt")
+
+        const response: AxiosResponse<OperatorSchedule[]> = await axios.get(url, {headers:{
+            Authorization: `Bearer ${token}`
+        }})
 
         if (response.status == 200) {
             return response.data
@@ -56,8 +60,10 @@ export async function getScheduleForOperator(id: number): Promise<OperatorSchedu
 
 export async function deleteSchedule(id:number):Promise<ApiResponse | null>{
     try{
+        
+        const token: string | null = localStorage.getItem("jwt")
         const url:string = `${config.serverUrl}/schedule/${id}`
-        const response:AxiosResponse<ApiResponse> = await axios.delete(url);
+        const response:AxiosResponse<ApiResponse> = await axios.delete(url, {headers:{Authorization:`Bearer ${token}`}});
         if(response.status == 200){
             return response.data
         }
@@ -83,6 +89,9 @@ export async function createSchedule(routeId: number,
 
     try {
 
+        const token: string | null = localStorage.getItem("jwt")
+        
+
         const url: string = `${config.serverUrl}/schedule`
 
         const body = {
@@ -98,7 +107,7 @@ export async function createSchedule(routeId: number,
         }
 
 
-        const response: AxiosResponse<ApiResponse> = await axios.post(url,body)
+        const response: AxiosResponse<ApiResponse> = await axios.post(url,body , {headers:{Authorization:`Bearer ${token}`}})
         
         if(response.status == 201){
 
@@ -135,8 +144,9 @@ export async function createSchedule(routeId: number,
 export async function updateScheduleStatus(id: number, status: string): Promise<ApiResponse | null> {
 
     try {
+        const token: string | null = localStorage.getItem("jwt")
         const url: string = `${config.serverUrl}/schedule/${id}/${status}`
-        const result = await axios.put(url);
+        const result = await axios.put(url, {},{headers:{Authorization:`Bearer ${token}`}});
 
         if (result.status == 200) {
             return result.data

@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
 		
 		return userDto;
 	}
+	
+	
+	
 
 	@Override
 	public ApiResponse signUp(SignUpDto dto) {
@@ -52,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserProfileDto getUser(Long id) {
+		
 		// TODO Auto-generated method stub
 		User user = userDao.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -88,6 +92,15 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return new ApiResponse("New Password set");
+	}
+
+
+
+
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return userDao.findByEmail(email).orElseThrow(() -> new InvalidInputException("User Not Found"));
 	}
 	
 	

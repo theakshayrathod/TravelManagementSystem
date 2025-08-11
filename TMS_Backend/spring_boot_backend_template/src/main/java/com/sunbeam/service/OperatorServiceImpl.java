@@ -2,6 +2,7 @@ package com.sunbeam.service;
 
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.custom_exception.InvalidInputException;
@@ -34,6 +35,7 @@ public class OperatorServiceImpl implements OperatorService {
 	private UserDao userDao;
 	private OperatorDao operatorDao;
 	private ModelMapper modelMapper; 
+	private PasswordEncoder encoder;
 	
 	
 	@Override
@@ -45,6 +47,7 @@ public class OperatorServiceImpl implements OperatorService {
 		User u = modelMapper.map(dto, User.class);
 		
 		u.setRole(UserRole.ROLE_BUSOPERATOR);
+		u.setPassword(encoder.encode(u.getPassword()));
 		
 		Operator operator = new Operator();
 		operator.setAddress(dto.getAddress());

@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.GetSchedulesDto;
 import com.sunbeam.entity.ScheduleStatus;
+import com.sunbeam.security.JwtUtils;
 import com.sunbeam.service.ScheduleService;
 
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -28,15 +31,20 @@ import lombok.AllArgsConstructor;
 public class ScheduleController {
 	
 	private ScheduleService scheduleService;
+	private JwtUtils jwtUtils;
 	
 	@PostMapping
-	public ResponseEntity<?> createSchedule(@RequestBody AddScheduleDto dto) {		
-		return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.createSchedule(dto));
+	public ResponseEntity<?> createSchedule(@RequestBody AddScheduleDto dto , @RequestHeader("Authorization") String authHeader) {	
+		String token = authHeader.replace("Bearer ", "");
+		Claims claims = jwtUtils.validateJwtToken(token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.createSchedule(dto,claims.get("id", Long.class)));
 		
 	}
-	@GetMapping("/operator/{id}")
-	public ResponseEntity<?> getScheduleByOperatorId(@PathVariable Long id){		
-		return ResponseEntity.ok(scheduleService.getSchedulesByOperatorId(id));		
+	@GetMapping("/operator")
+	public ResponseEntity<?> getScheduleByOperatorId(@RequestHeader("Authorization") String authHeader){
+		String token = authHeader.replace("Bearer ", "");
+		Claims claims = jwtUtils.validateJwtToken(token);
+		return ResponseEntity.ok(scheduleService.getSchedulesByOperatorId(claims.get("id", Long.class)));		
 	}
 	
 	@GetMapping("/get/{source}/{destination}/{date}")
@@ -51,8 +59,10 @@ public class ScheduleController {
 	}
 	
 	@PutMapping("/{id}/{status}")
-	public ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable ScheduleStatus status){
-		return ResponseEntity.ok(scheduleService.updateStatus(id,status));
+	public ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable ScheduleStatus status , @RequestHeader("Authorization") String authHeader){
+		String token = authHeader.replace("Bearer ", "");
+		Claims claims = jwtUtils.validateJwtToken(token);
+		return ResponseEntity.ok(scheduleService.updateStatus(id,status,claims.get("id",Long.class)));
 	}
 	
 	

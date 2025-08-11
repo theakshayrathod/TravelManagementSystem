@@ -19,7 +19,7 @@ export function Schedule() {
 
   const getSchedules = async()=>{
 
-    const result = await getScheduleForOperator(2);
+    const result = await getScheduleForOperator();
 
     if(result){
       setSchedules(result);
@@ -58,7 +58,6 @@ export function Schedule() {
     
     if(result){
       toast.success(result.message);
-      console.log(result.timestamp);
       getSchedules();
     }else{
       toast.error("An Error Occured")

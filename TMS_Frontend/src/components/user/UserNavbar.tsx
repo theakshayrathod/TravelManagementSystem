@@ -22,6 +22,12 @@ export function UserNavbar() {
 
   const signOut = () => {
 
+    localStorage.removeItem("jwt")
+    localStorage.removeItem("email")
+    localStorage.removeItem("role")
+    localStorage.removeItem("name")
+    
+
     navigate("/")
 
   }

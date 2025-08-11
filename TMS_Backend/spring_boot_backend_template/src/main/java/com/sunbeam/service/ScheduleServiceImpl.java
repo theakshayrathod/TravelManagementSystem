@@ -51,9 +51,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private SeatDao seatDao;
 
 	@Override
-	public ApiResponse createSchedule(AddScheduleDto dto) {
+	public ApiResponse createSchedule(AddScheduleDto dto , Long operatorId) {
 		
 		Bus bus = busDao.findById(dto.getBusId()).orElseThrow(() -> new InvalidInputException("Bus Not Found"));
+		if(bus.getOperator().getOperatorId() != operatorId) {
+			throw new InvalidInputException("Ypu can add shedule on your buses only");
+		}
 		Route route = routeDao.findById(dto.getRouteId())
 				.orElseThrow(() -> new InvalidInputException("Route Not Exists"));
 		Schedule s = new Schedule();
@@ -183,11 +186,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public ApiResponse updateStatus(Long id, ScheduleStatus status) {
+	public ApiResponse updateStatus(Long id, ScheduleStatus status , Long operatorId) {
 
 	
 	Schedule s=scheduleDao.findById(id).orElseThrow(()-> new InvalidInputException("Schedule does not exist"));
-	if(s.getBus().getOperator().getOperatorId() != 2) {
+	if(s.getBus().getOperator().getOperatorId() != operatorId ) {
 		throw new InvalidInputException("You can update only your schedules");
 	}
 	Long sid = s.getId();

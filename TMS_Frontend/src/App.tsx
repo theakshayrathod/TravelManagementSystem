@@ -1,11 +1,11 @@
 
-import type { JSX } from 'react'
+import { useState, type JSX } from 'react'
 
 import { UserRegistration } from './Pages/auth/user/Registration'
 import { UserProfileUpdate } from './Pages/user/UpdateProfile'
 import { OperatorProfileUpdate } from './Pages/operator/UpdateProfile'
 import { AddBus } from './Pages/operator/AddBus'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from './Pages/auth/Login'
 import { Buses } from './Pages/operator/Buses'
 import { OperatorDashboard } from './Pages/operator/OperatorDashboad'
@@ -35,6 +35,8 @@ import About from './components/About'
 import { Features } from './components/Feature'
 import { Contact } from './components/Contact'
 import { Privacy } from './components/Privacy'
+import type { AuthResponse } from './services/user/user'
+import { AuthContext } from './contexts/auth.context'
 
 
 
@@ -42,9 +44,14 @@ import { Privacy } from './components/Privacy'
 
 function App(): JSX.Element {
 
+
+  const[user,setUser] = useState<AuthResponse>(null)
+
+
+
   return (
     <>
-
+<AuthContext.Provider value={{user,setUser}} >
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='user-register' element={<UserRegistration />} />
@@ -53,7 +60,7 @@ function App(): JSX.Element {
         
 
         {/* User */}
-        <Route path='user' element={<UserHome />} >
+        <Route path='user' element={user?.role == "ROLE_PASSANGER" ? <UserHome/> : <Navigate to='/' />} >
           {/* users Functionality */}
           <Route path='dashboard' element={<UserDashboard />} />
           <Route path='update-user' element={<UserProfileUpdate />} />
@@ -72,7 +79,7 @@ function App(): JSX.Element {
 
         </Route>
         {/* Operator */}
-        <Route path='operator' element={<OperatorHome />} >
+        <Route path='operator' element={user?.role == "ROLE_BUSOPERATOR" ? <OperatorHome/> : <Navigate to='/' />} >
           {/* operator Functionality */}
           <Route path='dashboard' element={<OperatorDashboard />} />
           <Route path='update-profile' element={<OperatorProfileUpdate />} />
@@ -89,6 +96,7 @@ function App(): JSX.Element {
 
         </Route>
       </Routes>
+      </AuthContext.Provider>
 
       <ToastContainer />
     </>

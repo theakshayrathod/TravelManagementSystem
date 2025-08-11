@@ -16,11 +16,12 @@ export function OperatorProfileUpdate(): JSX.Element {
     address: '',
   });
 
-  const operatorId = 2; // Replace with actual auth value
+  // Replace with actual auth value
 
   const fetchData = async () => {
     try {
-      const data = await getOperatorProfile(operatorId);
+      const data = await getOperatorProfile();
+      console.log( " here "+ data)
       setProfile(data);
     } catch (error) {
       console.error('Failed to load profile', error);
@@ -32,7 +33,7 @@ export function OperatorProfileUpdate(): JSX.Element {
 
   const handleUpdate = async () => {
     try {
-      await updateOperatorProfile(operatorId, profile);
+      await updateOperatorProfile(profile);
       alert('Profile updated successfully!');
     } catch (err) {
       alert('Failed to update profile');
@@ -59,7 +60,7 @@ export function OperatorProfileUpdate(): JSX.Element {
 
           <div className="sm:col-span-4">
             <label className="block text-sm font-medium">Email address</label>
-            <input
+            <input readOnly
               name="email"
               value={profile.email}
               onChange={(e) => setProfile({ ...profile, email: e.target.value })}
