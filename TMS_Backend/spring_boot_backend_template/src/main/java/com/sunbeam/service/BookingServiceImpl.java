@@ -42,8 +42,10 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<BookingDto> getBookingById(Long id) {
+		System.out.println(id);
 
-		List<Booking> bookings = bookingDao.findByScheduleBusOperatorOperatorId(id);
+		List<Booking> bookings = bookingDao.findByOperatorId(id);
+		System.out.println(bookings);
 
 		return bookings.stream().map(b -> {
 			BookingDto bDto = new BookingDto();
@@ -51,7 +53,7 @@ public class BookingServiceImpl implements BookingService {
 			bDto.setPassengerName(b.getUser().getName());
 			bDto.setScheduleId(b.getSchedule().getId());
 			bDto.setBusNumber(b.getSchedule().getBus().getRegistrationNumber());
-			bDto.setRoute(b.getSchedule().getRoute().getSource() + b.getSchedule().getRoute().getDestination());
+			bDto.setRoute(b.getSchedule().getRoute().getSource() + " to " + b.getSchedule().getRoute().getDestination());
 			bDto.setDate(b.getBookingTime().toString());
 			bDto.setTotaleAmount(b.getTotalAmount());
 
@@ -65,8 +67,10 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	@Override
-	public List<MyBookingDto> getMyBookings(Long id) {
-		List<Booking> bookings = bookingDao.findByUserId(id);
+	public List<MyBookingDto> getBookingsByUserId(Long id) {
+		
+//		List<Booking> bookings = bookingDao.findByUserId(id);
+		List<Booking> bookings = bookingDao.getByUserIdAndDetails(id);
 
 		return bookings.stream().map(b -> {
 			MyBookingDto bDto = new MyBookingDto();
@@ -76,6 +80,7 @@ public class BookingServiceImpl implements BookingService {
 			bDto.setReachingTime(b.getSchedule().getReachingTime());
 			List<String>point=b.getSchedule().getSchedulePoints().stream().map( p -> p.getPoint().getName()).collect(Collectors.toList());
 			bDto.setPoints(point);
+			
 			bDto.setDate(b.getBookingTime());
 			List<String> seats = b.getBookingDetails().stream().map(d -> d.getSeat().getSeatNumber())
 					.collect(Collectors.toList());
@@ -96,7 +101,7 @@ public class BookingServiceImpl implements BookingService {
 		Point pickuPoint = pointDao.findById(dto.getPickupId())
 				.orElseThrow(() -> new InvalidInputException("Invalid pickup Point"));
 		Point dropPoint = pointDao.findById(dto.getDropId())
-				.orElseThrow(() -> new InvalidInputException("Ivalid drop pont"));
+				.orElseThrow(() -> new InvalidInputException("Invalid drop pont"));
 
 		Booking booking = new Booking();
 		booking.setUser(u);

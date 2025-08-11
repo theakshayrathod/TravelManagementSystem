@@ -37,17 +37,21 @@ export async function OperatorRegistration(name: string, email: string, contactN
 
 
 
-const operatorId = 2;
 
-export async function getOperatorProfile(id: number) {
+
+export async function getOperatorProfile() {
 
     try {
 
+        const token: string | null = localStorage.getItem("jwt")
+        if (token) {
 
-        const URL = `${config.serverUrl}/operator/get/${id}`;
-        const res = await axios.get(URL);
-        if (res.status == 200)
-            return res.data;
+
+            const URL = `${config.serverUrl}/operator/get`;
+            const res = await axios.get(URL, { headers: { Authorization: `Bearer ${token}` } });
+            if (res.status == 200)
+                return res.data;
+        }
     } catch (e) {
         console.log(e);
     }
@@ -65,18 +69,18 @@ export type operatorProfile = {
     address: string
 }
 
-export async function updateOperatorProfile(id: number, body: operatorProfile) {
+export async function updateOperatorProfile(body: operatorProfile) {
 
     try {
-        const url = `${config.serverUrl}/operator/update/${operatorId}`;
+        const url = `${config.serverUrl}/operator/update`;
+        const token: string | null = localStorage.getItem("jwt")
 
+        if (token) {
+            const res = await axios.put(url, body, { headers: { Authorization: `Bearer ${token}` } });
+            if (res.status == 200)
+                return res.data;
 
-
-        const res = await axios.put(url, body);
-
-        if (res.status == 200)
-
-            return res.data;
+        }
 
     } catch (e) {
         console.log(e);
@@ -85,14 +89,15 @@ export async function updateOperatorProfile(id: number, body: operatorProfile) {
 }
 
 export const changePassword = async (
-  userId: number,
-  currentPassword: string,
-  newPassword: string
+
+    currentPassword: string,
+    newPassword: string
 ) => {
-  const response = await axios.put(`${config.serverUrl}/user/change-password/${operatorId}`, {
-    currentPassword,
-    newPassword,
-  });
-  return response.data;
+    const token: string | null = localStorage.getItem("jwt")
+    const response = await axios.put(`${config.serverUrl}/user/change-password`, {
+        currentPassword,
+        newPassword,
+    }, { headers: { Authorization: `Bearer ${token}` } });
+    return response.data;
 };
 

@@ -13,8 +13,12 @@ export type SchedulePointInfo = {
 
 export async function getSchedulePoint(id: number): Promise<SchedulePointInfo[] | null> {
     try {
+        const token:string | null = localStorage.getItem("jwt")
+       
         const url = `${config.serverUrl}/schedulePoint/${id}`
-        const response = await axios.get<SchedulePointInfo[]>(url);
+        const response = await axios.get<SchedulePointInfo[]>(url, {headers:{
+            Authorization: `Bearer ${token}`
+        }});
 
         console.log(response.data)
 

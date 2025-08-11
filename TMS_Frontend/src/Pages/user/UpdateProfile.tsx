@@ -9,12 +9,10 @@ export function UserProfileUpdate(): JSX.Element {
     gender: '',
   });
 
-  const userId = 1;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserProfile(userId);
+        const data = await getUserProfile();
         setProfile(data)
       } catch (error) {
         console.error("profile not loaded" + error);
@@ -25,7 +23,7 @@ export function UserProfileUpdate(): JSX.Element {
 
   const handleUpdate = async () => {
     try {
-      await updateUserProfile(userId, profile);
+      await updateUserProfile(profile);
       alert('Profile updated successfully!');
     } catch (err) {
       alert('Failed to update profile');

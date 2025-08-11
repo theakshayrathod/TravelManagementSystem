@@ -26,8 +26,9 @@ export type Schedule = {
 export async function getScheduleForUser(source:string, destination:string, journeyDate:string) : Promise<Schedule[] | null>{
 
     try{
+          const token: string | null = localStorage.getItem("jwt")
         const url:string = `${config.serverUrl}/schedule/get/${source}/${destination}/${journeyDate}`
-        const res = await axios.get(url);
+        const res = await axios.get(url, {headers:{Authorization:`Bearer ${token}`}});
         if(res.status == 200)
             return res.data;
     }catch(e){

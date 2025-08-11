@@ -27,7 +27,7 @@ public class AddScheduleDto {
 	private Double fare;
 	@NotBlank(message = "Recurrence is required")
 	private Recurrence recurrence;	
-	@NotBlank(message = "Recurrence is required")
+	@NotBlank(message = "Recurrence Details is required")
 	private String recurrenceDetail;	
 	private List<SchedulePointDto> schedulePoints;
 	

@@ -61,8 +61,11 @@ public class BusServiceImpl implements BusService {
 	}
 
 	@Override
-	public ApiResponse deleteBus(Long busId) {
+	public ApiResponse deleteBus(Long busId , Long operatorId) {
 		Bus bus = busDao.findById(busId).orElseThrow(() -> new InvalidInputException("Bus not found"));
+		if(bus.getOperator().getOperatorId() != operatorId) {
+			throw new InvalidInputException("You can delete only your Bus");
+		}
 		
 		busDao.delete(bus);
 		return new ApiResponse("Bus delete successfully");
@@ -84,7 +87,7 @@ public class BusServiceImpl implements BusService {
 
 	@Override
 	public ApiResponse updateBus(BusDto dto, Long busId) {
-		// TODO Auto-generated method stub
+	
 		return null;
 	}
 

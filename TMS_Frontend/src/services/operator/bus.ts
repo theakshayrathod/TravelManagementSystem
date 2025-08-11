@@ -26,10 +26,11 @@ export async function addBus(
   powerOutlet: boolean
 ): Promise<ApiResponse | null> {
 
-  const operatorId = 2;
+
 
   try {
-    const url: string = `${config.serverUrl}/bus/add/${operatorId}`;
+    const url: string = `${config.serverUrl}/bus/add`;
+    const token : string | null = localStorage.getItem("jwt")
     const body = {
       busName,
       totalSeats: seatingCapacity,
@@ -42,7 +43,7 @@ export async function addBus(
     }
 
     console.log("Request Body:", body);
-    const response: AxiosResponse<ApiResponse> = await axios.post(url, body);
+    const response: AxiosResponse<ApiResponse> = await axios.post(url, body, {headers : {Authorization: `Bearer ${token}`}});
     return response.data;
   } catch (e) {
     console.log(e);
@@ -50,10 +51,11 @@ export async function addBus(
   return null;
 }
 
-export async function getAllBuses(operatorId: number): Promise<BusResponse[] | null> {
+export async function getAllBuses(): Promise<BusResponse[] | null> {
   try {
-    const url: string = `${config.serverUrl}/bus/get-buses/${operatorId}`;
-    const response: AxiosResponse<BusResponse[]> = await axios.get(url);
+    const url: string = `${config.serverUrl}/bus/get-buses`;
+    const token: string | null = localStorage.getItem("jwt")
+    const response: AxiosResponse<BusResponse[]> = await axios.get(url, {headers : {Authorization : `Bearer ${token}`}});
     if (response.status == 200) {
       return response.data
     } else {
@@ -68,8 +70,9 @@ export async function getAllBuses(operatorId: number): Promise<BusResponse[] | n
 export async function deleteBus(busId: number): Promise<ApiResponse | null> {
   try {
     const url: string = `${config.serverUrl}/bus/delete/${busId}`
+    const token: string | null = localStorage.getItem("jwt")
 
-    const response: AxiosResponse<ApiResponse> = await axios.delete(url);
+    const response: AxiosResponse<ApiResponse> = await axios.delete(url, {headers : {Authorization:`Bearer ${token}`}});
     console.log(response)
     if (response.status == 200)
       return response.data

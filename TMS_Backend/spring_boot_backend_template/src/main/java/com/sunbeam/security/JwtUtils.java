@@ -50,6 +50,8 @@ public class JwtUtils {
 				.issuedAt(new Date())
 				.expiration(new Date(new Date().getTime() + jwtExprirationMs))
 				
+				.claim("id", userPrincipal.getId())
+				
 				.claim("authorities",getAuthoritiesInString(userPrincipal.getAuthorities()))
 				
 				.signWith(key,Jwts.SIG.HS256)

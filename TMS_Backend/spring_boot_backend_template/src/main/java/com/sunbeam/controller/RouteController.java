@@ -18,11 +18,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/route")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class RouteController {
 	
 	private RouteService routeService;
-	@PreAuthorize("hasRole('PASSANGER')")
 	@PostMapping
 	public ResponseEntity<?> createRoute(@RequestBody RouteDto dto){
 		
@@ -30,7 +29,6 @@ public class RouteController {
 		
 	}
 	@GetMapping
-	@PreAuthorize("hasRole('PASSANGER')")
 	public ResponseEntity<?> getRoutes(){		
 		return ResponseEntity.ok(routeService.getRoutes());		
 	}

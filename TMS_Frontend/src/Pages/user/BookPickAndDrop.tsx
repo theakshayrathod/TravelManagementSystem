@@ -41,13 +41,13 @@ export function BookPickAndDrop() {
   }, []);
 
   const onContinue = async () => {
-    const result = await createBooking(1, scheduleId, selectedSeats, pickupPoint, dropPoint)
+    const result = await createBooking(scheduleId, selectedSeats, pickupPoint, dropPoint)
 
     if (!result)
       toast.error("Error while book ticket")
     else
       toast.success("successfull..")
-    navigate("user/booking-summary")
+    navigate("/user/booking-summary")
 
   }
 

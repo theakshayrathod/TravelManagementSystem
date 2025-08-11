@@ -28,7 +28,7 @@ public class MyBookingDto {
 	
 	private List<String> points = new ArrayList<>();
 
-	@JsonFormat(pattern = "dd:MM:yyyy")
+	
 	private LocalDateTime date;
 
 	private List<String> seatNumbers=  new ArrayList<>();;

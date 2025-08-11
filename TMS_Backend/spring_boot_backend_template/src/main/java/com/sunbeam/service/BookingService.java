@@ -12,6 +12,6 @@ public interface BookingService {
 
 	ApiResponse bookingByUserId(BookDto dto, Long userId);
 
-	List<MyBookingDto> getMyBookings(Long id);
+	List<MyBookingDto> getBookingsByUserId(Long id);
 
 }

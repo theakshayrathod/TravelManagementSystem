@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +17,10 @@ import com.sunbeam.dto.BusDto;
 import com.sunbeam.dto.OperatorProfileDto;
 import com.sunbeam.dto.OperatorSignUpDto;
 import com.sunbeam.entity.Operator;
+import com.sunbeam.security.JwtUtils;
 import com.sunbeam.service.OperatorService;
 
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -27,6 +30,7 @@ import lombok.AllArgsConstructor;
 public class OperatorController {
 	
 	private OperatorService operatorService;
+	private JwtUtils jwtUtils;
 	
 	
 	@PostMapping("/signup")
@@ -34,15 +38,17 @@ public class OperatorController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(operatorService.signUp(dto));
 	}
 	
-	@GetMapping("/get/{id}")
-    public ResponseEntity<OperatorProfileDto> getProfile(@PathVariable Long id) {
-        return ResponseEntity.ok(operatorService.getOperator(id));
+	@GetMapping("/get")
+    public ResponseEntity<OperatorProfileDto> getProfile(@RequestHeader("Authorization") String authHeader) {
+		Claims claims = jwtUtils.validateJwtToken(authHeader.replace("Bearer ", ""));
+        return ResponseEntity.ok(operatorService.getOperator(claims.get("id",Long.class)));
+        
     }
 	
-	 @PutMapping("/update/{operatorId}")
-	    public ResponseEntity<?> updateProfile(@PathVariable Long operatorId, @RequestBody OperatorProfileDto dto) {
-	        
-	        return ResponseEntity.ok(operatorService.updateProfile(operatorId, dto));
+	 @PutMapping("/update")
+	public ResponseEntity<?> updateProfile(@RequestHeader("Authorization") String authHeader, @RequestBody OperatorProfileDto dto) {
+		 Claims claims = jwtUtils.validateJwtToken(authHeader.replace("Bearer ", ""));
+	        return ResponseEntity.ok(operatorService.updateProfile(claims.get("id",Long.class), dto));
 	    }
 	
 

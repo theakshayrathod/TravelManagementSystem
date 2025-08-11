@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { config } from "../config";
-import { BiBody } from "react-icons/bi";
+
 
 
 export type Booking = {
@@ -17,11 +17,11 @@ export type Booking = {
   totaleAmount: number;
   passengerName: string
   scheduleId: number
-  route: string
+  route:string
   busNumber: string
 }
 
-export async function createBooking(userId: number, scheduleId: number, seatnumber: string[], pickupId: number, dropId: number) {
+export async function createBooking(scheduleId: number, seatnumber: string[], pickupId: number, dropId: number) {
 
   try {
 
@@ -32,9 +32,11 @@ export async function createBooking(userId: number, scheduleId: number, seatnumb
       dropId
 
     }
-    const url = `${config.serverUrl}/booking/book/${userId}`
+    const url = `${config.serverUrl}/booking/book`
+    
+        const token: string | null = localStorage.getItem("jwt")
 
-    const response = await axios.post(url, body)
+    const response = await axios.post(url, body,  {headers:{Authorization:`Bearer ${token}`}} )
 
     if (response.status == 201)
       return response.data
@@ -47,10 +49,11 @@ export async function createBooking(userId: number, scheduleId: number, seatnumb
 }
 
 
-export async function getAllBooking(userId: number): Promise<Booking[]> {
+export async function getAllBooking(): Promise<Booking[]> {
   try {
-    const url = `${config.serverUrl}/booking/user/${userId}`;
-    const res = await axios.get<Booking[]>(url);
+      const token: string | null = localStorage.getItem("jwt")
+    const url = `${config.serverUrl}/booking/operator`;
+    const res = await axios.get<Booking[]>(url , {headers:{Authorization:`Bearer ${token}`}});
 
 
     if (res.status == 200)
@@ -61,6 +64,32 @@ export async function getAllBooking(userId: number): Promise<Booking[]> {
   }
   return [];
 }
+
+
+export async function getBookingForUser():Promise<Booking[]>{
+
+  try{
+    const token: string | null = localStorage.getItem("jwt")
+    const url = `${config.serverUrl}/booking/user`
+    const res = await axios.get<Booking[]>(url,{headers:{Authorization: `Bearer ${token}`}})
+
+    if(res.status == 200){
+      console.log(res)
+      return res.data
+    }
+
+
+  }catch(e){
+    console.log(e)
+  }
+
+  return [];
+
+}
+
+
+
+
 
 export function getTimeDifference(start: string, end: string): string {
   const [startH, startM] = start.split(":").map(Number);
