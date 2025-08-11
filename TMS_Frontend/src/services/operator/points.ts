@@ -18,7 +18,7 @@ export async function addpoints(routId: number, pointName: string, address: stri
             Authorization: `Bearer ${token}`
         }});
 
-        if (response.status == 200) {
+        if (response.status == 201) {
             return response.data
         }
         else {
