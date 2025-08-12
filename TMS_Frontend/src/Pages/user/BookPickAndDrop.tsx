@@ -26,6 +26,7 @@ export function BookPickAndDrop() {
 
 
 
+
   const navigate = useNavigate();
   const getSchedulePoint = async () => {
     const result: SchedulePointInfo[] | null = await getPoints(scheduleId);
@@ -45,9 +46,16 @@ export function BookPickAndDrop() {
 
     if (!result)
       toast.error("Error while book ticket")
-    else
+    else {
+      
+
       toast.success("successfull..")
-    navigate("user/booking-summary")
+      navigate("/user/booking-summary",{
+        state:{
+          id:result
+        }
+      })
+    }
 
   }
 
