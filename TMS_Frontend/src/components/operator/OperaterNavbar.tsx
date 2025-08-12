@@ -24,6 +24,11 @@ export default function OperatorNavbar() {
 
   const signOut = ()=>{
 
+      localStorage.removeItem("jwt")
+    localStorage.removeItem("email")
+    localStorage.removeItem("role")
+    localStorage.removeItem("name")
+
     navigate("/")
 
   }
@@ -101,7 +106,7 @@ export default function OperatorNavbar() {
               >
                 <MenuItem>
                   <Link
-                    to="/operator/profile"
+                    to="/operator/update-profile"
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                   >
                     Your Profile

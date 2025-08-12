@@ -31,8 +31,8 @@ export function BookingCard({ booking }: BookingCardProps) {
       <div className="flex items-center justify-between text-sm text-gray-700">
         <div>
           <div className="text-lg font-medium">{departureTime}</div>
-          <div className="text-xs">{ date}</div>
-          <div className="text-xs">{points[0]}</div>
+          <div className="text-xs">Booking Time { date.substring(0,10) } { ' '} { date.substring(11,19)} </div>
+          <div className="text-xs">Pick Up Point {points[0]}</div>
         </div>
         <div className="text-center text-sm">
           <div>
@@ -46,7 +46,7 @@ export function BookingCard({ booking }: BookingCardProps) {
         <div>
           <div className="text-lg font-medium">{reachingTime}</div>
           <div className="text-xs">Arrival</div>
-          <div className="text-xs">{points[points.length - 1]}</div>
+          <div className="text-xs">Drop Points {points[points.length - 1]}</div>
         </div>
       </div>
 

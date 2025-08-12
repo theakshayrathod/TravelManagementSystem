@@ -2,6 +2,7 @@ package com.sunbeam.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/route")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class RouteController {
 	
 	private RouteService routeService;
@@ -28,10 +29,8 @@ public class RouteController {
 		
 	}
 	@GetMapping
-	public ResponseEntity<?> getRoutes(){
-		
-		return ResponseEntity.ok(routeService.getRoutes());
-		
+	public ResponseEntity<?> getRoutes(){		
+		return ResponseEntity.ok(routeService.getRoutes());		
 	}
 
 		

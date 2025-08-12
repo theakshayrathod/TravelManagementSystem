@@ -11,7 +11,7 @@ import com.sunbeam.dto.ApiResponse;
 public interface BusService {
 	ApiResponse addBus(BusDto dto ,Long id);
 
-	ApiResponse deleteBus(Long busId);
+	ApiResponse deleteBus(Long busId, Long operatorId);
 
 	List<BusDto> getAllBuses(long operatorId);
 

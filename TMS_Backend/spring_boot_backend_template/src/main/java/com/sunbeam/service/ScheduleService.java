@@ -11,9 +11,9 @@ import com.sunbeam.entity.ScheduleStatus;
 
 public interface ScheduleService {
 	
-	ApiResponse createSchedule(AddScheduleDto dto);
+	ApiResponse createSchedule(AddScheduleDto dto , Long operatorId );
 	ApiResponse deleteSchedule(Long id);
 	List<GetScheduleForOperatorDTO> getSchedulesByOperatorId(Long id);
 	List<ScheduleSearchDto> getSchedulesBySourceAndDestination(String source, String destination, LocalDate date);
-	ApiResponse updateStatus(Long id, ScheduleStatus status);
+	ApiResponse updateStatus(Long id, ScheduleStatus status, Long operatorId);
 }

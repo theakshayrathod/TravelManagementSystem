@@ -23,8 +23,9 @@ export type Seat = {
 export async function getSeatsByScheduleId(id:number):Promise<SeatResponse | null>{
 
     try{
+          const token: string | null = localStorage.getItem("jwt")
         const url:string = `${config.serverUrl}/seats/${id}`
-        const response :AxiosResponse<SeatResponse> = await axios.get(url);
+        const response :AxiosResponse<SeatResponse> = await axios.get(url ,  {headers:{Authorization:`Bearer ${token}`}});
         if(response.status == 200){
             return response.data
         }

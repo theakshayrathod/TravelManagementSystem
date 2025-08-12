@@ -3,6 +3,8 @@ import { config } from "../../config"
 
 export async function addpoints(routId: number, pointName: string, address: string, mapLink: string) {
     try {
+        const token: string | null = localStorage.getItem("jwt")
+
         const url = `${config.serverUrl}/points/add/${routId}`
         const body = {
             name: pointName,
@@ -12,9 +14,11 @@ export async function addpoints(routId: number, pointName: string, address: stri
         console.log(routId)
         console.log(body)
 
-        const response = await axios.post(url, body);
+        const response = await axios.post(url, body , {headers : {
+            Authorization: `Bearer ${token}`
+        }});
 
-        if (response.status == 200) {
+        if (response.status == 201) {
             return response.data
         }
         else {
@@ -35,10 +39,14 @@ export type Points = {
 
 export async function getAllPoints():Promise<Points[] | null> {
     try {
+        const token: string | null = localStorage.getItem("jwt")
+
         const url = `${config.serverUrl}/points/getAll`
 
-        const response:AxiosResponse<Points[]> = await axios.get(url)
-        console.log(response)
+        const response:AxiosResponse<Points[]> = await axios.get(url , {headers:{
+            Authorization: `Bearer ${token}`
+        }})
+ 
 
         if (response.status == 200)
             return response.data
@@ -54,8 +62,11 @@ export async function getAllPoints():Promise<Points[] | null> {
 export async function deletePoint(id: number) {
     try {
         const url = `${config.serverUrl}/points/delete/${id}`
+          const token: string | null = localStorage.getItem("jwt")
 
-        const response = await axios.delete(url);
+        const response = await axios.delete(url,{headers:{
+            Authorization: `Bearer ${token}`
+        }});
 
         if (response.status == 200)
             return response.data

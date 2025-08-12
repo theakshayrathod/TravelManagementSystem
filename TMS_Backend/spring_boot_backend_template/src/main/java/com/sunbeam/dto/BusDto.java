@@ -1,5 +1,6 @@
 package com.sunbeam.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,7 +31,7 @@ public class BusDto {
 	private boolean powerOutlet;
 	
 	private String registrationNumber;
-	private List<BusImage>images;
+	private List<BusImage>images = new ArrayList<>() ;
 	
 
 

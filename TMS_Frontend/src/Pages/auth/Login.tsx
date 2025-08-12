@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from 'react-toastify'
-import { loginUser } from "../../services/user/user";
+import { loginUser, type AuthResponse } from "../../services/user/user";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/auth.context";
 
 export type User = {
 
@@ -12,9 +13,16 @@ export type User = {
 }
 
 export function Login() {
+
+  const  { setUser} = useContext(AuthContext)
+
+
+
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [user , setUser] =  useState<User>();
+  // const [user , setUser] =  useState<User>();
+  const [auth,setAuth] = useState<AuthResponse>()
 
   const navigate = useNavigate()
 
@@ -24,10 +32,18 @@ export function Login() {
     } else if (password.length == 0) {
       toast.warn("Password required")
     } else {
-      const result:User | null= await loginUser(email, password);
+      const result:AuthResponse | null= await loginUser(email, password);
       if (result){
-          setUser(result)
-        console.log(user)
+          setAuth(result)
+
+         localStorage.setItem("name",result.name)
+         localStorage.setItem("jwt",result.jwt)
+         localStorage.setItem("role",result.role)
+         localStorage.setItem("email",result.email)
+
+         setUser(result)
+
+        console.log(result)
         if(result.role === "ROLE_PASSANGER"){
           navigate("/user/dashboard")
         }else{
@@ -35,7 +51,7 @@ export function Login() {
         }
       }
       else {
-        toast.error("Error while login")     
+        toast.error("Incorrect Email or Password")     
 
       }
     }

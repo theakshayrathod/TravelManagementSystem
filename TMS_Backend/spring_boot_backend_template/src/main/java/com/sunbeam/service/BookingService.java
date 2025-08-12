@@ -14,7 +14,7 @@ public interface BookingService {
 
 	Long bookingByUserId(BookDto dto, Long userId);
 
-	List<MyBookingDto> getMyBookings(Long id);
+	List<MyBookingDto> getBookingsByUserId(Long id);
 
 	ConfirmBookigDto getBookingByUserId(Long userId);
 

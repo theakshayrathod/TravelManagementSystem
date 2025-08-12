@@ -5,6 +5,7 @@ import com.sunbeam.dto.SignInDto;
 import com.sunbeam.dto.SignInResDto;
 import com.sunbeam.dto.SignUpDto;
 import com.sunbeam.dto.UserProfileDto;
+import com.sunbeam.entity.User;
 
 public interface UserService {
 
@@ -17,6 +18,8 @@ public interface UserService {
 	ApiResponse updateProfile(Long id, UserProfileDto dto);
 	
 	ApiResponse changePassword(Long id, UserPasswordDto dto);
+	
+	User getUserByEmail(String email);
 	
 
 }

@@ -18,8 +18,12 @@ export async function getRoutes(): Promise<RouteResponse[] | null> {
 
     try {
         const url: string = `${config.serverUrl}/route`
+        const token: string | null = localStorage.getItem("jwt");
 
-        const response: AxiosResponse<RouteResponse[]> = await axios.get(url);
+
+        const response: AxiosResponse<RouteResponse[]> = await axios.get(url,{headers:{
+            Authorization: `Bearer ${token}`
+        }});
         console.log(response);
 
         if (response.status == 200) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookingCard } from "../../components/BookingsCard";
-import { getAllBooking, type Booking } from "../../services/Booking";
+import { getAllBooking, getBookingForUser, type Booking } from "../../services/Booking";
 
 
 
@@ -9,9 +9,17 @@ export default function MyBookings() {
   const [bookings, setBookings] = useState<Booking[]>([]);
 
   useEffect(() => {
-    const userId = 1; // Replace this with actual user ID logic
-    getAllBooking(userId).then((data) => setBookings(data));
+    
+    getBookings()
+   
   }, []);
+
+  const getBookings = async()=>{
+
+    const result = await getBookingForUser();
+    setBookings(result)
+
+  }
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
