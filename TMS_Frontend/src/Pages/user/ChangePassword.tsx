@@ -26,14 +26,14 @@ export function UpdatePassword() {
      
       await changePassword( form.currentPassword, form.newPassword);
       toast.success("Password updated successfully.");
-    } catch (error: any) {
+    } catch (e: unknown) {
       toast.error(
-        error.response?.data?.message || "Error updating password."
+        e.response?.data?.message || "Error updating password."
       );
     }
   };
 
- return (
+  return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit}

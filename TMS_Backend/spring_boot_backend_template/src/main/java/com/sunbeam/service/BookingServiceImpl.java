@@ -16,6 +16,7 @@ import com.sunbeam.dao.UserDao;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.BookDto;
 import com.sunbeam.dto.BookingDto;
+import com.sunbeam.dto.ConfirmBookigDto;
 import com.sunbeam.dto.MyBookingDto;
 import com.sunbeam.entity.Booking;
 import com.sunbeam.entity.BookingDetail;
@@ -93,7 +94,7 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public ApiResponse bookingByUserId(BookDto dto, Long userId) {
+	public Long bookingByUserId(BookDto dto, Long userId) {
 		User u = userDao.findById(userId).orElseThrow(() -> new InvalidInputException("User not found.."));
 		Schedule s = scheduleDao.findById(dto.getScheduleId())
 				.orElseThrow(() -> new InvalidInputException("Schedule not found"));
@@ -139,9 +140,33 @@ public class BookingServiceImpl implements BookingService {
 		booking.setTotalAmount(totalAmount);
 		booking.setBookingDetails(bookingDetails);
 
-		bookingDao.save(booking);
+		Booking b = bookingDao.save(booking);
+		
+		System.err.println(b.toString());
 
-		return new ApiResponse("Booking successfull");
+		return b.getId();
+	}
+
+	@Override
+	public ConfirmBookigDto getBookingByUserId(Long bookingId) {
+		Booking b = bookingDao.findById(bookingId).orElseThrow(()-> new InvalidInputException("Booking not found"));
+		
+		ConfirmBookigDto confirmBookig = new ConfirmBookigDto();
+		
+		int seats = (int)( b.getTotalAmount()/b.getSchedule().getFare());
+		
+		
+		confirmBookig.setJourneyStart(b.getSchedule().getRoute().getSource());
+		confirmBookig.setJourneyEnd(b.getSchedule().getRoute().getDestination());
+		confirmBookig.setStartTime(b.getSchedule().getDepartureTime());
+		confirmBookig.setEndTime(b.getSchedule().getReachingTime());
+		confirmBookig.setBusNumber(b.getSchedule().getBus().getRegistrationNumber());
+		confirmBookig.setPassengerName(b.getUser().getName());
+		confirmBookig.setGender(b.getUser().getGender());
+		confirmBookig.setEmail(b.getUser().getEmail());
+		confirmBookig.setNoOfSeats(seats);
+		confirmBookig.setAmount(seats*b.getSchedule().getFare());
+		return confirmBookig;
 	}
 
 	

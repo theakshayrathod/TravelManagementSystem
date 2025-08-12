@@ -38,6 +38,8 @@ export async function createBooking(scheduleId: number, seatnumber: string[], pi
 
     const response = await axios.post(url, body,  {headers:{Authorization:`Bearer ${token}`}} )
 
+    console.log("data +" + response.data)
+
     if (response.status == 201)
       return response.data
     else
@@ -108,4 +110,27 @@ export function getTimeDifference(start: string, end: string): string {
   const minutes = diffMins % 60;
 
   return `${hours}h ${minutes}m`;
+}
+
+
+
+export async function getConfirmBooking(id: number) {
+  try {
+
+    const url = `${config.serverUrl}/booking/confirm/${id}`
+
+    const response = await axios.get(url)
+
+
+    if (response.status  == 200) {
+      console.log(response.data)
+
+      return response.data
+    }
+    else
+      return null
+
+  } catch (e) {
+    console.log(e)
+  }
 }
