@@ -19,12 +19,12 @@ export function UserProfile() {
         gender: 'MALE'
     });
 
-    const userId = 1; 
+ 
 
     useEffect(() => {
         async function fetchProfile() {
           try {
-            const data = await getUserProfile(userId);
+            const data = await getUserProfile();
             setProfile(data);
           } catch (error) {
             console.error("Failed to load user profile", error);
