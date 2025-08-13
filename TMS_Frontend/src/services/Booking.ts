@@ -117,9 +117,11 @@ export function getTimeDifference(start: string, end: string): string {
 export async function getConfirmBooking(id: number) {
   try {
 
+    const token: string | null = localStorage.getItem("jwt");
+
     const url = `${config.serverUrl}/booking/confirm/${id}`
 
-    const response = await axios.get(url)
+    const response = await axios.get(url,{headers:{ Authorization: `Bearer ${token}` }})
 
 
     if (response.status  == 200) {

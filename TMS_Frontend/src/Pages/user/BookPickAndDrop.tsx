@@ -57,7 +57,7 @@ export function BookPickAndDrop() {
         }
       })
     }
-    navigate("/user/booking-summary")
+    // navigate("/user/booking-summary")
 
   }
 
