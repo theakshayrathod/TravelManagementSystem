@@ -1,0 +1,226 @@
+import { Link, useLocation, useNavigate, } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getBusById, updateBus as updateBusService } from "../../services/operator/bus";
+import type { JSX } from "react";
+
+type BusInfo = {
+  busName: string;
+  seatingCapacity: number;
+  registrationNumber: string;
+  busType: string;
+  isWifi: boolean;
+  isTV: boolean;
+  isPowerOutlets: boolean;
+};
+
+export function UpdateBus(): JSX.Element {
+  const location = useLocation();
+  const { id } = location.state;
+  const navigate = useNavigate();
+
+  const [busPhotos, setBusPhotos] = useState<string[]>([]);
+  const busTypeOptions: string[] = ["AC", "NONAC"];
+  const [info, setInfo] = useState<BusInfo>({
+    busName: "",
+    seatingCapacity: 0,
+    registrationNumber: "",
+    busType: "",
+    isWifi: false,
+    isTV: false,
+    isPowerOutlets: false,
+  });
+
+  // Fetch existing bus details
+  const fetchBus = async () => {
+    if (!id) return;
+    const result = await getBusById(parseInt(id));
+    console.log("Fetched Bus Details:", result);
+    if (!result) {
+      toast.error("Failed to fetch bus details.");
+      navigate("/operator/buses");
+    } else {
+      setInfo({
+        busName: result.busName,
+        seatingCapacity: result.seatingCapacity,
+        registrationNumber: result.registrationNumber,
+        busType: result.busType,
+        isWifi: result.isWifi,
+        isTV: result.isTV,
+        isPowerOutlets: result.isPowerOutlets,
+      });
+      if (result.photos) setBusPhotos(result.photos);
+      console.log(info)
+    }
+  };
+  useEffect(() => {
+    fetchBus();
+  }, [id, navigate]);
+
+  const onUpdateBus = async () => {
+    if (info.busName.length === 0) {
+      toast.warn("Please enter bus name");
+    } else if (info.seatingCapacity <= 0) {
+      toast.warn("Please enter valid seating capacity");
+    } else if (info.registrationNumber.length === 0) {
+      toast.warn("Please enter registration number");
+    } else if (info.busType.length === 0) {
+      toast.warn("Please select bus type");
+    } else {
+      const result = await updateBusService(
+        parseInt(id!),
+        info.busName,
+        info.seatingCapacity,
+        info.registrationNumber,
+        info.busType,
+
+        info.isWifi,
+        info.isTV,
+        info.isPowerOutlets
+      );
+
+      if (!result) {
+        toast.error("Failed to update bus. Please try again.");
+      } else {
+        toast.success("Bus updated successfully!");
+        navigate("/operator/buses");
+      }
+    }
+  };
+
+  return (
+    <div className="justify-center items-center min-h-screen bg-gray-100">
+      <Link to="/operator/buses" className="text-indigo-600 hover:underline p-4">
+        {"< Back to Buses"}
+      </Link>
+      <div className="w-[60vw] mx-auto p-6 rounded-lg bg-white shadow-lg">
+        <h2 className="text-2xl font-semibold mb-1">Update Bus</h2>
+        <p className="text-sm text-gray-500 mb-6">Edit the details for the bus</p>
+
+        {/* Form fields - same as AddBus */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Registration Number *</label>
+            <input
+              type="text"
+              value={info.registrationNumber}
+              onChange={(e) => setInfo({ ...info, registrationNumber: e.target.value })}
+              className="w-full border px-3 py-2 rounded"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Bus Name *</label>
+            <input
+              type="text"
+              value={info.busName}
+              onChange={(e) => setInfo({ ...info, busName: e.target.value })}
+              className="w-full border px-3 py-2 rounded"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Bus Type *</label>
+            <select
+              value={info.busType}
+              onChange={(e) => setInfo({ ...info, busType: e.target.value })}
+              className="w-full border px-3 py-2 rounded"
+            >
+              <option value="">Select Bus Type</option>
+              {busTypeOptions.map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Seating Capacity *</label>
+            <input
+              type="number"
+              value={info.seatingCapacity}
+              onChange={(e) => setInfo({ ...info, seatingCapacity: parseInt(e.target.value) })}
+              className="w-full border px-3 py-2 rounded"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Amenities */}
+          <div className="mb-6">
+            <p className="text-sm font-medium mb-1">Amenities</p>
+            <div>
+              <label className="inline-flex items-center mr-4">
+                <input
+                  type="checkbox"
+                  checked={info.isWifi}
+                  onChange={(e) => setInfo({ ...info, isWifi: e.target.checked })}
+                  className="form-checkbox h-4 w-4 text-indigo-600"
+                />
+                <span className="ml-2 text-sm">WiFi</span>
+              </label>
+              <label className="inline-flex items-center mr-4">
+                <input
+                  type="checkbox"
+                  checked={info.isTV}
+                  onChange={(e) => setInfo({ ...info, isTV: e.target.checked })}
+                  className="form-checkbox h-4 w-4 text-indigo-600"
+                />
+                <span className="ml-2 text-sm">TV</span>
+              </label>
+              <label className="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  checked={info.isPowerOutlets}
+                  onChange={(e) => setInfo({ ...info, isPowerOutlets: e.target.checked })}
+                  className="form-checkbox h-4 w-4 text-indigo-600"
+                />
+                <span className="ml-2 text-sm">Power Outlets</span>
+              </label>
+            </div>
+          </div>
+
+          {/* Bus Photos */}
+          <div className="w-full max-w-md px-4 mb-4">
+            <label className="block text-sm font-medium mb-1">Bus Photos</label>
+            <input
+              type="file"
+              onChange={(e) => {
+                if (e.target.files) {
+                  const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+                  setBusPhotos(filesArray);
+                }
+              }}
+              multiple
+              className="w-full border px-3 py-2 rounded-2xl bg-gray-100 text-sm"
+            />
+            {busPhotos.length > 0 && (
+              <div className="mt-2 flex gap-2 flex-wrap">
+                {busPhotos.map((photo, idx) => (
+                  <img key={idx} src={photo} alt="Bus" className="w-16 h-16 object-cover rounded" />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex justify-end gap-4">
+          <button
+            onClick={onUpdateBus}
+            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition duration-200"
+          >
+            Update Bus
+          </button>
+          <Link
+            to="/operator/buses"
+            className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition duration-200"
+          >
+            Cancel
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

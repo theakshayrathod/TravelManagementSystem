@@ -1,6 +1,7 @@
 package com.sunbeam.service;
 
 import com.sunbeam.dto.BusDto;
+import com.sunbeam.dto.UpdateBusDto;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface BusService {
 
 	
 
-	ApiResponse updateBus(BusDto dto, Long busId);
+	ApiResponse updateBus(UpdateBusDto dto, Long busId);
+
+	BusDto getBus(Long busId);
 
 }

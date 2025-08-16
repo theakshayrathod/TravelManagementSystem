@@ -37,6 +37,7 @@ import { Contact } from './components/Contact'
 import { Privacy } from './components/Privacy'
 import type { AuthResponse } from './services/user/user'
 import { AuthContext } from './contexts/auth.context'
+import { UpdateBus } from './Pages/operator/UpdateBus'
 
 
 
@@ -45,57 +46,58 @@ import { AuthContext } from './contexts/auth.context'
 function App(): JSX.Element {
 
 
-  const[user,setUser] = useState<AuthResponse>(null)
+  const [user, setUser] = useState<AuthResponse>(null)
 
 
 
   return (
     <>
-<AuthContext.Provider value={{user,setUser}} >
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='user-register' element={<UserRegistration />} />
-        <Route path='operator-register' element={<OperatorRegistration />} />
-        <Route path='forgot-password' element={<ForgotPassword />} />
-        
+      <AuthContext.Provider value={{ user, setUser }} >
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='user-register' element={<UserRegistration />} />
+          <Route path='operator-register' element={<OperatorRegistration />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
 
-        {/* User */}
-        <Route path='user' element={user?.role == "ROLE_PASSANGER" ? <UserHome/> : <Navigate to='/' />} >
-          {/* users Functionality */}
-          <Route path='dashboard' element={<UserDashboard />} />
-          <Route path='update-user' element={<UserProfileUpdate />} />
-          <Route path='user-profile' element={<UserProfile />} />
-          <Route path='search-results' element={<SearchResult />} />
-          <Route path='booking-summary' element={<BookingSummary />} />
-          <Route path='booking-view' element={<BookingView />} />
-          <Route path='my-booking' element={<MyBookings />} />
-          <Route path='pickup-drop' element={<BookPickAndDrop />} />
-          <Route path='seat-selection' element={<SeatSelection />} />
-          <Route path="change-password" element={<UpdatePassword />} />
-          <Route path='about' element={<About />} />
-          <Route path='features' element={<Features />} />
-          <Route path='contact' element={<Contact />} />
-          <Route path='privacy' element={<Privacy />} />
 
-        </Route>
-        {/* Operator */}
-        <Route path='operator' element={user?.role == "ROLE_BUSOPERATOR" ? <OperatorHome/> : <Navigate to='/' />} >
-          {/* operator Functionality */}
-          <Route path='dashboard' element={<OperatorDashboard />} />
-          <Route path='update-profile' element={<OperatorProfileUpdate />} />
-          <Route path='profile' element={<OperatorProfile />} />
-          <Route path='add-bus' element={<AddBus />} />
-          <Route path='buses' element={<Buses />} />
-          <Route path='add-schedule' element={<AddSchedule />} />
-          <Route path='schedule' element={<Schedule />} />
-          <Route path='bookings' element={<Bookings />} />
-          <Route path='pickup-drop' element={<PickupAndDropPoints />} />
-          <Route path='add-route' element={<AddedRoutes />} />
-          <Route path='add-pick-drop' element={<Addpoints />} />
-          <Route path="update-password" element={<UpdateOpPassword />} />
+          {/* User */}
+          <Route path='user' element={user?.role == "ROLE_PASSANGER" ? <UserHome /> : <Navigate to='/' />} >
+            {/* users Functionality */}
+            <Route path='dashboard' element={<UserDashboard />} />
+            <Route path='update-user' element={<UserProfileUpdate />} />
+            <Route path='user-profile' element={<UserProfile />} />
+            <Route path='search-results' element={<SearchResult />} />
+            <Route path='booking-summary' element={<BookingSummary />} />
+            <Route path='booking-view' element={<BookingView />} />
+            <Route path='my-booking' element={<MyBookings />} />
+            <Route path='pickup-drop' element={<BookPickAndDrop />} />
+            <Route path='seat-selection' element={<SeatSelection />} />
+            <Route path="change-password" element={<UpdatePassword />} />
+            <Route path='about' element={<About />} />
+            <Route path='features' element={<Features />} />
+            <Route path='contact' element={<Contact />} />
+            <Route path='privacy' element={<Privacy />} />
 
-        </Route>
-      </Routes>
+          </Route>
+          {/* Operator */}
+          <Route path='operator' element={user?.role == "ROLE_BUSOPERATOR" ? <OperatorHome /> : <Navigate to='/' />} >
+            {/* operator Functionality */}
+            <Route path='dashboard' element={<OperatorDashboard />} />
+            <Route path='update-profile' element={<OperatorProfileUpdate />} />
+            <Route path='profile' element={<OperatorProfile />} />
+            <Route path='add-bus' element={<AddBus />} />
+            <Route path='buses' element={<Buses />} />
+            <Route path='add-schedule' element={<AddSchedule />} />
+            <Route path='schedule' element={<Schedule />} />
+            <Route path='bookings' element={<Bookings />} />
+            <Route path='pickup-drop' element={<PickupAndDropPoints />} />
+            <Route path='add-route' element={<AddedRoutes />} />
+            <Route path='add-pick-drop' element={<Addpoints />} />
+            <Route path="update-password" element={<UpdateOpPassword />} />
+            <Route path='update-bus' element={<UpdateBus />} />
+
+          </Route>
+        </Routes>
       </AuthContext.Provider>
 
       <ToastContainer />

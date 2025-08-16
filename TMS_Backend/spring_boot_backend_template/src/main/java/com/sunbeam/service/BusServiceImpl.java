@@ -10,6 +10,7 @@ import com.sunbeam.dao.BusDao;
 import com.sunbeam.dao.OperatorDao;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.BusDto;
+import com.sunbeam.dto.UpdateBusDto;
 import com.sunbeam.entity.Bus;
 import com.sunbeam.entity.BusImage;
 import com.sunbeam.entity.Operator;
@@ -86,9 +87,31 @@ public class BusServiceImpl implements BusService {
 	}
 
 	@Override
-	public ApiResponse updateBus(BusDto dto, Long busId) {
+	public ApiResponse updateBus(UpdateBusDto dto, Long busId) {
+		
+	Bus bus = busDao.findById(busId).orElseThrow(()-> new InvalidInputException("Bus not found....!"));
 	
-		return null;
+	bus.setBusName(dto.getBusName());
+	bus.setBusType(dto.getBusType());
+	bus.setPowerOutlet(dto.isPowerOutlet());
+	bus.setTv(dto.isTv());
+	bus.setWifi(dto.isWifi());
+	bus.setTotalSeats(dto.getTotalSeats());
+	bus.setRegistrationNumber(dto.getRegistrationNumber());
+
+
+	busDao.save(bus);
+	
+		return new ApiResponse("Bus update successfully");
+	}
+
+	@Override
+	public BusDto getBus(Long busId) {
+		Bus bus = busDao.findById(busId).orElseThrow(()-> new InvalidInputException("Bus not found"));
+		
+		
+		
+		return mapper.map(bus, BusDto.class);
 	}
 
 }
