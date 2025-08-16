@@ -1,4 +1,4 @@
-package com.sunbeam.security;
+ package com.sunbeam.security;
 
 import java.util.List;
 
@@ -50,6 +50,8 @@ public class SecurityConfiguration {
 		.requestMatchers(HttpMethod.POST,"/route/**").hasRole("BUSOPERATOR")
 		.requestMatchers(HttpMethod.DELETE,"/bus/**").hasRole("BUSOPERATOR")
 		.requestMatchers(HttpMethod.POST,"/bus/**").hasRole("BUSOPERATOR")
+		.requestMatchers(HttpMethod.GET,"/bus/**").hasRole("BUSOPERATOR")
+		.requestMatchers(HttpMethod.PUT,"/bus/**").hasRole("BUSOPERATOR")
 		.anyRequest().authenticated());
 				
 		http.sessionManagement(session -> 
@@ -62,11 +64,11 @@ public class SecurityConfiguration {
 		
 		
 		return http.build();		
-		
+		 
 	}
 	
 	
-	@Bean
+	@Bean	
 	AuthenticationManager authenticationManager(AuthenticationConfiguration mgr) throws Exception {
 		return mgr.getAuthenticationManager();
 	}

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { FaTv, FaWifi, FaBolt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 
 type Bus = {
@@ -17,7 +18,7 @@ type Bus = {
 
 type Props = {
   bus: Bus
-  onDelete:()=>void
+  onDelete: () => void
 }
 
 type amenitiesList = {
@@ -26,7 +27,8 @@ type amenitiesList = {
 }
 
 
-export function BusCard({ bus, onDelete}: Props) {
+export function BusCard({ bus, onDelete }: Props) {
+  const navigate = useNavigate();
   const [amenities, setAmenities] = useState<amenitiesList[]>([]);
   React.useEffect(() => {
     const amenitiesList = [];
@@ -62,7 +64,9 @@ export function BusCard({ bus, onDelete}: Props) {
       </ul>
       {/* update and delete button */}
       <div className="flex justify-end gap-2">
-        <button className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-700">Update</button>
+        <button
+          onClick={() => navigate(`/operator/update-bus`, { state: { id: bus.id } })}
+          className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-700">Update</button>
         <button
           onClick={onDelete}
           className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>

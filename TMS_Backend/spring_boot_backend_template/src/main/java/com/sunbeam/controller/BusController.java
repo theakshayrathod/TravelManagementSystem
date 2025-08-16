@@ -1,6 +1,5 @@
 package com.sunbeam.controller;
 
-import java.lang.constant.Constable;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.BusDto;
+import com.sunbeam.dto.UpdateBusDto;
 import com.sunbeam.security.JwtUtils;
 import com.sunbeam.service.BusService;
 
@@ -62,12 +62,32 @@ public class BusController {
 		System.out.println(buses);
 		return ResponseEntity.ok(buses);
 	}
-	@PutMapping("/update/{busId}")
-	private ResponseEntity<?> updateBus(@RequestBody BusDto dto,@PathVariable Long busId){
-		
-		System.err.println("result frm frontend "+dto.toString());
-		return ResponseEntity.ok(busService.updateBus(dto,busId));
-	}
+	@GetMapping("/getbus/{busId}")
+    public ResponseEntity<?> getBusById(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable Long busId) {
+        String token = authHeader.replace("Bearer ", "");
+        jwtUtils.validateJwtToken(token); // validate user/operator
+
+        BusDto bus = busService.getBus(busId);
+        return ResponseEntity.ok(bus);
+    }
+
+    // ✅ Update bus by Id
+    @PutMapping("/update/{busId}")
+    public ResponseEntity<?> updateBus(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable Long busId,
+            @RequestBody UpdateBusDto dto) {
+        String token = authHeader.replace("Bearer ", "");
+        jwtUtils.validateJwtToken(token); // validate token
+
+        
+        return ResponseEntity.ok( busService.updateBus(dto, busId));
+    }
+}
+	
+	
 	
 
-}
+
