@@ -19,7 +19,7 @@ export function UpdateBus(): JSX.Element {
   const { id } = location.state;
   const navigate = useNavigate();
 
-  const [busPhotos, setBusPhotos] = useState<string[]>([]);
+
   const busTypeOptions: string[] = ["AC", "NONAC"];
   const [info, setInfo] = useState<BusInfo>({
     busName: "",
@@ -42,15 +42,14 @@ export function UpdateBus(): JSX.Element {
     } else {
       setInfo({
         busName: result.busName,
-        seatingCapacity: result.seatingCapacity,
+        seatingCapacity: result.totalSeats,
         registrationNumber: result.registrationNumber,
         busType: result.busType,
-        isWifi: result.isWifi,
-        isTV: result.isTV,
-        isPowerOutlets: result.isPowerOutlets,
+        isWifi: result.wifi,
+        isTV: result.tv,
+        isPowerOutlets: result.powerOutlet,
       });
-      if (result.photos) setBusPhotos(result.photos);
-      console.log(info)
+  
     }
   };
   useEffect(() => {
@@ -102,7 +101,7 @@ export function UpdateBus(): JSX.Element {
           <div>
             <label className="block text-sm font-medium mb-1">Registration Number *</label>
             <input
-              type="text"
+              type="text" readOnly
               value={info.registrationNumber}
               onChange={(e) => setInfo({ ...info, registrationNumber: e.target.value })}
               className="w-full border px-3 py-2 rounded"
@@ -181,28 +180,7 @@ export function UpdateBus(): JSX.Element {
             </div>
           </div>
 
-          {/* Bus Photos */}
-          <div className="w-full max-w-md px-4 mb-4">
-            <label className="block text-sm font-medium mb-1">Bus Photos</label>
-            <input
-              type="file"
-              onChange={(e) => {
-                if (e.target.files) {
-                  const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-                  setBusPhotos(filesArray);
-                }
-              }}
-              multiple
-              className="w-full border px-3 py-2 rounded-2xl bg-gray-100 text-sm"
-            />
-            {busPhotos.length > 0 && (
-              <div className="mt-2 flex gap-2 flex-wrap">
-                {busPhotos.map((photo, idx) => (
-                  <img key={idx} src={photo} alt="Bus" className="w-16 h-16 object-cover rounded" />
-                ))}
-              </div>
-            )}
-          </div>
+         
         </div>
 
         {/* Actions */}
