@@ -52,6 +52,8 @@ public class SecurityConfiguration {
 		.requestMatchers(HttpMethod.POST,"/bus/**").hasRole("BUSOPERATOR")
 		.requestMatchers(HttpMethod.GET,"/bus/**").hasRole("BUSOPERATOR")
 		.requestMatchers(HttpMethod.PUT,"/bus/**").hasRole("BUSOPERATOR")
+		.requestMatchers(HttpMethod.PUT,"/schedule/**").hasRole("BUSOPERATOR")
+		.requestMatchers(HttpMethod.POST,"/schedule/**").hasRole("BUSOPERATOR")
 		.anyRequest().authenticated());
 				
 		http.sessionManagement(session -> 

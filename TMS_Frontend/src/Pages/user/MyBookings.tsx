@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BookingCard } from "../../components/BookingsCard";
-import { getAllBooking, getBookingForUser, type Booking } from "../../services/Booking";
+import { cancelBooking, getAllBooking, getBookingForUser, type Booking } from "../../services/Booking";
+import { toast } from "react-toastify";
 
 
 
@@ -21,6 +22,26 @@ export default function MyBookings() {
 
   }
 
+
+
+  const onCancel = async (id:number)=>{
+
+    console.log(id)
+    const result =  await cancelBooking(id);
+
+    if(result){
+      toast.success(result.message)
+      getBookings()
+    }else{
+      toast.error("Something went wrong")
+    }    
+
+
+  }
+
+
+
+
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       <h1 className="text-xl font-semibold">My Bookings</h1>
@@ -28,8 +49,8 @@ export default function MyBookings() {
 
       <div className="space-y-4">
         {bookings.length > 0 ? (
-          bookings.map((booking, index) => (
-            <BookingCard key={index} booking={booking} />
+          bookings.map((booking) => (
+            <BookingCard key={booking.bookingId} booking={booking} onCancelButton = {()=>onCancel(booking.bookingId)} />
           ))
         ) : (
           <p className="text-gray-500 text-sm">No bookings found.</p>

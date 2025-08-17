@@ -90,7 +90,7 @@ export function UserNavbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
-                    src="/images/omkar_sir.jpeg"
+                    src="/images/profile.webp"
                     className="size-8 rounded-full"
                   />
                 </MenuButton>
