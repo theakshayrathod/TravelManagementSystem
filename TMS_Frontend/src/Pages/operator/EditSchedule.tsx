@@ -1,65 +1,85 @@
+import { useEffect, useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { getScheduleById, updateSchedule } from "../../services/operator/schedule";
+import { getAllBuses } from "../../services/operator/bus";
+import { toast } from "react-toastify";
+import type { Bus } from "./Buses";
+
+export function UpdateSchedule() {
+  const location = useLocation();
+  const { id } = location.state as { id: number };
+  const scheduleId = id;
 
 
-export function EditSchedule(){
- return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+  console.log(scheduleId);
+  const navigate = useNavigate();
 
-      <button className="absolute top-10 left-5 text-lg text-blue-600 mb-4">{'< Back to Seats selection'}</button>
+  const [buses, setBuses] = useState<Bus[]>([]);
+  const [busId, setBusId] = useState<number>(0);
+  const [departureTime, setDepartureTime] = useState<string>("");
+  const [reachingTime, setReachingTime] = useState<string>("");
+  const [fare, setFare] = useState<number>(0);
 
-      <div className=" w-[60vw]  mt-4 mb-4 p-4 rounded-lg shadow-md bg-white ">
-        
-        <h2 className="text-2xl font-semibold mb-1">Edit Schedule</h2>
-        <p className="text-sm text-gray-600 mb-6">Edit the details for the bus schedule</p>
+  useEffect(() => {
+    const loadData = async () => {
+      const b = await getAllBuses();
+      if (b) setBuses(b);
 
-        <div className="bg-white p-5   ">
-          <h3 className="text-lg font-medium mb-2">Schedule Details</h3>
-          <p className="text-sm text-gray-500 mb-4">Basic information about the schedule</p>
+      const s = await getScheduleById(scheduleId);
+      if (s) {
+        setBusId(s.busId);
+        setDepartureTime(s.departureTime);
+        setReachingTime(s.reachingTime);
+        setFare(s.fare);
+      }
+    };
+    loadData();
+  }, [scheduleId]);
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 ">
-            
+  const updateHandler = async () => {
+    const body = { busId, departureTime, reachingTime, fare };
+    const result = await updateSchedule(scheduleId, body);
+    if (result) {
+      toast.success("Schedule updated successfully!");
+      navigate("/operator/schedule");
+    } else {
+      toast.error("Failed to update schedule");
+    }
+  };
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Route *</label>
-              <select className="w-full border px-3 py-2 rounded">
-                <option>Select route</option>
-              </select>
-            </div>
+  return (
+    <div className="p-6 bg-gray-100">
+      <Link to="/operator/schedule" className="text-sm mb-4 text-indigo-700 inline-block">&larr; Back</Link>
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+        <h2 className="text-xl font-semibold mb-4">Update Schedule</h2>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Effective Date *</label>
-              <input type="date" className="w-full border px-3 py-2 rounded" />
-            </div>
-
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm">Bus</label>
+            <select value={busId} onChange={(e) => setBusId(Number(e.target.value))}>
+              <option>Select bus</option>
+              {buses.map(b => <option key={b.id} value={b.id}>{b.busName}</option>)}
+            </select>
           </div>
-
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Departure Time *</label>
-              <input type="time" className="w-full border px-3 py-2 rounded" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">Arrival Time *</label>
-              <input type="time" className="w-full border px-3 py-2 rounded" />
-            </div>
+          <div>
+            <label className="block text-sm">Fare</label>
+            <input type="number" value={fare} onChange={(e) => setFare(Number(e.target.value))} />
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            
-            <div>
-              <label className="block text-sm font-medium mb-1">Bus *</label>
-              <select className="w-full border px-3 py-2 rounded">
-                <option>Select bus</option>
-              </select>
-            </div>
-
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm">Departure Time</label>
+            <input type="time" value={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
           </div>
-
-          <div className="flex justify-end space-x-2 mt-10">
-            <button className="border px-4 py-2 rounded">Cancel</button>
-            <button className="bg-black text-white px-4 py-2 rounded">Update</button>
+          <div>
+            <label className="block text-sm">Reaching Time</label>
+            <input type="time" value={reachingTime} onChange={(e) => setReachingTime(e.target.value)} />
           </div>
+        </div>
+
+        <div className="flex justify-end">
+          <button onClick={updateHandler} className="bg-black text-white px-4 py-2 rounded">Update</button>
         </div>
       </div>
     </div>

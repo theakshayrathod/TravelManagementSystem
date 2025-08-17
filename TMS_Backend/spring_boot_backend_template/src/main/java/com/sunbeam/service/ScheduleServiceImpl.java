@@ -25,6 +25,7 @@ import com.sunbeam.dto.GetSchedulesDto;
 import com.sunbeam.dto.SchedulePointDto;
 import com.sunbeam.dto.SchedulePointInfo;
 import com.sunbeam.dto.ScheduleSearchDto;
+import com.sunbeam.dto.UpdateScheduleDto;
 import com.sunbeam.entity.Bus;
 import com.sunbeam.entity.Point;
 import com.sunbeam.entity.Recurrence;
@@ -319,6 +320,48 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return new ApiResponse("Schedule with id "+ sid + " updated succesfully" );
 	}
+	@Override
+	public UpdateScheduleDto getScheduleById(Long id) {
+	    Schedule schedule = scheduleDao.findById(id)
+	            .orElseThrow(() -> new InvalidInputException("Schedule not found"));
+
+	    UpdateScheduleDto dto = new UpdateScheduleDto();
+	    dto.setBusId(schedule.getBus().getId());  // map only Bus ID
+	    dto.setDepartureTime(schedule.getDepartureTime());
+	    dto.setReachingTime(schedule.getReachingTime());
+	    dto.setFare(schedule.getFare());
+
+	    return dto;
+	}
+
+
+	 @Override
+	 public UpdateScheduleDto updateSchedule(Long id, UpdateScheduleDto dto) {
+	     Schedule schedule = scheduleDao.findById(id)
+	             .orElseThrow(() -> new InvalidInputException("Schedule not found"));
+
+	     // ✅ Only update editable fields
+	     if (dto.getBusId() != null) {
+	         Bus bus = busDao.findById(dto.getBusId())
+	                 .orElseThrow(() -> new InvalidInputException("Invalid Bus"));
+	         schedule.setBus(bus);
+	     }
+
+	     if (dto.getDepartureTime() != null) {
+	         schedule.setDepartureTime(dto.getDepartureTime());
+	     }
+
+	     if (dto.getReachingTime() != null) {
+	         schedule.setReachingTime(dto.getReachingTime());
+	     }
+
+	     if (dto.getFare() != null) {
+	         schedule.setFare(dto.getFare());
+	     }
+
+	     Schedule updated = scheduleDao.save(schedule);
+	     return mapper.map(updated, UpdateScheduleDto.class);
+	 }
 
 	
 	

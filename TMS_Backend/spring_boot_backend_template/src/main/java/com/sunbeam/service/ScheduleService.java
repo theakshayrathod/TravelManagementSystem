@@ -7,6 +7,7 @@ import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.ApiResponse;
 import com.sunbeam.dto.GetScheduleForOperatorDTO;
 import com.sunbeam.dto.ScheduleSearchDto;
+import com.sunbeam.dto.UpdateScheduleDto;
 import com.sunbeam.entity.ScheduleStatus;
 
 public interface ScheduleService {
@@ -16,4 +17,7 @@ public interface ScheduleService {
 	List<GetScheduleForOperatorDTO> getSchedulesByOperatorId(Long id);
 	List<ScheduleSearchDto> getSchedulesBySourceAndDestination(String source, String destination, LocalDate date);
 	ApiResponse updateStatus(Long id, ScheduleStatus status, Long operatorId);
+	
+	UpdateScheduleDto getScheduleById(Long id);
+	UpdateScheduleDto updateSchedule(Long id, UpdateScheduleDto dto);
 }

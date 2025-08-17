@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.GetSchedulesDto;
+import com.sunbeam.dto.UpdateScheduleDto;
 import com.sunbeam.entity.ScheduleStatus;
 import com.sunbeam.security.JwtUtils;
 import com.sunbeam.service.ScheduleService;
@@ -64,6 +65,26 @@ public class ScheduleController {
 		Claims claims = jwtUtils.validateJwtToken(token);
 		return ResponseEntity.ok(scheduleService.updateStatus(id,status,claims.get("id",Long.class)));
 	}
+	
+	 @GetMapping("/get/{id}")
+	    public ResponseEntity<?> getScheduleById(
+	            @PathVariable Long id,
+	            @RequestHeader("Authorization") String authHeader) {
+	        String token = authHeader.replace("Bearer ", "");
+	        jwtUtils.validateJwtToken(token);
+	        return ResponseEntity.ok(scheduleService.getScheduleById(id));
+	    }
+
+	  
+	    @PutMapping("/update/{id}")
+	    public ResponseEntity<?> updateSchedule(
+	            @PathVariable Long id,
+	            @RequestBody UpdateScheduleDto dto,
+	            @RequestHeader("Authorization") String authHeader) {
+	        String token = authHeader.replace("Bearer ", "");
+	        jwtUtils.validateJwtToken(token);
+	        return ResponseEntity.ok(scheduleService.updateSchedule(id, dto));
+	    }
 	
 	
 	
