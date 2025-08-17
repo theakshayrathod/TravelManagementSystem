@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookingCard } from "../../components/BookingsCard";
-import { cancelBooking, getAllBooking, getBookingForUser, type Booking } from "../../services/Booking";
+import { cancelBooking,  getBookingForUser, type Booking } from "../../services/Booking";
 import { toast } from "react-toastify";
 
 

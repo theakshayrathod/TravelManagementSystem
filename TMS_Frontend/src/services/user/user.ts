@@ -1,9 +1,7 @@
 import axios, { type AxiosResponse } from "axios"
 // import { config } from "../config"
-import { UserProfileUpdate } from './../../Pages/user/UpdateProfile';
-import { UserProfile } from './../../Pages/user/Profile';
 import { config } from "../../config";
-import type { User } from "../../Pages/auth/Login";
+
 
 
 

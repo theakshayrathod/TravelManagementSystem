@@ -18,7 +18,6 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/route")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 public class RouteController {
 	
 	private RouteService routeService;

@@ -2,6 +2,7 @@
 import axios from "axios";
 import { config } from "../config";
 import type { ApiResponse } from "./operator/route";
+import type { ConfirmBookingDetails } from "../Pages/user/BookingSummary";
 
 
 
@@ -140,14 +141,14 @@ export function getTimeDifference(start: string, end: string): string {
 
 
 
-export async function getConfirmBooking(id: number) {
+export async function getConfirmBooking(id: number):Promise<ConfirmBookingDetails | null> {
   try {
 
     const token: string | null = localStorage.getItem("jwt");
 
     const url = `${config.serverUrl}/booking/confirm/${id}`
 
-    const response = await axios.get(url,{headers:{ Authorization: `Bearer ${token}` }})
+    const response = await axios.get<ConfirmBookingDetails>(url,{headers:{ Authorization: `Bearer ${token}` }})
 
 
     if (response.status  == 200) {
@@ -161,4 +162,5 @@ export async function getConfirmBooking(id: number) {
   } catch (e) {
     console.log(e)
   }
+  return null;
 }

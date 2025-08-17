@@ -53,12 +53,19 @@ export async function getRoutes(): Promise<RouteResponse[] | null> {
 export async function addRoute(source: string, destination: string, distance: number): Promise<ApiResponse | null> {
 
     try {
-        const url: string = `${config.serverUrl}/route`
+ const url: string = `${config.serverUrl}/route`
+        const token: string | null = localStorage.getItem("jwt");
+
+
+
+    
         const body = {
             source, destination, distance
         }
 
-        const response: AxiosResponse<ApiResponse> = await axios.post(url, body);
+        const response: AxiosResponse<ApiResponse> = await axios.post(url, body,{headers:{
+            Authorization: `Bearer ${token}`
+        }});
 
         if (response.status == 201) {
             return response.data

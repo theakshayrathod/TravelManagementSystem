@@ -27,9 +27,7 @@ export function UpdatePassword() {
       await changePassword( form.currentPassword, form.newPassword);
       toast.success("Password updated successfully.");
     } catch (e: unknown) {
-      toast.error(
-        e.response?.data?.message || "Error updating password."
-      );
+     
     }
   };
 

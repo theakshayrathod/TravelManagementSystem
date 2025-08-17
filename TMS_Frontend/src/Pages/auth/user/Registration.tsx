@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from 'react-toastify';
 import { UserRegistration as userRegister } from "../../../services/user/user";
 import { Button } from "@headlessui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export function UserRegistration() {
@@ -57,9 +57,9 @@ export function UserRegistration() {
             <div className="mb-10">
               <p className="text-sm text-gray-700">
                 SignUp as operator{" "}
-                <a href="/operator-register" className="text-indigo-600 hover:underline font-bold">
+                <Link to="/operator-register" className="text-indigo-600 hover:underline font-bold">
                   Click here
-                </a>
+                </Link>
               </p>
             </div>
             <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
@@ -181,7 +181,7 @@ export function UserRegistration() {
                   onClick={onRegister}
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Sign in
+                  Sign up
                 </button>
               </div>
               <div className=" mt-2 ">
