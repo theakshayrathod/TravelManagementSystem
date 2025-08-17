@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.ApiResponse;
+import com.sunbeam.dto.DashBoardDto;
 import com.sunbeam.dto.GetScheduleForOperatorDTO;
 import com.sunbeam.dto.ScheduleSearchDto;
 import com.sunbeam.dto.UpdateScheduleDto;
@@ -20,4 +21,5 @@ public interface ScheduleService {
 	
 	UpdateScheduleDto getScheduleById(Long id);
 	UpdateScheduleDto updateSchedule(Long id, UpdateScheduleDto dto);
+	List<DashBoardDto> getDashboardInfo(Long id);
 }

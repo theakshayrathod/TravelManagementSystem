@@ -85,6 +85,15 @@ public class ScheduleController {
 	        jwtUtils.validateJwtToken(token);
 	        return ResponseEntity.ok(scheduleService.updateSchedule(id, dto));
 	    }
+	    
+	    @GetMapping("/dashboard")
+	    public ResponseEntity<?> getDashboardInfo(@RequestHeader("Authorization") String authHeader){
+	    	
+	    	String token = authHeader.replace("Bearer ", "");
+	    	Claims claims = jwtUtils.validateJwtToken(token);
+	    	return ResponseEntity.ok(scheduleService.getDashboardInfo(claims.get("id",Long.class)));
+	    	
+	    }
 	
 	
 	

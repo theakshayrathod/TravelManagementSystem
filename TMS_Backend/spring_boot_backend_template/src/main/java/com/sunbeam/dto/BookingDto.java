@@ -2,6 +2,8 @@ package com.sunbeam.dto;
 
 import java.util.List;
 
+import com.sunbeam.entity.BookingStatus;
+
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -21,6 +23,8 @@ public class BookingDto {
 	private String date;
 
 	private List<String> seatNumbers;
+	
+	private BookingStatus status;
 
 	private double totaleAmount;
 

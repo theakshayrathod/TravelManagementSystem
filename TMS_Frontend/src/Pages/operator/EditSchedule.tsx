@@ -50,7 +50,7 @@ export function UpdateSchedule() {
   return (
     <div className="p-6 bg-gray-100">
       <Link to="/operator/schedule" className="text-sm mb-4 text-indigo-700 inline-block">&larr; Back</Link>
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+      <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow min-h-[70vh]">
         <h2 className="text-xl font-semibold mb-4">Update Schedule</h2>
 
         <div className="grid grid-cols-2 gap-4 mb-4">

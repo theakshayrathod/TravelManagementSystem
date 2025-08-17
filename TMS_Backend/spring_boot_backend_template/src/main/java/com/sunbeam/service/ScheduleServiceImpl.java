@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ import com.sunbeam.dao.ScheduleDao;
 import com.sunbeam.dao.SeatDao;
 import com.sunbeam.dto.AddScheduleDto;
 import com.sunbeam.dto.ApiResponse;
+import com.sunbeam.dto.DashBoardDto;
 import com.sunbeam.dto.GetScheduleForOperatorDTO;
 import com.sunbeam.dto.GetSchedulesDto;
 import com.sunbeam.dto.SchedulePointDto;
@@ -49,26 +51,22 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private RouteDao routeDao;
 	private PointDao pointDao;
 	private ModelMapper mapper;
-	
+
 	private SeatDao seatDao;
 
 	@Override
-	public ApiResponse createSchedule(AddScheduleDto dto , Long operatorId) {
-		
+	public ApiResponse createSchedule(AddScheduleDto dto, Long operatorId) {
+
 		Bus bus = busDao.findById(dto.getBusId()).orElseThrow(() -> new InvalidInputException("Bus Not Found"));
-		if(bus.getOperator().getOperatorId() != operatorId) {
+		if (bus.getOperator().getOperatorId() != operatorId) {
 			throw new InvalidInputException("You can add shedule on your buses only");
 		}
 		Route route = routeDao.findById(dto.getRouteId())
 				.orElseThrow(() -> new InvalidInputException("Route Not Exists"));
-		
-		
-		
-		
-		
-		if(dto.getRecurrence() == Recurrence.DAILY) {
-			
-			for(int i = 0;i<30;i++) {
+
+		if (dto.getRecurrence() == Recurrence.DAILY) {
+
+			for (int i = 0; i < 30; i++) {
 				Schedule s = new Schedule();
 				s.setBus(bus);
 				s.setRoute(route);
@@ -93,32 +91,26 @@ public class ScheduleServiceImpl implements ScheduleService {
 				}
 
 				scheduleDao.save(s);
-		//----------------------------Seats creation ---------------------------------		
-				List<Seat>seats = new ArrayList<>();
-				
-				for(int j=1;j<=bus.getTotalSeats();j++) {
+				// ----------------------------Seats creation ---------------------------------
+				List<Seat> seats = new ArrayList<>();
+
+				for (int j = 1; j <= bus.getTotalSeats(); j++) {
 					Seat seat = new Seat();
-					seat.setSeatNumber("S"+j);
+					seat.setSeatNumber("S" + j);
 					seat.setStatus(SeatStatus.AVAILABLE);
 					seat.setSchedule(s);
 					seats.add(seat);
 				}
-				
+
 				seatDao.saveAll(seats);
 
-				
-				
-				
 			}
-			
+
 		}
-		
-		
-		if(dto.getRecurrence() == Recurrence.WEEKLY) {
-			
-			
-			
-			for(int i = 0;i<4;i++) {
+
+		if (dto.getRecurrence() == Recurrence.WEEKLY) {
+
+			for (int i = 0; i < 4; i++) {
 				Schedule s = new Schedule();
 				s.setBus(bus);
 				s.setRoute(route);
@@ -143,89 +135,72 @@ public class ScheduleServiceImpl implements ScheduleService {
 				}
 
 				scheduleDao.save(s);
-		//----------------------------Seats creation ---------------------------------		
-				List<Seat>seats = new ArrayList<>();
-				
-				for(int j=1;j<=bus.getTotalSeats();j++) {
+				// ----------------------------Seats creation ---------------------------------
+				List<Seat> seats = new ArrayList<>();
+
+				for (int j = 1; j <= bus.getTotalSeats(); j++) {
 					Seat seat = new Seat();
-					seat.setSeatNumber("S"+j);
+					seat.setSeatNumber("S" + j);
 					seat.setStatus(SeatStatus.AVAILABLE);
 					seat.setSchedule(s);
 					seats.add(seat);
 				}
-				
+
 				seatDao.saveAll(seats);
 
-				
-				
-				
 			}
-			
-			
-			
-			
-			
-			
-			
-		}else {
-		
-		
-		
-		
-		
-		
-		
-		
-		Schedule s = new Schedule();
-		s.setBus(bus);
-		s.setRoute(route);
-		s.setDepartureTime(dto.getDepartureTime());
-		s.setReachingTime(dto.getReachingTime());
-		s.setFare(dto.getFare());
-		s.setRecurrence(dto.getRecurrence());
-		s.setRecurrenceDetail(dto.getRecurrenceDetail());
-		s.setStatus(ScheduleStatus.ACTIVE);
 
-		for (SchedulePointDto spDto : dto.getSchedulePoints()) {
+		} else {
 
-			SchedulePoint sp = new SchedulePoint();
-			Point p = pointDao.findById(spDto.getPointId())
-					.orElseThrow(() -> new InvalidInputException("Invalid Point Id"));
-			System.out.println(spDto.getPointId());
-			System.out.println("Point" + p.getId());
-			sp.setPoint(p);
-			sp.setArrivalTime(spDto.getArrivalTime());
-			sp.setType(spDto.getType());
-			s.addSchedulePoints(sp);
-		}
+			Schedule s = new Schedule();
+			s.setBus(bus);
+			s.setRoute(route);
+			s.setDepartureTime(dto.getDepartureTime());
+			s.setReachingTime(dto.getReachingTime());
+			s.setFare(dto.getFare());
+			s.setRecurrence(dto.getRecurrence());
+			s.setRecurrenceDetail(dto.getRecurrenceDetail());
+			s.setStatus(ScheduleStatus.ACTIVE);
 
-		scheduleDao.save(s);
+			for (SchedulePointDto spDto : dto.getSchedulePoints()) {
+
+				SchedulePoint sp = new SchedulePoint();
+				Point p = pointDao.findById(spDto.getPointId())
+						.orElseThrow(() -> new InvalidInputException("Invalid Point Id"));
+				System.out.println(spDto.getPointId());
+				System.out.println("Point" + p.getId());
+				sp.setPoint(p);
+				sp.setArrivalTime(spDto.getArrivalTime());
+				sp.setType(spDto.getType());
+				s.addSchedulePoints(sp);
+			}
+
+			scheduleDao.save(s);
 //----------------------------Seats creation ---------------------------------		
-		List<Seat>seats = new ArrayList<>();
-		
-		for(int i=1;i<=bus.getTotalSeats();i++) {
-			Seat seat = new Seat();
-			seat.setSeatNumber("S"+i);
-			seat.setStatus(SeatStatus.AVAILABLE);
-			seat.setSchedule(s);
-			seats.add(seat);
+			List<Seat> seats = new ArrayList<>();
+
+			for (int i = 1; i <= bus.getTotalSeats(); i++) {
+				Seat seat = new Seat();
+				seat.setSeatNumber("S" + i);
+				seat.setStatus(SeatStatus.AVAILABLE);
+				seat.setSchedule(s);
+				seats.add(seat);
+			}
+
+			seatDao.saveAll(seats);
+
 		}
-		
-		seatDao.saveAll(seats);
-		
-		}
-		
 
 		return new ApiResponse("Schedule Added SuccesFully");
 	}
 
 	@Override
 	public ApiResponse deleteSchedule(Long id) {
-		if(!scheduleDao.existsById(id)) {
+		if (!scheduleDao.existsById(id)) {
 			return new ApiResponse("Schedule Does not Exist");
 		}
-		Schedule s=scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Invalid Input"));
-		
+		Schedule s = scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Invalid Input"));
+
 		scheduleDao.delete(s);
 		return new ApiResponse("Schedule Deleted SuccesFully");
 	}
@@ -233,15 +208,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public List<GetScheduleForOperatorDTO> getSchedulesByOperatorId(Long id) {
 		List<Schedule> schedules = scheduleDao.findSchedulesByOperatorId(id);
-		
-		return schedules.stream().map(s->
-			mapScheduleToDto(s)).collect(Collectors.toList());		
-	}	
-	
+
+		return schedules.stream().map(s -> mapScheduleToDto(s)).collect(Collectors.toList());
+	}
+
 	public GetScheduleForOperatorDTO mapScheduleToDto(Schedule schedule) {
-		
+
 		GetScheduleForOperatorDTO dto = new GetScheduleForOperatorDTO();
-		
+
 		dto.setScheduleId(schedule.getId());
 		dto.setBusId(schedule.getBus().getId());
 		dto.setBusName(schedule.getBus().getBusName());
@@ -255,9 +229,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 		dto.setRecurrence(schedule.getRecurrence());
 		dto.setRecurrenceDetail(schedule.getRecurrenceDetail());
 		dto.setStatus(schedule.getStatus());
-		
-		
-		List<SchedulePointInfo> pointInfos = schedule.getSchedulePoints().stream().map(sp->{
+
+		List<SchedulePointInfo> pointInfos = schedule.getSchedulePoints().stream().map(sp -> {
 			SchedulePointInfo spDto = new SchedulePointInfo();
 			spDto.setSchedulePointId(sp.getId());
 			spDto.setPointId(sp.getPoint().getId());
@@ -267,26 +240,23 @@ public class ScheduleServiceImpl implements ScheduleService {
 			spDto.setType(sp.getType());
 			return spDto;
 		}).collect(Collectors.toList());
-		
+
 		dto.setSchedulePointInfos(pointInfos);
-		
-		
+
 		return dto;
-		
-		
+
 	}
 
 	@Override
-	public List<ScheduleSearchDto> getSchedulesBySourceAndDestination(String source, String destination, LocalDate date) {
-		
-		String dayofweek=date.getDayOfWeek().toString();
+	public List<ScheduleSearchDto> getSchedulesBySourceAndDestination(String source, String destination,
+			LocalDate date) {
+
+		String dayofweek = date.getDayOfWeek().toString();
 		String dateStr = date.toString();
-		
-		List<Schedule> schedules = scheduleDao.findScheduleBySourceAndDestinationAndDate(source, destination, dayofweek, dateStr);
-		
-		
-		
-		 
+
+		List<Schedule> schedules = scheduleDao.findScheduleBySourceAndDestinationAndDate(source, destination, dayofweek,
+				dateStr);
+
 		return schedules.stream().map(s -> {
 			ScheduleSearchDto sDto = new ScheduleSearchDto();
 			sDto.setScheduleId(s.getId());
@@ -300,73 +270,88 @@ public class ScheduleServiceImpl implements ScheduleService {
 			sDto.setTv(s.getBus().isTv());
 			sDto.setWifi(s.getBus().isWifi());
 			sDto.setPowerOutlet(s.getBus().isPowerOutlet());
-			return sDto;			
+			return sDto;
 		}).toList();
 	}
 
 	@Override
-	public ApiResponse updateStatus(Long id, ScheduleStatus status , Long operatorId) {
+	public ApiResponse updateStatus(Long id, ScheduleStatus status, Long operatorId) {
 
-	
-	Schedule s=scheduleDao.findById(id).orElseThrow(()-> new InvalidInputException("Schedule does not exist"));
-	if(s.getBus().getOperator().getOperatorId() != operatorId ) {
-		throw new InvalidInputException("You can update only your schedules");
+		Schedule s = scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Schedule does not exist"));
+		if (s.getBus().getOperator().getOperatorId() != operatorId) {
+			throw new InvalidInputException("You can update only your schedules");
+		}
+		Long sid = s.getId();
+		s.setStatus(status);
+
+		return new ApiResponse("Schedule with id " + sid + " updated succesfully");
 	}
-	Long sid = s.getId();
-	s.setStatus(status);
-	
-	
-		
-		
-		return new ApiResponse("Schedule with id "+ sid + " updated succesfully" );
-	}
+
 	@Override
 	public UpdateScheduleDto getScheduleById(Long id) {
-	    Schedule schedule = scheduleDao.findById(id)
-	            .orElseThrow(() -> new InvalidInputException("Schedule not found"));
+		Schedule schedule = scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Schedule not found"));
 
-	    UpdateScheduleDto dto = new UpdateScheduleDto();
-	    dto.setBusId(schedule.getBus().getId());  // map only Bus ID
-	    dto.setDepartureTime(schedule.getDepartureTime());
-	    dto.setReachingTime(schedule.getReachingTime());
-	    dto.setFare(schedule.getFare());
+		UpdateScheduleDto dto = new UpdateScheduleDto();
+		dto.setBusId(schedule.getBus().getId()); // map only Bus ID
+		dto.setDepartureTime(schedule.getDepartureTime());
+		dto.setReachingTime(schedule.getReachingTime());
+		dto.setFare(schedule.getFare());
 
-	    return dto;
+		return dto;
 	}
 
+	@Override
+	public UpdateScheduleDto updateSchedule(Long id, UpdateScheduleDto dto) {
+		Schedule schedule = scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Schedule not found"));
 
-	 @Override
-	 public UpdateScheduleDto updateSchedule(Long id, UpdateScheduleDto dto) {
-	     Schedule schedule = scheduleDao.findById(id)
-	             .orElseThrow(() -> new InvalidInputException("Schedule not found"));
+		// ✅ Only update editable fields
+		if (dto.getBusId() != null) {
+			Bus bus = busDao.findById(dto.getBusId()).orElseThrow(() -> new InvalidInputException("Invalid Bus"));
+			schedule.setBus(bus);
+		}
 
-	     // ✅ Only update editable fields
-	     if (dto.getBusId() != null) {
-	         Bus bus = busDao.findById(dto.getBusId())
-	                 .orElseThrow(() -> new InvalidInputException("Invalid Bus"));
-	         schedule.setBus(bus);
-	     }
+		if (dto.getDepartureTime() != null) {
+			schedule.setDepartureTime(dto.getDepartureTime());
+		}
 
-	     if (dto.getDepartureTime() != null) {
-	         schedule.setDepartureTime(dto.getDepartureTime());
-	     }
+		if (dto.getReachingTime() != null) {
+			schedule.setReachingTime(dto.getReachingTime());
+		}
 
-	     if (dto.getReachingTime() != null) {
-	         schedule.setReachingTime(dto.getReachingTime());
-	     }
+		if (dto.getFare() != null) {
+			schedule.setFare(dto.getFare());
+		}
 
-	     if (dto.getFare() != null) {
-	         schedule.setFare(dto.getFare());
-	     }
+		Schedule updated = scheduleDao.save(schedule);
+		return mapper.map(updated, UpdateScheduleDto.class);
+	}
 
-	     Schedule updated = scheduleDao.save(schedule);
-	     return mapper.map(updated, UpdateScheduleDto.class);
-	 }
-
-	
-	
-	
-	
-	
+	@Override
+	public List<DashBoardDto> getDashboardInfo(Long id) {
+		
+		List<Schedule> list= scheduleDao.findScheduleForDashboard(id);
+		
+		return list.stream().map((s)->{
+			DashBoardDto dto = new DashBoardDto();
+			dto.setBusId(s.getBus().getId());
+			dto.setBusName(s.getBus().getBusName());
+			dto.setBusType(s.getBus().getBusType());
+			dto.setDate(s.getRecurrenceDetail());
+			dto.setRouteId(s.getRoute().getId());
+			dto.setDestination(s.getRoute().getDestination());
+			dto.setBusNumber(s.getBus().getRegistrationNumber());
+			dto.setScheduleId(s.getId());
+			dto.setSource(s.getRoute().getSource());
+			dto.setStatus(s.getStatus());
+			dto.setDepartureTime(s.getDepartureTime().toString());
+			dto.setCollection((s.getSeats().stream().filter(seat -> seat.getStatus() == SeatStatus.BOOKED).count()  * s.getFare()) );	
+			
+			return dto;
+			
+		}).collect(Collectors.toList());
+		
+		
+		
+	}
 
 }

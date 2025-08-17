@@ -4,12 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.BookingDao;
 import com.sunbeam.dao.PointDao;
@@ -51,7 +49,7 @@ public class BookingServiceImpl implements BookingService {
 		List<Booking> bookings = bookingDao.findByOperatorId(id);
 		System.out.println(bookings);
 
-		return bookings.stream().map(b -> {
+		return bookings.stream().map(b -> { 
 			BookingDto bDto = new BookingDto();
 			bDto.setBookingId(b.getId());
 			bDto.setPassengerName(b.getUser().getName());
@@ -60,6 +58,7 @@ public class BookingServiceImpl implements BookingService {
 			bDto.setRoute(b.getSchedule().getRoute().getSource() + " to " + b.getSchedule().getRoute().getDestination());
 			bDto.setDate(b.getBookingTime().toString());
 			bDto.setTotaleAmount(b.getTotalAmount());
+			bDto.setStatus(b.getStatus());
 
 			List<String> seats = b.getBookingDetails().stream().map(d -> d.getSeat().getSeatNumber())
 					.collect(Collectors.toList());
@@ -182,7 +181,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public ApiResponse cancelBooking(Long id) {
 		Booking b = bookingDao.findById(id).orElseThrow(()-> new InvalidInputException("Booking Not Found"));
-		if(b.getStatus()==BookingStatus.CANCALLED) {
+		if(b.getStatus()==BookingStatus.CANCELLED) {
 			return new ApiResponse("Already Cancelled");
 		}
 		LocalDate dt = LocalDate.parse(b.getSchedule().getRecurrenceDetail());
@@ -192,7 +191,7 @@ public class BookingServiceImpl implements BookingService {
 		}
 		System.out.println(dt);
 		
-		b.setStatus(BookingStatus.CANCALLED);
+		b.setStatus(BookingStatus.CANCELLED);
 		List<BookingDetail> list=b.getBookingDetails();
 		for(BookingDetail bd : list) {
 			bd.getSeat().setStatus(SeatStatus.AVAILABLE);

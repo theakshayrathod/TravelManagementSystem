@@ -31,5 +31,15 @@ public interface ScheduleDao extends JpaRepository<Schedule, Long> {
 	List<Schedule> findScheduleBySourceAndDestinationAndDate(@Param("source") String source, @Param("destination") String destination,
 			@Param("dayofweek") String dayOfWeek, @Param("dateStr") String dateStr);
 	
+	
+	@Query( " SELECT s from Schedule s "
+			+ " JOIN FETCH s.bus b "
+			+ " JOIN FETCH s.seats seats "
+			+ " JOIN FETCH s.route r "
+			+ " JOIN FETCH b.operator o "
+			+ " WHERE o.operatorId = :id  " )
+	List<Schedule> findScheduleForDashboard(@Param("id") Long id);
+	
+	
 
 }

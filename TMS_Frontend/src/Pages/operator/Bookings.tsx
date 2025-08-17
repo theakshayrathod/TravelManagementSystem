@@ -35,7 +35,8 @@ export function Bookings() {
                         <tr>
                             <th className="p-3">Booking ID</th>
                             <th className="p-3">Passenger</th>
-                            <th className="p-3">scheduleId</th>
+                            <th className="p-3">scheduleId</th> 
+                            <th className="p-3">Status</th> 
                             <th className="p-3">Route</th>
                             <th className="p-3">Date</th>
                             <th className="p-3">Seats</th>
@@ -49,6 +50,7 @@ export function Bookings() {
                                 <td className="p-3">{booking.bookingId}</td>
                                 <td className="p-3">{booking.passengerName}</td>
                                 <td className="p-3">{booking.scheduleId}</td>
+                                <td className="p-3">{booking.status}</td>
                                 <td className="p-3">{booking.route}</td>
                                 <td className="p-3">{booking.date.substring(0,10)}</td>
                                 <td className="p-3">{booking.seatNumbers.join(', ')}</td>
