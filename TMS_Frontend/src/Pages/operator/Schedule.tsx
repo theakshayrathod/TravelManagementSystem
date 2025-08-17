@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteSchedule, getScheduleForOperator, updateScheduleStatus } from "../../services/operator/schedule";
 import { useEffect, useState } from "react";
 import type { OperatorSchedule } from "../../services/operator/schedule";
@@ -8,23 +8,23 @@ import type { ApiResponse } from "../../services/operator/route";
 export function Schedule() {
 
 
-  const [schedule , setSchedules] = useState<OperatorSchedule[]>([])
+  const [schedule, setSchedules] = useState<OperatorSchedule[]>([])
+  const navigate = useNavigate();
 
-
-  useEffect(()=>{
+  useEffect(() => {
     getSchedules();
-  },[])
+  }, [])
 
 
 
-  const getSchedules = async()=>{
+  const getSchedules = async () => {
 
     const result = await getScheduleForOperator();
 
-    if(result){
+    if (result) {
       setSchedules(result);
-      
-    }else{
+
+    } else {
       setSchedules([]);
     }
 
@@ -33,33 +33,33 @@ export function Schedule() {
   }
 
 
-  
-
-    const onDelete=async(scheduleId:number)=>{
-    
-        const result:ApiResponse | null = await deleteSchedule(scheduleId);
-    
-        if(result){
-          toast.success(result.message)
-          getSchedules()
-        }else{
-          toast.warn("Error Occured")
-        }
-    
-      }
-    
-
-  
-
-  const changeStatus = async(id:number,status:string)=>{
 
 
-    const result =await updateScheduleStatus(id,status);
-    
-    if(result){
+  const onDelete = async (scheduleId: number) => {
+
+    const result: ApiResponse | null = await deleteSchedule(scheduleId);
+
+    if (result) {
+      toast.success(result.message)
+      getSchedules()
+    } else {
+      toast.warn("Error Occured")
+    }
+
+  }
+
+
+
+
+  const changeStatus = async (id: number, status: string) => {
+
+
+    const result = await updateScheduleStatus(id, status);
+
+    if (result) {
       toast.success(result.message);
       getSchedules();
-    }else{
+    } else {
       toast.error("An Error Occured")
     }
 
@@ -104,46 +104,48 @@ export function Schedule() {
 
                 <th className="p-3 border-b">Recurrrence</th>
                 <th className="p-3 border-b">Recurrence Details</th>
-             
+
                 <th className="p-3 border-b">Actions</th>
               </tr>
             </thead>
             <tbody>
               {/* Example row */}
 
-              {schedule.map((s)=>{
+              {schedule.map((s) => {
                 return (
                   <tr key={s.scheduleId} className="hover:bg-gray-50">
-                <td className="p-3 border-b">{s.scheduleId}</td>
-                <td className="p-3 border-b">{s.source} to {s.destination}</td>
-                <td className="p-3 border-b">{s.busName}</td>
+                    <td className="p-3 border-b">{s.scheduleId}</td>
+                    <td className="p-3 border-b">{s.source} to {s.destination}</td>
+                    <td className="p-3 border-b">{s.busName}</td>
 
-                <td className="p-3 border-b">{s.departureTime.substring(0,5)}</td>
-                <td className="p-3 border-b">{s.reachingTime.substring(0,5)}</td>
-                <td className="p-3 border-b">{s.recurrence}</td>
-                <td className="p-3 border-b">{s.recurrence==="DAILY"? <p>Runs Daily</p> : s.recurrenceDetail}</td>
-              
-
-
-                <td className="p-3 border-b">
-
-                  <select value={s.status} onChange={(e)=>changeStatus(s.scheduleId,e.target.value)} >
-                    <option value={"ACTIVE"}>ACTIVE</option>
-                    <option value={"INACTIVE"}>INACTIVE</option>
-                  </select>
+                    <td className="p-3 border-b">{s.departureTime.substring(0, 5)}</td>
+                    <td className="p-3 border-b">{s.reachingTime.substring(0, 5)}</td>
+                    <td className="p-3 border-b">{s.recurrence}</td>
+                    <td className="p-3 border-b">{s.recurrence === "DAILY" ? <p>Runs Daily</p> : s.recurrenceDetail}</td>
 
 
-                  <Link to="#" className="text-blue-600 hover:underline">Edit</Link>
-                  {' | '}
-                  <button onClick={()=> onDelete(s.scheduleId)}  className="cursor-pointer hover:underline text-red-600 font-medium ">Delete</button>
-                </td>
-              </tr>
+
+                    <td className="p-3 border-b">
+
+                      <select value={s.status} onChange={(e) => changeStatus(s.scheduleId, e.target.value)} >
+                        <option value={"ACTIVE"}>ACTIVE</option>
+                        <option value={"INACTIVE"}>INACTIVE</option>
+                      </select>
+
+
+                      <button
+                        onClick={() => navigate(`/operator/update-schedule`, { state: { id: s.scheduleId } })}
+                        className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-700">Update</button>
+                      {' | '}
+                      <button onClick={() => onDelete(s.scheduleId)} className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>
+                    </td>
+                  </tr>
                 )
 
 
               })}
 
-            
+
 
 
             </tbody>

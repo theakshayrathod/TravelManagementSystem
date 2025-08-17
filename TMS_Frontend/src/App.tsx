@@ -38,6 +38,7 @@ import { Privacy } from './components/Privacy'
 import type { AuthResponse } from './services/user/user'
 import { AuthContext } from './contexts/auth.context'
 import { UpdateBus } from './Pages/operator/UpdateBus'
+import { UpdateSchedule } from './Pages/operator/EditSchedule'
 
 
 
@@ -95,6 +96,7 @@ function App(): JSX.Element {
             <Route path='add-pick-drop' element={<Addpoints />} />
             <Route path="update-password" element={<UpdateOpPassword />} />
             <Route path='update-bus' element={<UpdateBus />} />
+            <Route path='update-schedule' element={<UpdateSchedule />} />
 
           </Route>
         </Routes>
