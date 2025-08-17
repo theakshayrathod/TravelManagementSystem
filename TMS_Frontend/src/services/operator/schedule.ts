@@ -24,6 +24,23 @@ export type OperatorSchedule = {
 }
 
 
+export type DashBoardResponse = {
+    	 scheduleId:number
+        busId:number
+	    busName:string
+	     busType:string
+	    routeId:number
+	    source : string
+	    destination:string
+	    collection : number
+	    status:string
+	    date:string
+        busNumber:string
+        departureTime:string
+
+}
+
+
 
 
 
@@ -194,10 +211,26 @@ type UpdateSchedule = {
 
 export async function updateSchedule(id: number, body: UpdateSchedule) {
     try {
-        console.log(id);
+      
         const token = localStorage.getItem("jwt");
         const url = `${config.serverUrl}/schedule/update/${id}`;
         const response = await axios.put(url, body, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (response.status === 200) return response.data;
+        return null;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
+    export async function getDashBoardData():Promise<DashBoardResponse[] | null>{   
+   try {
+      
+        const token = localStorage.getItem("jwt");
+        const url = `${config.serverUrl}/schedule/dashboard`;
+        const response = await axios.get<DashBoardResponse[]>(url,  {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (response.status === 200) return response.data;

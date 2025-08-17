@@ -136,8 +136,8 @@ export function Schedule() {
                       <button
                         onClick={() => navigate(`/operator/update-schedule`, { state: { id: s.scheduleId } })}
                         className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-700">Update</button>
-                      {' | '}
-                      <button onClick={() => onDelete(s.scheduleId)} className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700">Delete</button>
+                     
+                      {/* <button onClick={() => onDelete(s.scheduleId)} className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700">Delete</button> */}
                     </td>
                   </tr>
                 )
