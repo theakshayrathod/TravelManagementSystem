@@ -21,8 +21,8 @@ export function Login() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  // const [user , setUser] =  useState<User>();
-  const [auth,setAuth] = useState<AuthResponse>()
+
+  
 
   const navigate = useNavigate()
 
@@ -34,7 +34,7 @@ export function Login() {
     } else {
       const result:AuthResponse | null= await loginUser(email, password);
       if (result){
-          setAuth(result)
+   
 
          localStorage.setItem("name",result.name)
          localStorage.setItem("jwt",result.jwt)
@@ -43,7 +43,7 @@ export function Login() {
 
          setUser(result)
 
-        console.log(result)
+       
         if(result.role === "ROLE_PASSANGER"){
           navigate("/user/dashboard")
         }else{

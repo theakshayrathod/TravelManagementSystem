@@ -22,12 +22,12 @@ export function OperatorProfile() {
     address: ''
   });
 
-  const operatorId = 1; 
+  
 
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const data = await getOperatorProfile(operatorId);
+        const data = await getOperatorProfile();
         setProfile(data);
       } catch (error) {
         console.error("Failed to load operator profile", error);

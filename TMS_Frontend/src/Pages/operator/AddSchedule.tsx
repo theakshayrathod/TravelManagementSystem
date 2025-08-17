@@ -5,7 +5,7 @@ import { getRoutes, type ApiResponse, type RouteResponse } from "../../services/
 import type { Bus } from "./Buses";
 import { getAllBuses } from "../../services/operator/bus";
 import { getAllPoints, type Points } from "../../services/operator/points";
-import { createSchedule, deleteSchedule } from "../../services/operator/schedule";
+import { createSchedule } from "../../services/operator/schedule";
 import { toast } from "react-toastify";
 
 export type SchedulePoint = {

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 
 
-type ConfirmBookingDetails = {
+export type ConfirmBookingDetails = {
   journeyStart: string;
   journeyEnd: string;
   startTime: string;
@@ -29,6 +29,7 @@ export function BookingSummary() {
   const { id } = location.state as Id
 
   const [confirmBooking, setConfirmBooking] = useState<ConfirmBookingDetails>();
+  const [fare,setFare] = useState<number>();
 
   const getBooking = async () => {
     const result = await getConfirmBooking(id)
@@ -37,9 +38,12 @@ export function BookingSummary() {
 
     if (!result)
       toast.error("Error while get confirm booking")
-    else
+    else{
       setConfirmBooking(result)
-    console.log(result)
+      setFare(result?.amount/result.noOfSeats)
+    }
+
+   
   }
 
   useEffect(() => {
@@ -48,7 +52,7 @@ export function BookingSummary() {
 
   // const timeDiffer = getTimeDifference(confirmBooking?.startTime,confirmBooking?.endTime);
 
-  const totalAmount = confirmBooking ? confirmBooking.amount * confirmBooking.noOfSeats : 0;
+  // const totalAmount = confirmBooking ? confirmBooking.amount * confirmBooking.noOfSeats : 0;
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-8">
 
@@ -108,13 +112,13 @@ export function BookingSummary() {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Payment Information</h3>
             <div className="text-sm text-gray-700">
               <div className="flex justify-between">
-                <span>Base fare ({confirmBooking?.noOfSeats} × {confirmBooking?.amount})</span>
+                <span>Base fare ({confirmBooking?.noOfSeats} X { fare   })</span>
                 {/* <span>₹45</span> */}
               </div>
 
               <div className="border-t mt-2 pt-2 flex justify-between font-semibold">
                 <span>Total Paid</span>
-                <span>{totalAmount}</span>
+                <span>{confirmBooking?.amount}</span>
               </div>
               <p className="text-xs text-gray-500 mt-1">Paid via Credit Card ending in 3456</p>
             </div>

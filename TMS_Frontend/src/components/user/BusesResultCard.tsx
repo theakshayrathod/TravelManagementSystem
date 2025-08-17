@@ -1,8 +1,8 @@
 import {  FaWifi,  FaTv  , FaBolt} from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import type { Schedule } from "../../services/user/Schedule";
-import { useState } from "react";
+
 
 
 
@@ -15,7 +15,7 @@ export default function BusesResultCard({schedule , date}:Props) {
 
 
   const navigate = useNavigate();
-  const [id,setId] = useState<number>();
+
 
 
   const onButton = (id:number , date:string)=>{

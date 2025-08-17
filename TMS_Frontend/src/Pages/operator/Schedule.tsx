@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { deleteSchedule, getScheduleForOperator, updateScheduleStatus } from "../../services/operator/schedule";
+import {  getScheduleForOperator, updateScheduleStatus } from "../../services/operator/schedule";
 import { useEffect, useState } from "react";
 import type { OperatorSchedule } from "../../services/operator/schedule";
 import { toast } from "react-toastify";
-import type { ApiResponse } from "../../services/operator/route";
 
 export function Schedule() {
 
@@ -35,18 +34,18 @@ export function Schedule() {
 
 
 
-  const onDelete = async (scheduleId: number) => {
+  // const onDelete = async (scheduleId: number) => {
 
-    const result: ApiResponse | null = await deleteSchedule(scheduleId);
+  //   const result: ApiResponse | null = await deleteSchedule(scheduleId);
 
-    if (result) {
-      toast.success(result.message)
-      getSchedules()
-    } else {
-      toast.warn("Error Occured")
-    }
+  //   if (result) {
+  //     toast.success(result.message)
+  //     getSchedules()
+  //   } else {
+  //     toast.warn("Error Occured")
+  //   }
 
-  }
+  // }
 
 
 
