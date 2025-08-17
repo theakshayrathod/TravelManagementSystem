@@ -1,12 +1,15 @@
 package com.sunbeam.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.sunbeam.custom_exception.InvalidInputException;
 import com.sunbeam.dao.BookingDao;
 import com.sunbeam.dao.PointDao;
@@ -75,12 +78,16 @@ public class BookingServiceImpl implements BookingService {
 
 		return bookings.stream().map(b -> {
 			MyBookingDto bDto = new MyBookingDto();
+			bDto.setBookingId(b.getId());
 			bDto.setSource(b.getSchedule().getRoute().getSource());
 			bDto.setDestination(b.getSchedule().getRoute().getDestination());
 			bDto.setDepartureTime(b.getSchedule().getDepartureTime());
 			bDto.setReachingTime(b.getSchedule().getReachingTime());
 			List<String>point=b.getSchedule().getSchedulePoints().stream().map( p -> p.getPoint().getName()).collect(Collectors.toList());
 			bDto.setPoints(point);
+			bDto.setStatus(b.getStatus());
+			bDto.setJourneyDate(b.getSchedule().getRecurrenceDetail());
+			
 			
 			bDto.setDate(b.getBookingTime());
 			List<String> seats = b.getBookingDetails().stream().map(d -> d.getSeat().getSeatNumber())
@@ -164,9 +171,35 @@ public class BookingServiceImpl implements BookingService {
 		confirmBookig.setPassengerName(b.getUser().getName());
 		confirmBookig.setGender(b.getUser().getGender());
 		confirmBookig.setEmail(b.getUser().getEmail());
+	confirmBookig.setSeats(b.getBookingDetails().stream().map((bd)-> bd.getSeat().getSeatNumber()).collect(Collectors.toList()));
+
+		
 		confirmBookig.setNoOfSeats(seats);
 		confirmBookig.setAmount(seats*b.getSchedule().getFare());
 		return confirmBookig;
+	}
+
+	@Override
+	public ApiResponse cancelBooking(Long id) {
+		Booking b = bookingDao.findById(id).orElseThrow(()-> new InvalidInputException("Booking Not Found"));
+		if(b.getStatus()==BookingStatus.CANCALLED) {
+			return new ApiResponse("Already Cancelled");
+		}
+		LocalDate dt = LocalDate.parse(b.getSchedule().getRecurrenceDetail());
+		LocalDate today = LocalDate.now();
+		if(dt.isBefore(today) || dt.isEqual(today) ) {
+			throw new InvalidInputException("You can cancel before 12 hrs only");		
+		}
+		System.out.println(dt);
+		
+		b.setStatus(BookingStatus.CANCALLED);
+		List<BookingDetail> list=b.getBookingDetails();
+		for(BookingDetail bd : list) {
+			bd.getSeat().setStatus(SeatStatus.AVAILABLE);
+		}
+		
+		
+		return new ApiResponse("Booking Cancelled SuccesFully");
 	}
 
 	

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sunbeam.entity.BookingStatus;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,8 @@ public class MyBookingDto {
 	
 
 	private String source;
+	
+	private Long bookingId;
 	
 	
 	private String destination;
@@ -34,4 +37,8 @@ public class MyBookingDto {
 	private List<String> seatNumbers=  new ArrayList<>();;
 
 	private double totaleAmount;
+	
+	private BookingStatus status;
+	
+	private String journeyDate;
 }

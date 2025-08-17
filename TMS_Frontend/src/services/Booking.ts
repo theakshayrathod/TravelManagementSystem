@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { config } from "../config";
+import type { ApiResponse } from "./operator/route";
 
 
 
@@ -19,6 +20,8 @@ export type Booking = {
   scheduleId: number
   route:string
   busNumber: string
+  status:string
+  journeyDate:string
 }
 
 export async function createBooking(scheduleId: number, seatnumber: string[], pickupId: number, dropId: number) {
@@ -72,6 +75,7 @@ export async function getBookingForUser():Promise<Booking[]>{
 
   try{
     const token: string | null = localStorage.getItem("jwt")
+
     const url = `${config.serverUrl}/booking/user`
     const res = await axios.get<Booking[]>(url,{headers:{Authorization: `Bearer ${token}`}})
 
@@ -86,6 +90,28 @@ export async function getBookingForUser():Promise<Booking[]>{
   }
 
   return [];
+
+}
+
+export async function cancelBooking(id:number):Promise<ApiResponse | null>{
+
+  try{
+    const token: string | null = localStorage.getItem("jwt")
+    console.log(id)
+    const url = `${config.serverUrl}/booking/cancel/${id}`
+    const res = await axios.put<ApiResponse>(url,{},{headers:{Authorization: `Bearer ${token}`}})
+
+    if(res.status == 200){
+      console.log(res)
+      return res.data
+    }
+
+
+  }catch(e){
+    console.log(e)
+  }
+
+  return null;
 
 }
 

@@ -3,6 +3,7 @@ import { getConfirmBooking } from "../../services/Booking";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 
+
 type ConfirmBookingDetails = {
   journeyStart: string;
   journeyEnd: string;
@@ -14,6 +15,8 @@ type ConfirmBookingDetails = {
   email: string;
   noOfSeats: number;
   amount: number;
+  seats:string[]
+  
 }
 type Id = {
   id: number
@@ -36,6 +39,7 @@ export function BookingSummary() {
       toast.error("Error while get confirm booking")
     else
       setConfirmBooking(result)
+    console.log(result)
   }
 
   useEffect(() => {
@@ -70,7 +74,7 @@ export function BookingSummary() {
             <h3 className="text-sm font-medium text-gray-700 mb-2">Journey Information</h3>
             <div className="flex justify-between text-sm text-gray-700">
               <div>
-                <p className="font-semibold">{confirmBooking?.startTime}</p>
+                <p className="font-semibold">{confirmBooking?.startTime.substring(0,5)}</p>
                 <p>{confirmBooking?.journeyStart}</p>
                 {/* <p className="text-gray-400 text-xs">{confirmBooking.}</p> */}
               </div>
@@ -80,7 +84,7 @@ export function BookingSummary() {
                 <p className="text-gray-400 text-xs">{confirmBooking?.busNumber}</p>
               </div>
               <div className="text-right">
-                <p className="font-semibold">{confirmBooking?.endTime}</p>
+                <p className="font-semibold">{confirmBooking?.endTime.substring(0,5)}</p>
                 <p>{confirmBooking?.journeyEnd}</p>
                 {/* <p className="text-gray-400 text-xs">Dec 25, 2024</p> */}
               </div>
@@ -95,7 +99,8 @@ export function BookingSummary() {
                 <p className="text-gray-500">{confirmBooking?.gender}</p>
                 <p className="text-gray-400 text-xs">{confirmBooking?.email}</p>
               </div>
-              <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm">{confirmBooking?.noOfSeats}</span>
+              {confirmBooking?.seats.map((s)=>  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm"> {s} </span>)}
+             
             </div>
           </div>
 

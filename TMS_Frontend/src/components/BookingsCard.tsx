@@ -3,11 +3,13 @@ import { getTimeDifference, type Booking } from "../services/Booking";
 
   type BookingCardProps = {
   booking: Booking;
+  onCancelButton:()=>void
 }
 
-export function BookingCard({ booking }: BookingCardProps) {
+export function BookingCard({ booking , onCancelButton }: BookingCardProps) {
 
   const {
+    bookingId,
     source,
     destination,
     departureTime,
@@ -16,7 +18,15 @@ export function BookingCard({ booking }: BookingCardProps) {
     date,
     seatNumbers,
     totaleAmount,
+    status,
+    journeyDate
   } = booking;
+
+  const dt = new Date(journeyDate);
+
+
+  
+
 
 
 
@@ -24,7 +34,15 @@ export function BookingCard({ booking }: BookingCardProps) {
     <div className="bg-white p-6 rounded shadow space-y-2 w-[70vw] mx-auto">
       {/* Route */}
       <div className="font-semibold text-lg">
-        {source} → {destination}
+        {source} → {destination} 
+      </div>
+
+      <div className="font-semibold text-lg">
+      Booking Id  - {bookingId} - {status}
+      </div>
+
+      <div className="font-semibold text-lg">
+      Journey Date {journeyDate}
       </div>
 
       {/* Time Info */}
@@ -52,15 +70,17 @@ export function BookingCard({ booking }: BookingCardProps) {
 
       {/* Booking Info */}
       <div className="text-xs text-gray-600">
-        Seats: {seatNumbers.join(", ")} • ₹{totaleAmount}
+        Seats: {seatNumbers.join(", ")} • ₹{totaleAmount} 
       </div>
 
       {/* Actions */}
       <div className="flex gap-2 justify-end">
-        
-        <button className="px-4 py-1 text-sm border rounded text-red-600">
+        {status == 'CONFIRMED' &&  dt > new Date() &&
+        <button onClick={onCancelButton}  className="px-4 py-1 text-sm border rounded cursor-pointer text-red-600">
           Cancel Booking
         </button>
+       
+}
       </div>
     </div>
   );

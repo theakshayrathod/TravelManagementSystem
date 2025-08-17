@@ -18,4 +18,6 @@ public interface BookingService {
 
 	ConfirmBookigDto getBookingByUserId(Long userId);
 
+	ApiResponse cancelBooking(Long id);
+
 }

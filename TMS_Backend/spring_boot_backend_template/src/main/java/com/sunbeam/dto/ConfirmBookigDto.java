@@ -1,8 +1,11 @@
 package com.sunbeam.dto;
 
 import java.time.LocalTime;
+import java.util.List;
 
+import com.sunbeam.entity.BookingDetail;
 import com.sunbeam.entity.Gender;
+import com.sunbeam.entity.Seat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +27,7 @@ public class ConfirmBookigDto {
 	
 	private String email;
 	private int noOfSeats;
+	private List<String> seats;
 	
 	private double amount;
 	
