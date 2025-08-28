@@ -1,5 +1,5 @@
 
-import { useState, type JSX } from 'react'
+import { useEffect, useState, type JSX } from 'react'
 
 import { UserRegistration } from './Pages/auth/user/Registration'
 import { UserProfileUpdate } from './Pages/user/UpdateProfile'
@@ -47,7 +47,21 @@ import { UpdateSchedule } from './Pages/operator/EditSchedule'
 function App(): JSX.Element {
 
 
-  const [user, setUser] = useState<AuthResponse>(null)
+  const [user, setUser] = useState<AuthResponse>(()=>{
+
+    const stored = localStorage.getItem("authUser");
+    return stored ? JSON.parse(stored) : null;
+
+  })
+
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("authUser", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("authUser");
+    }
+  }, [user]);
 
 
 
