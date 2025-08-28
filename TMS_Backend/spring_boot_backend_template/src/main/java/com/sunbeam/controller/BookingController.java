@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,26 +38,22 @@ public class BookingController {
 
   
 	@PostMapping("/book")
-	public ResponseEntity<?> createBooking(@RequestBody BookDto dto, @RequestHeader("Authorization") String authHeader) {
-		String token = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.bookingByUserId(dto, claims.get("id",Long.class)));
+	public ResponseEntity<?> createBooking(@RequestBody BookDto dto) {
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.bookingByUserId(dto, id));
 	}
 
 	@GetMapping("/operator")
-	public ResponseEntity<?> getBookingsByOperatorId(@RequestHeader("Authorization") String authHeader) {
-		String token = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(token);
-		List<BookingDto> bookings = bookingService.getBookingById(claims.get("id", Long.class));
+	public ResponseEntity<?> getBookingsByOperatorId() {
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<BookingDto> bookings = bookingService.getBookingById(id);
 		return ResponseEntity.ok(bookings);
 	}
 	
 	@GetMapping("/user")
-	public ResponseEntity<?> getBookingByUserId(@RequestHeader("Authorization") String authHeaders){
+	public ResponseEntity<?> getBookingByUserId(){
 		
-		String token = authHeaders.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(token);
-		Long id = claims.get("id",Long.class);		
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	
 		
 		List<MyBookingDto> bookings = bookingService.getBookingsByUserId(id);

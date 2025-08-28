@@ -14,12 +14,12 @@ public interface BusService {
 
 	ApiResponse deleteBus(Long busId, Long operatorId);
 
-	List<BusDto> getAllBuses(long operatorId);
+	List<BusDto> getAllBuses(Long id);
 
 	
 
 	ApiResponse updateBus(UpdateBusDto dto, Long busId);
 
-	BusDto getBus(Long busId);
+	BusDto getBus(Long busId, Long id);
 
 }

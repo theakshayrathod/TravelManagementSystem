@@ -10,6 +10,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -58,7 +59,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public ApiResponse createSchedule(AddScheduleDto dto, Long operatorId) {
 
 		Bus bus = busDao.findById(dto.getBusId()).orElseThrow(() -> new InvalidInputException("Bus Not Found"));
-		if (bus.getOperator().getOperatorId() != operatorId) {
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (bus.getOperator().getOperatorId() != id) {
 			throw new InvalidInputException("You can add shedule on your buses only");
 		}
 		Route route = routeDao.findById(dto.getRouteId())
@@ -199,7 +201,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if (!scheduleDao.existsById(id)) {
 			return new ApiResponse("Schedule Does not Exist");
 		}
+		
+		Long oId= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Schedule s = scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Invalid Input"));
+		if(s.getBus().getOperator().getOperatorId()!= oId) {
+			throw new InvalidInputException("You can delete your bus only");
+		}
+		
 
 		scheduleDao.delete(s);
 		return new ApiResponse("Schedule Deleted SuccesFully");
@@ -207,7 +215,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public List<GetScheduleForOperatorDTO> getSchedulesByOperatorId(Long id) {
-		List<Schedule> schedules = scheduleDao.findSchedulesByOperatorId(id);
+		Long oId= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Schedule> schedules = scheduleDao.findSchedulesByOperatorId(oId);
 
 		return schedules.stream().map(s -> mapScheduleToDto(s)).collect(Collectors.toList());
 	}
@@ -303,8 +312,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public UpdateScheduleDto updateSchedule(Long id, UpdateScheduleDto dto) {
 		Schedule schedule = scheduleDao.findById(id).orElseThrow(() -> new InvalidInputException("Schedule not found"));
+		Long oid= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(schedule.getBus().getOperator().getOperatorId() != oid) {
+			throw new InvalidInputException("You can update only your buses");
+		}
 
-		// ✅ Only update editable fields
+		
 		if (dto.getBusId() != null) {
 			Bus bus = busDao.findById(dto.getBusId()).orElseThrow(() -> new InvalidInputException("Invalid Bus"));
 			schedule.setBus(bus);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.sunbeam.custom_exception.InvalidInputException;
@@ -181,6 +182,10 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public ApiResponse cancelBooking(Long id) {
 		Booking b = bookingDao.findById(id).orElseThrow(()-> new InvalidInputException("Booking Not Found"));
+		Long uid= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(b.getUser().getId() != uid) {
+			throw new InvalidInputException("You can cencel only your booking");
+		}
 		if(b.getStatus()==BookingStatus.CANCELLED) {
 			return new ApiResponse("Already Cancelled");
 		}

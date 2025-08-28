@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +36,15 @@ public class ScheduleController {
 	private JwtUtils jwtUtils;
 	
 	@PostMapping
-	public ResponseEntity<?> createSchedule(@RequestBody AddScheduleDto dto , @RequestHeader("Authorization") String authHeader) {	
-		String token = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(token);
-		return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.createSchedule(dto,claims.get("id", Long.class)));
+	public ResponseEntity<?> createSchedule(@RequestBody AddScheduleDto dto ) {	
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.createSchedule(dto,id));
 		
 	}
 	@GetMapping("/operator")
-	public ResponseEntity<?> getScheduleByOperatorId(@RequestHeader("Authorization") String authHeader){
-		String token = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(token);
-		return ResponseEntity.ok(scheduleService.getSchedulesByOperatorId(claims.get("id", Long.class)));		
+	public ResponseEntity<?> getScheduleByOperatorId(){
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(scheduleService.getSchedulesByOperatorId(id));		
 	}
 	
 	@GetMapping("/get/{source}/{destination}/{date}")
@@ -60,18 +59,15 @@ public class ScheduleController {
 	}
 	
 	@PutMapping("/{id}/{status}")
-	public ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable ScheduleStatus status , @RequestHeader("Authorization") String authHeader){
-		String token = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(token);
-		return ResponseEntity.ok(scheduleService.updateStatus(id,status,claims.get("id",Long.class)));
+	public ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable ScheduleStatus status ){
+		Long oId= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(scheduleService.updateStatus(id,status,oId));
 	}
 	
 	 @GetMapping("/get/{id}")
 	    public ResponseEntity<?> getScheduleById(
-	            @PathVariable Long id,
-	            @RequestHeader("Authorization") String authHeader) {
-	        String token = authHeader.replace("Bearer ", "");
-	        jwtUtils.validateJwtToken(token);
+	            @PathVariable Long id) {
+	       
 	        return ResponseEntity.ok(scheduleService.getScheduleById(id));
 	    }
 
@@ -79,19 +75,16 @@ public class ScheduleController {
 	    @PutMapping("/update/{id}")
 	    public ResponseEntity<?> updateSchedule(
 	            @PathVariable Long id,
-	            @RequestBody UpdateScheduleDto dto,
-	            @RequestHeader("Authorization") String authHeader) {
-	        String token = authHeader.replace("Bearer ", "");
-	        jwtUtils.validateJwtToken(token);
+	            @RequestBody UpdateScheduleDto dto) {
+	       
 	        return ResponseEntity.ok(scheduleService.updateSchedule(id, dto));
 	    }
 	    
 	    @GetMapping("/dashboard")
-	    public ResponseEntity<?> getDashboardInfo(@RequestHeader("Authorization") String authHeader){
+	    public ResponseEntity<?> getDashboardInfo(){
 	    	
-	    	String token = authHeader.replace("Bearer ", "");
-	    	Claims claims = jwtUtils.validateJwtToken(token);
-	    	return ResponseEntity.ok(scheduleService.getDashboardInfo(claims.get("id",Long.class)));
+	    	Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    	return ResponseEntity.ok(scheduleService.getDashboardInfo(id));
 	    	
 	    }
 	

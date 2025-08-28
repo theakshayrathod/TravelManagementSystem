@@ -10,4 +10,6 @@ public interface OperatorDao extends JpaRepository<Operator, Long> {
 	
 	Operator findByOperatorId(Long operatorId);
 
+	boolean existsByUserId(Long id);
+
 }

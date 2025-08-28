@@ -43,17 +43,16 @@ public class UserController {
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> loginUser(@RequestBody SignInDto dto){		
-//		SignInResDto u = userService.loginUser(dto);
-//		return ResponseEntity.ok(u);		
-		
+
 		Authentication authToken = new UsernamePasswordAuthenticationToken(dto.getEmail(),dto.getPassword());
 		
 		
 		
 		Authentication validAuth = authenticationManager.authenticate(authToken);
 		User user = userService.getUserByEmail(authToken.getName());
-//		System.out.println(authToken);
-//		System.out.println(validAuth);
+		System.out.println(authToken);
+		System.out.println(validAuth);
+
 		
 		
 		return ResponseEntity.status(HttpStatus.OK)
@@ -70,27 +69,23 @@ public class UserController {
 	}
 	
 	@GetMapping("/get")
-	public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String authHeader){
-		String token = authHeader.replace("Bearer ", "");
-		Claims claims=jwtUtils.validateJwtToken(token);	
+	public ResponseEntity<?> getProfile(){
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		
-		return ResponseEntity.ok(userService.getUser(claims.get("id", Long.class)));
+		return ResponseEntity.ok(userService.getUser(id));
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<?> updateProfile(@RequestHeader("Authorization")  String authHeader, @RequestBody UserProfileDto dto){		
-		String tokenString = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(tokenString);
-
-		return ResponseEntity.ok(userService.updateProfile(claims.get("id",Long.class), dto));
+	public ResponseEntity<?> updateProfile( @RequestBody UserProfileDto dto){		
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(userService.updateProfile(id, dto));
 	}
 	
 	@PutMapping("/change-password")
-	public ResponseEntity<?> changePassword(@RequestHeader("Authorization")  String authHeader, @RequestBody UserPasswordDto dto){
-		String tokenString = authHeader.replace("Bearer ", "");
-		Claims claims = jwtUtils.validateJwtToken(tokenString);
-		return ResponseEntity.ok(userService.changePassword(claims.get("id",Long.class), dto));
+	public ResponseEntity<?> changePassword( @RequestBody UserPasswordDto dto){
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(userService.changePassword(id,dto));
 	}
 
 }

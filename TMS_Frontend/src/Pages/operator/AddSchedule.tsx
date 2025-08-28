@@ -94,7 +94,6 @@ export function AddSchedule(): JSX.Element {
 
   const onCreateSchedule = async () => {
 
-
     const result: ApiResponse | null = await createSchedule(routeId, busId, fare, departureTime, reachingTime, recurrence, recurrenceDetail, schedulePoints)
     if (result) {
       toast.success(result.message)
@@ -202,7 +201,7 @@ export function AddSchedule(): JSX.Element {
               (
                 <div>
                   <label className="block text-sm mb-1">Enter Date</label>
-                  <input onChange={(e) => setRecurrenceDetail(e.target.value)} type="date" className="w-full border px-3 py-2 rounded" />
+                  <input onChange={(e) => setRecurrenceDetail(e.target.value)} type="date"  className="w-full border px-3 py-2 rounded" />
                 </div>
               )
             }
