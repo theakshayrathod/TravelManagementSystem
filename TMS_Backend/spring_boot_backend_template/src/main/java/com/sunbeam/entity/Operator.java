@@ -33,8 +33,7 @@ public class Operator {
 	private String companyName;
 	@Column(name = "license_number")
 	private String licenseNumber;
-	private String address;
-	
+	private String address;	
 	@OneToMany(mappedBy = "operator", 
 			cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Bus> buses = new ArrayList<>();

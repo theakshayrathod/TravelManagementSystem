@@ -3,6 +3,7 @@ package com.sunbeam.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,16 +40,17 @@ public class OperatorController {
 	}
 	
 	@GetMapping("/get")
-    public ResponseEntity<OperatorProfileDto> getProfile(@RequestHeader("Authorization") String authHeader) {
-		Claims claims = jwtUtils.validateJwtToken(authHeader.replace("Bearer ", ""));
-        return ResponseEntity.ok(operatorService.getOperator(claims.get("id",Long.class)));
+    public ResponseEntity<OperatorProfileDto> getProfile() {
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+        return ResponseEntity.ok(operatorService.getOperator(id));
         
     }
 	
 	 @PutMapping("/update")
-	public ResponseEntity<?> updateProfile(@RequestHeader("Authorization") String authHeader, @RequestBody OperatorProfileDto dto) {
-		 Claims claims = jwtUtils.validateJwtToken(authHeader.replace("Bearer ", ""));
-	        return ResponseEntity.ok(operatorService.updateProfile(claims.get("id",Long.class), dto));
+	public ResponseEntity<?> updateProfile( @RequestBody OperatorProfileDto dto) {
+			Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	        return ResponseEntity.ok(operatorService.updateProfile(id, dto));
 	    }
 	
 

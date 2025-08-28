@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sunbeam.dto.BusDto;
 import com.sunbeam.dto.UpdateBusDto;
+import com.sunbeam.entity.User;
 import com.sunbeam.security.JwtUtils;
 import com.sunbeam.service.BusService;
 
@@ -35,27 +37,25 @@ public class BusController {
 	private JwtUtils jwtUtils;
 	
 	@PostMapping("/add")
-	private ResponseEntity<?> addBus(@RequestBody BusDto dto ,@RequestHeader("Authorization") String authHeader){
-		String token = authHeader.replace("Bearer ","" );
-		Claims claims = jwtUtils.validateJwtToken(token);
-		return ResponseEntity.ok(busService.addBus(dto,claims.get("id",Long.class)));
+	private ResponseEntity<?> addBus(@RequestBody BusDto dto ){
+	
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(busService.addBus(dto,id));
 	}
 	
 	@DeleteMapping("/delete/{busId}")
-	private ResponseEntity<?> deleteBus(@PathVariable Long busId,@RequestHeader("Authorization") String authHeader){
+	private ResponseEntity<?> deleteBus(@PathVariable Long busId){
 		
-		String token = authHeader.replace("Bearer ","" );
-		Claims claims = jwtUtils.validateJwtToken(token);
-		
-		return ResponseEntity.ok(busService.deleteBus(busId,claims.get("id",Long.class)));
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(busService.deleteBus(busId,id));
 	}
 	
 	@GetMapping("/get-buses")
-	private ResponseEntity<?> getAllBuses(@RequestHeader("Authorization") String authHeader){
-		String token = authHeader.replace("Bearer ","" );
-		Claims claims = jwtUtils.validateJwtToken(token);
+	private ResponseEntity<?> getAllBuses(){
 		
-		List<BusDto> buses = busService.getAllBuses(claims.get("id",Long.class));
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		List<BusDto> buses = busService.getAllBuses(id);
 		
 		if(buses.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();}
@@ -63,24 +63,20 @@ public class BusController {
 		return ResponseEntity.ok(buses);
 	}
 	@GetMapping("/getbus/{busId}")
-    public ResponseEntity<?> getBusById(
-            @RequestHeader("Authorization") String authHeader,
-            @PathVariable Long busId) {
-        String token = authHeader.replace("Bearer ", "");
-        jwtUtils.validateJwtToken(token); // validate user/operator
+    public ResponseEntity<?> getBusById( @PathVariable Long busId) {
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        BusDto bus = busService.getBus(busId);
+        BusDto bus = busService.getBus(busId,id);
         return ResponseEntity.ok(bus);
     }
 
-    // ✅ Update bus by Id
+  
     @PutMapping("/update/{busId}")
     public ResponseEntity<?> updateBus(
-            @RequestHeader("Authorization") String authHeader,
+           
             @PathVariable Long busId,
             @RequestBody UpdateBusDto dto) {
-        String token = authHeader.replace("Bearer ", "");
-        jwtUtils.validateJwtToken(token); // validate token
+    
 
         
         return ResponseEntity.ok( busService.updateBus(dto, busId));

@@ -167,22 +167,7 @@ export function AddBus(): JSX.Element {
               </label>
             </div>
           </div>
-          {/* Bus Photos */}
-          <div className="w-full max-w-md px-4 mb-4">
-            <label className="block text-sm font-medium mb-1">Bus Photos *</label>
-            <input
-              type="file"
-              onChange={(e) => {
-                if (e.target.files) {
-                  const filesArray = Array.from(e.target.files).map(file => URL.createObjectURL(file));
-                  setBusPhotos(filesArray);
-                }
-              }}
-              multiple
-              className="w-full border border-gray-300 px-3 py-2 rounded-2xl bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-
-          </div>
+         
         </div>
 
         {/* Actions */}

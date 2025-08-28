@@ -49,16 +49,10 @@ public class JwtUtils {
 				.subject((userPrincipal.getUsername()))
 				.issuedAt(new Date())
 				.expiration(new Date(new Date().getTime() + jwtExprirationMs))
-
-				.claim("id", userPrincipal.getId())
-				
-				.claim("authorities",getAuthoritiesInString(userPrincipal.getAuthorities()))
-				
+				.claim("id", userPrincipal.getId())				
+				.claim("authorities",getAuthoritiesInString(userPrincipal.getAuthorities()))				
 				.signWith(key,Jwts.SIG.HS256)
-				.compact();
-		
-		
-		
+				.compact();		
 		
 	}
 	
@@ -72,8 +66,7 @@ public class JwtUtils {
 		
 		Claims claims = Jwts.parser()
 				.verifyWith(key)
-				.build()
-				
+				.build()				
 				.parseSignedClaims(jwtToken)
 				.getPayload();
 		
@@ -101,14 +94,11 @@ public class JwtUtils {
 	public Authentication populateAuthenticationTokenJWT(String jwt) {
 		Claims payloadClaims = validateJwtToken(jwt);
 		String email = getUserNameFromJwtToken(payloadClaims);
-		List<GrantedAuthority> authorities = getAuthoritiesFromClaims(payloadClaims);
-		
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email,null, authorities);
-		
-		System.out.print(" is authnticated " + token.isAuthenticated());
-		
-		return token;
-		
+		Long id=payloadClaims.get("id", Long.class);
+		List<GrantedAuthority> authorities = getAuthoritiesFromClaims(payloadClaims);		
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(id,null, authorities);		
+		System.out.print(" is authnticated " + token.isAuthenticated());		
+		return token;		
 	}
 	
 	

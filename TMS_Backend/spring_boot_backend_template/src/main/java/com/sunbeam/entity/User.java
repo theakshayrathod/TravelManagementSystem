@@ -18,6 +18,7 @@ import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
@@ -25,6 +26,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@ToString(exclude = {"operator"},callSuper = true)
 public class User extends BaseEntity implements UserDetails {
 	
 	@Column(name = "name" , length = 30)

@@ -26,5 +26,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 		new UsernameNotFoundException("Invalid Email !!!!"));
 		return user;
 	}
+	
+	
 
 }
