@@ -83,12 +83,12 @@ public class UserServiceImpl implements UserService {
 	public ApiResponse changePassword(Long id, UserPasswordDto dto) {
 		// TODO Auto-generated method stub
 		User user = userDao.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
-		User u=modelMapper.map(dto, User.class);
+	
 		
-		if(dto.getPassword()==u.getPassword()) {
+		if(dto.getPassword()==user.getPassword()) {
 			user.setPassword(dto.getNewPassword());
 		}else {
-			return new ApiResponse("Not password set");
+			return new ApiResponse("Password Not Set");
 		}
 		
 		return new ApiResponse("New Password set");

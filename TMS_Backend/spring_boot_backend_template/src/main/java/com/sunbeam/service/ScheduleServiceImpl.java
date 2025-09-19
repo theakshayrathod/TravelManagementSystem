@@ -61,7 +61,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		Bus bus = busDao.findById(dto.getBusId()).orElseThrow(() -> new InvalidInputException("Bus Not Found"));
 		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (bus.getOperator().getOperatorId() != id) {
-			throw new InvalidInputException("You can add shedule on your buses only");
+			throw new InvalidInputException("You can add schedule on your buses only");
 		}
 		Route route = routeDao.findById(dto.getRouteId())
 				.orElseThrow(() -> new InvalidInputException("Route Not Exists"));

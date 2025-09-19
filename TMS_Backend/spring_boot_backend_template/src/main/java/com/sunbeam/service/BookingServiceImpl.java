@@ -184,7 +184,7 @@ public class BookingServiceImpl implements BookingService {
 		Booking b = bookingDao.findById(id).orElseThrow(()-> new InvalidInputException("Booking Not Found"));
 		Long uid= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(b.getUser().getId() != uid) {
-			throw new InvalidInputException("You can cencel only your booking");
+			throw new InvalidInputException("You can cancel only your booking");
 		}
 		if(b.getStatus()==BookingStatus.CANCELLED) {
 			return new ApiResponse("Already Cancelled");
@@ -194,7 +194,7 @@ public class BookingServiceImpl implements BookingService {
 		if(dt.isBefore(today) || dt.isEqual(today) ) {
 			throw new InvalidInputException("You can cancel before 12 hrs only");		
 		}
-		System.out.println(dt);
+		
 		
 		b.setStatus(BookingStatus.CANCELLED);
 		List<BookingDetail> list=b.getBookingDetails();

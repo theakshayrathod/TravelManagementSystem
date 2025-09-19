@@ -20,7 +20,7 @@ export async function addBus(
   seatingCapacity: number,
   registrationNumber: string,
   busType: string,
-  busPhotos: string[],
+
   wifi: boolean,
   tv: boolean,
   powerOutlet: boolean
@@ -38,8 +38,7 @@ export async function addBus(
       busType,
       wifi,
       tv,
-      powerOutlet,
-      images: busPhotos.map(url => ({ imageUrl: url }))
+      powerOutlet
     }
 
     console.log("Request Body:", body);
