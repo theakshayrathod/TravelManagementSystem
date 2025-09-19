@@ -38,7 +38,7 @@ public class BookingController {
 
   
 	@PostMapping("/book")
-	public ResponseEntity<?> createBooking(@RequestBody BookDto dto) {
+	public synchronized ResponseEntity<?> createBooking(@RequestBody BookDto dto) {
 		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.bookingByUserId(dto, id));
 	}

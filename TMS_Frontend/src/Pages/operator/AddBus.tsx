@@ -16,7 +16,6 @@ type BusInfo = {
 export function AddBus(): JSX.Element {
 
 
-  const [busPhotos, setBusPhotos] = useState<string[]>([]);
   const busTypeOptions: string[] = ["AC", "NONAC"];
   const navigate = useNavigate();
   const [info, setInfo] = useState<BusInfo>({
@@ -47,7 +46,7 @@ export function AddBus(): JSX.Element {
         info.seatingCapacity,
         info.registrationNumber,
         info.busType,
-        busPhotos,
+     
         info.isWifi,
         info.isTV,
         info.isPowerOutlets

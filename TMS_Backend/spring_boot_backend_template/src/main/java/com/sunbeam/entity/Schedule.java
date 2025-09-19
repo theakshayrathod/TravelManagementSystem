@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,6 +46,9 @@ public class Schedule extends BaseEntity {
 	
 	@OneToMany(mappedBy = "schedule",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Seat> seats = new ArrayList<>();
+	
+	@Version
+	private Long version;
 	
 	
 	public void addSchedulePoints(SchedulePoint sp) {

@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +36,8 @@ public class Seat {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private SeatStatus status;
+	@Version
+	private Integer version;
 	
 	
 	

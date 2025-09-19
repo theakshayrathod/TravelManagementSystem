@@ -28,6 +28,7 @@ import com.sunbeam.service.UserService;
 
 import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
+import lombok.val;
 
 @RestController
 @RequestMapping("/user")
@@ -70,9 +71,7 @@ public class UserController {
 	
 	@GetMapping("/get")
 	public ResponseEntity<?> getProfile(){
-		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		
+		Long id= (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
 		return ResponseEntity.ok(userService.getUser(id));
 	}
 	

@@ -34,7 +34,7 @@ import lombok.AllArgsConstructor;
 public class BusController {
 	
 	private BusService busService;
-	private JwtUtils jwtUtils;
+
 	
 	@PostMapping("/add")
 	private ResponseEntity<?> addBus(@RequestBody BusDto dto ){

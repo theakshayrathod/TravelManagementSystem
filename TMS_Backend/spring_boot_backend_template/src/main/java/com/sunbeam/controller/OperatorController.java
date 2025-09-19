@@ -36,7 +36,9 @@ public class OperatorController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> signUp(@RequestBody OperatorSignUpDto dto){
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(operatorService.signUp(dto));
+		
 	}
 	
 	@GetMapping("/get")
